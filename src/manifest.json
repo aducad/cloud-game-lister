@@ -1,0 +1,41 @@
+{
+  "manifest_version": 2,
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "tr",
+  "background": {
+    "scripts": ["./background.js"]
+  },
+  "browser_action": {
+    "default_icon": {
+      "19": "assets/icons/icon_19.png",
+      "38": "assets/icons/icon_38.png"
+    },
+    "default_popup": "./popup.html"
+  },
+  "content_scripts": [
+    {
+      "all_frames": false,
+      "js": ["./content_scripts/index.js"],
+      "matches": ["*://*.test.com/*"],
+      "run_at": "document_end"
+    }
+  ],
+  "icons": {
+    "16": "assets/icons/icon_16.png",
+    "32": "assets/icons/icon_32.png",
+    "64": "assets/icons/icon_64.png",
+    "128": "assets/icons/icon_128.png"
+  },
+  "options_page": "./options.html",
+  "permissions": [
+    "*://*.test.com/*",
+    "alarms",
+    "notifications",
+    "storage",
+    "unlimitedStorage",
+    "webRequest"
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "web_accessible_resources": ["data/*.json", "assets/*.svg", "assets/icons/*"]
+}

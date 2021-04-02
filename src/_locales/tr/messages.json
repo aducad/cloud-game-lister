@@ -1,0 +1,14 @@
+{
+  "extensionName": {
+    "description": "Eklenti adı buraya gelecek",
+    "message": "Eklenti Adı"
+  },
+  "extensionDescription": {
+    "description": "Eklenti açıklaması buraya gelecek",
+    "message": "Extension Description"
+  },
+  "languageCode": {
+    "description": "Dil kodu buraya gelecek",
+    "message": "tr"
+  }
+}

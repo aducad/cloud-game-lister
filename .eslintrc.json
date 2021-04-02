@@ -1,0 +1,44 @@
+{
+  "env": {
+    "browser": true
+  },
+  "extends": ["airbnb", "plugin:vue/recommended", "prettier"],
+  "globals": {
+    "Vue": true,
+    "chrome": true,
+    "document": true,
+    "window": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "modules": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "plugins": ["vue"],
+  "rules": {
+    "default-case": "off",
+    "func-names": "off",
+    "guard-for-in": "off",
+    "import/prefer-default-export": "off",
+    "linebreak-style": "off",
+    "no-alert": "off",
+    "no-await-in-loop": "off",
+    "no-console": "off",
+    "no-multi-assign": "off",
+    "no-nested-ternary": "off",
+    "no-plusplus": "off",
+    "no-use-before-define": "off",
+    "no-restricted-syntax": "off",
+    "no-restricted-globals": "off",
+    "no-unneeded-ternary": "off",
+    "radix": "off",
+    "vue/max-attributes-per-line": "off",
+    "vue/html-self-closing": "off",
+    "vue/no-template-shadow": "off",
+    "vue/singleline-html-element-content-newline": "off",
+    "vue/multiline-html-element-content-newline": "off"
+  }
+}
