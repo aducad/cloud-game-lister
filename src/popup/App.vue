@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid p-2">
-    <button class="btn btn-block btn-primary" @click="openPage('list.html')">
-      Open List Page
+    <button class="btn btn-block btn-info" @click="openPage('list.html')">
+      Games List
     </button>
   </div>
 </template>

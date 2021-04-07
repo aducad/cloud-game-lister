@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "default_locale": "tr",
+  "default_locale": "en",
   "background": {
     "scripts": ["./background.js"]
   },
@@ -16,8 +16,8 @@
   "content_scripts": [
     {
       "all_frames": false,
-      "js": ["./content_scripts/index.js"],
-      "matches": ["*://*.test.com/*"],
+      "js": ["./content_scripts/steam.js"],
+      "matches": ["*://store.steampowered.com/app/*/*/*"],
       "run_at": "document_end"
     }
   ],
@@ -28,14 +28,7 @@
     "128": "assets/icons/icon_128.png"
   },
   "options_page": "./options.html",
-  "permissions": [
-    "*://*.test.com/*",
-    "alarms",
-    "notifications",
-    "storage",
-    "unlimitedStorage",
-    "webRequest"
-  ],
+  "permissions": [],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "web_accessible_resources": ["data/*.json", "assets/*.svg", "assets/icons/*"]
 }

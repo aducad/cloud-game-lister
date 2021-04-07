@@ -1,36 +1,38 @@
 <template>
   <div class="container-fluid p-3">
     <div class="card">
-      <div class="card-header">{{ msg }}</div>
+      <div class="card-header">Games List</div>
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-bordered table-hover table-striped">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>E-Mail</th>
-                <th>Actions</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th style="min-width: 155px">Fully Optimized?</th>
+                <th>Publisher</th>
+                <th>Genre(s)</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(row, index) in data" :key="index">
-                <td>{{ row.id }}</td>
-                <td>{{ row.name }}</td>
-                <td>{{ row.email }}</td>
+              <tr v-for="row in data" :key="row.id">
                 <td>
-                  <button class="btn btn-sm btn-info">
-                    <i class="fa fa-info"></i>
-                  </button>
-                  <button class="btn btn-sm btn-warning">
-                    <i class="fa fa-minus"></i>
-                  </button>
-                  <button class="btn btn-sm btn-success">
-                    <i class="fa fa-plus"></i>
-                  </button>
-                  <button class="btn btn-sm btn-danger">
-                    <i class="fa fa-remove"></i>
-                  </button>
+                  <a :href="row.steamUrl" target="_blank">
+                    {{ row.title }}
+                  </a>
+                </td>
+                <td>{{ row.status }}</td>
+                <td>{{ row.isFullyOptimized ? 'Yes' : 'No' }}</td>
+                <td>{{ row.publisher }}</td>
+                <td>
+                  <a
+                    v-for="genre in row.genres"
+                    :key="genre"
+                    :href="`https://store.steampowered.com/tags/en/${genre}`"
+                    target="_blank"
+                  >
+                    {{ genre }}
+                  </a>
                 </td>
               </tr>
             </tbody>
@@ -43,21 +45,27 @@
 
 <script>
 import browser from 'webextension-polyfill'
+import KEYS from '../common/keys'
 
 export default {
   data() {
     return {
-      msg: 'Example List Page!',
-      data: [
-        { id: 1, name: 'Demir Yasin ORUÇ', email: 'demiryasinoruc@gmail.com' },
-        { id: 2, name: 'John DOE', email: 'johndoe@missing.com' },
-        { id: 3, name: 'Jane DOE', email: 'jane@missing.com' }
-      ]
+      data: []
+    }
+  },
+  created() {
+    this.init()
+  },
+  methods: {
+    async init() {
+      const { appList } = await browser.runtime.sendMessage({
+        type: KEYS.GET_APPS
+      })
+      this.data = appList
     }
   }
 }
 </script>
 
 <style>
-@import url('/assets/fonts/font-awesome/css/font-awesome.min.css');
 </style>

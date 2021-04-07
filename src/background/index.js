@@ -1,37 +1,38 @@
 import browser from 'webextension-polyfill'
 
 import { IS_DEV_MODE } from '../common/config'
-import { CONTENT_SCRIPT_LOADED } from '../common/keys'
-import { EXAMPLE_PATTERN } from '../common/match.patterns'
-import { delay } from '../common/utility'
+import KEYS from '../common/keys'
 import logger from '../common/logger-builder'
 
-const onWebRequestCompletedConfig = {
-  urls: [
-    /* *** Make sure you add the links to your manifest file *** */
-    EXAMPLE_PATTERN
-  ]
-}
+const mode = IS_DEV_MODE ? 'DEV' : 'PRODUCTION'
+const DAY_IN_MILLIISECONDS = 24 * 60 * 60 * 1000
+let appList = []
+const GAME_LIST_URL =
+  'https://static.nvidiagrid.net/supported-public-game-list/locales/gfnpc-en-US.json?JSON'
+
 // ##### Methods
 
 const init = async () => {
-  await delay(1)
-  logger.warning(`Running on "${IS_DEV_MODE ? 'DEV' : 'PRODUCTION'}" mode`)
-  logger.info('Background script started...')
+  logger.info(`Background script running on "${mode}" mode...`)
+
+  const gamesData = await fetch(GAME_LIST_URL).then(i => i.json())
+  appList = gamesData
+    .filter(i => i.store === 'Steam')
+    .map(game => {
+      const paths = game.steamUrl.split('/')
+      let appid = ''
+      if (paths.length > 0) {
+        appid = paths[paths.length - 1]
+      }
+      return { ...game, appid }
+    })
+  // console.log(appList)
+  setTimeout(() => {
+    init()
+  }, DAY_IN_MILLIISECONDS)
 }
 
 // ##### Handlers
-
-// On Install Handler
-const onInstallHandler = async installDetails => {
-  await browser.storage.local.set({})
-  logger.info(installDetails)
-}
-
-// On Web Request Completed Handler
-const onWebRequestCompletedHandler = async webRequestDetails => {
-  logger.info(webRequestDetails)
-}
 
 // On Runtime Message Handler
 const onRuntimeMessageHandler = (request, sender) => {
@@ -43,30 +44,27 @@ const onRuntimeMessageHandler = (request, sender) => {
     logger.info({ sender, type })
   }
   switch (type) {
-    case CONTENT_SCRIPT_LOADED: {
+    case KEYS.STEAM_GAMEPAGE_SCRIPT_LOADED: {
       return new Promise(async resolve => {
-        logger.info('Content script loaded')
-        resolve({ message: 'Are you sure?' })
+        const { appID } = request
+        const game = appList.find(app => app.appid === appID)
+        resolve({ game })
+      })
+    }
+    case KEYS.GET_APPS: {
+      return new Promise(async resolve => {
+        resolve({ appList })
       })
     }
     default: {
-      return new Promise(async resolve => {
-        resolve({ message: 'Default resolver' })
+      return new Promise(async (_, reject) => {
+        reject()
       })
     }
   }
 }
 
 // ##### Listeners
-
-// On Install Listener
-browser.runtime.onInstalled.addListener(onInstallHandler)
-
-// On Web Request Completede Listener
-browser.webRequest.onCompleted.addListener(
-  onWebRequestCompletedHandler,
-  onWebRequestCompletedConfig
-)
 
 // On Runtime Message Listener
 browser.runtime.onMessage.addListener(onRuntimeMessageHandler)

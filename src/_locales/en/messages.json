@@ -1,14 +1,10 @@
 {
   "extensionName": {
     "description": "Extension name will be here",
-    "message": "Extension Name"
+    "message": "Cloud Gaming Lister"
   },
   "extensionDescription": {
     "description": "Extension description will be here",
-    "message": "Extension Description"
-  },
-  "languageCode": {
-    "description": "Language code will be here",
-    "message": "en"
+    "message": "Allows you to see GEFORCE NOW support on Steam"
   }
 }

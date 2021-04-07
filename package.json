@@ -1,13 +1,13 @@
 {
-  "version": "1.0.0",
-  "name": "geforce-now-support-checker",
-  "description": "geforce-now-support-checker",
+  "version": "1.0.1",
+  "name": "cloud-game-lister",
+  "description": "cloud-game-lister",
   "author": {
     "email": "demiryasinoruc@gmail.com",
     "name": "Demir Yasin ORUÇ"
   },
   "scripts": {
-    "dev": "webpack --mode=development --env.NODE_ENV=development --port=5000 --progress --hide-modules --hot --watch",
+    "dev": "webpack --mode=development --env.NODE_ENV=development --port=4444 --progress --hide-modules --hot --watch",
     "build": "npm run pack && npm run set-production && npm run remove-evals && npm run zip",
     "lint": "eslint --ext .js,.vue --fix ./src",
     "pack": "webpack --mode=production --env.NODE_ENV=production --progress --hide-modules",
@@ -19,6 +19,7 @@
     "@babel/plugin-transform-runtime": "^7.7.6",
     "bootstrap": "^4.5.0",
     "bootstrap-dark-4": "^0.0.9",
+    "chokidar": "^3.5.1",
     "node-sass": "^4.14.1",
     "vue": "^2.6.12",
     "webextension-polyfill": "^0.6.0"
