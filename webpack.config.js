@@ -29,8 +29,9 @@ module.exports = env => {
       popup: './popup/index.js',
       list: './list/index.js',
       background: './background/index.js',
-      'content_scripts/index': './content_scripts/index.js',
-      'content_scripts/steam': './content_scripts/steam.js'
+      'content_scripts/steam-main': './content_scripts/steam-main.js',
+      'content_scripts/steam-game-detail':
+        './content_scripts/steam-game-detail.js'
     },
     output: {
       path: path.resolve(__dirname, './dist'),
@@ -164,7 +165,10 @@ module.exports = env => {
         port,
         reloadPage: true,
         entries: {
-          contentScript: ['content_scripts/index', 'content_scripts/steam'],
+          contentScript: [
+            'content_scripts/steam-main',
+            'content_scripts/steam-game-detail'
+          ],
           background: 'background',
           extensionPage: 'popup',
           list: 'list',

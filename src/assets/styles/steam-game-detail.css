@@ -1,0 +1,11 @@
+.cgl-logo-container {
+  position: fixed;
+  right: 100px;
+  bottom: 10px;
+  cursor: help;
+}
+
+img.cgl-logo {
+  width: 64px;
+  height: 64px;
+}

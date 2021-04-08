@@ -16,9 +16,17 @@
   "content_scripts": [
     {
       "all_frames": false,
-      "js": ["./content_scripts/steam.js"],
-      "matches": ["*://store.steampowered.com/app/*/*/*"],
+      "js": ["./content_scripts/steam-game-detail.js"],
+      "css": ["./assets/styles/steam-game-detail.css"],
+      "matches": ["*://store.steampowered.com/app/*"],
       "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
+      "js": ["./content_scripts/steam-main.js"],
+      "css": ["./assets/styles/steam-main.css"],
+      "matches": ["*://store.steampowered.com/"],
+      "run_at": "document_idle"
     }
   ],
   "icons": {
@@ -27,8 +35,6 @@
     "64": "assets/icons/icon_64.png",
     "128": "assets/icons/icon_128.png"
   },
-  "options_page": "./options.html",
-  "permissions": [],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "web_accessible_resources": ["data/*.json", "assets/*.svg", "assets/icons/*"]
 }

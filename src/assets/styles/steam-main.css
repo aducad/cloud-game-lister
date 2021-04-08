@@ -1,0 +1,63 @@
+.cgl-item-added {
+  position: relative;
+}
+
+/* Main Carousel Start */
+
+#home_maincap_v7 .carousel_items .cgl-logo-container {
+  position: absolute;
+  right: 331px;
+  top: 10px;
+  cursor: help;
+  z-index: 199;
+}
+
+#home_maincap_v7 .carousel_items img.cgl-logo {
+  width: 64px;
+  height: 64px;
+}
+
+/* Main Carousel End */
+
+/* Showcase Carousel Start */
+
+.store_capsule .cgl-logo-container,
+.home_area_spotlight .cgl-logo-container {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  cursor: help;
+  z-index: 199;
+  filter: drop-shadow(0 0 0.2rem rgb(54, 124, 204));
+}
+
+.store_capsule img.cgl-logo,
+.home_area_spotlight img.cgl-logo {
+  width: 48px;
+  height: 48px;
+}
+
+/* Showcase Carousel End */
+
+/* TabItem Start */
+
+.home_tabs_content .tab_item .cgl-logo-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  cursor: help;
+  z-index: 199;
+}
+
+.home_tabs_content .tab_item img.cgl-logo {
+  width: 32px;
+  height: 32px;
+}
+
+/* TabItem End */
+
+@media screen and (max-width: 910px) {
+  #home_maincap_v7 .carousel_items .cgl-logo-container {
+    right: 10px;
+  }
+}

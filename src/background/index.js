@@ -2,9 +2,7 @@ import browser from 'webextension-polyfill'
 
 import { IS_DEV_MODE } from '../common/config'
 import KEYS from '../common/keys'
-import logger from '../common/logger-builder'
 
-const mode = IS_DEV_MODE ? 'DEV' : 'PRODUCTION'
 const DAY_IN_MILLIISECONDS = 24 * 60 * 60 * 1000
 let appList = []
 const GAME_LIST_URL =
@@ -13,7 +11,7 @@ const GAME_LIST_URL =
 // ##### Methods
 
 const init = async () => {
-  logger.info(`Background script running on "${mode}" mode...`)
+  console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
 
   const gamesData = await fetch(GAME_LIST_URL).then(i => i.json())
   appList = gamesData
@@ -34,14 +32,14 @@ const init = async () => {
 
 // ##### Handlers
 
-// On Runtime Message Handler
+// Runtime On Message Handler
 const onRuntimeMessageHandler = (request, sender) => {
   const { type, info } = request
   if (type === 'SIGN_CONNECT') {
     return true
   }
   if (IS_DEV_MODE && info) {
-    logger.info({ sender, type })
+    console.log({ sender, type })
   }
   switch (type) {
     case KEYS.STEAM_GAMEPAGE_SCRIPT_LOADED: {
@@ -51,6 +49,14 @@ const onRuntimeMessageHandler = (request, sender) => {
         resolve({ game })
       })
     }
+    case KEYS.GET_APPS_INFO: {
+      return new Promise(async resolve => {
+        const { ids } = request
+        const games = appList.filter(app => ids.indexOf(app.appid) !== -1)
+        resolve(games)
+      })
+    }
+
     case KEYS.GET_APPS: {
       return new Promise(async resolve => {
         resolve({ appList })
@@ -66,7 +72,7 @@ const onRuntimeMessageHandler = (request, sender) => {
 
 // ##### Listeners
 
-// On Runtime Message Listener
+// Runtime On Message Listener
 browser.runtime.onMessage.addListener(onRuntimeMessageHandler)
 
 init()
