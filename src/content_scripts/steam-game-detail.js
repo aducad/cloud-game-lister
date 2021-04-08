@@ -13,6 +13,9 @@ const start = async () => {
     type: STEAM_GAMEPAGE_SCRIPT_LOADED,
     appID
   })
+  if (!game) {
+    return
+  }
   const logoContainer = buildGeForceIcon(game)
 
   const body = document.querySelector('body')

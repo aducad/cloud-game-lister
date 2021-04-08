@@ -24,7 +24,6 @@ const init = async () => {
       }
       return { ...game, appid }
     })
-  // console.log(appList)
   setTimeout(() => {
     init()
   }, DAY_IN_MILLIISECONDS)
@@ -52,7 +51,7 @@ const onRuntimeMessageHandler = (request, sender) => {
     case KEYS.GET_APPS_INFO: {
       return new Promise(async resolve => {
         const { ids } = request
-        const games = appList.filter(app => ids.indexOf(app.appid) !== -1)
+        const games = appList.filter(app => ids.includes(app.appid))
         resolve(games)
       })
     }
