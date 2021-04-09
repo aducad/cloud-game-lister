@@ -7,10 +7,6 @@
     "scripts": ["./background.js"]
   },
   "browser_action": {
-    "default_icon": {
-      "19": "assets/icons/icon_19.png",
-      "38": "assets/icons/icon_38.png"
-    },
     "default_popup": "./popup.html"
   },
   "content_scripts": [
@@ -25,14 +21,15 @@
       "all_frames": false,
       "js": ["./content_scripts/steam-main.js"],
       "matches": ["*://store.steampowered.com/"],
-      "run_at": "document_idle"
+      "run_at": "document_end"
     }
   ],
   "icons": {
-    "16": "assets/icons/icon_16.png",
-    "32": "assets/icons/icon_32.png",
-    "64": "assets/icons/icon_64.png",
-    "128": "assets/icons/icon_128.png"
+    "16": "assets/icons/16x16-logo.png",
+    "32": "assets/icons/32x32-logo.png",
+    "48": "assets/icons/48x48-logo.png",
+    "64": "assets/icons/64x64-logo.png",
+    "128": "assets/icons/128x128-logo.png"
   },
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "web_accessible_resources": [

@@ -18,8 +18,8 @@ const start = async () => {
   }
   const logoContainer = buildGeForceIcon(game)
 
-  const body = document.querySelector('body')
-  body.appendChild(logoContainer)
+  const leftColumn = document.querySelector('#game_highlights .leftcol')
+  leftColumn.appendChild(logoContainer)
 }
 
 start()

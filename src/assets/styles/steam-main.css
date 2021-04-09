@@ -6,7 +6,7 @@
 
 #home_maincap_v7 .carousel_items .cgl-logo-container {
   position: absolute;
-  right: 331px;
+  right: 334px;
   top: 10px;
   cursor: help;
   z-index: 199;
@@ -31,12 +31,15 @@
   filter: drop-shadow(0 0 0.2rem rgb(54, 124, 204));
 }
 
-.store_capsule img.cgl-logo,
+.store_capsule img.cgl-logo {
+  width: 32px;
+  height: 32px;
+}
+
 .home_area_spotlight img.cgl-logo {
   width: 48px;
   height: 48px;
 }
-
 /* Showcase Carousel End */
 
 /* TabItem Start */
@@ -49,12 +52,30 @@
   z-index: 199;
 }
 
-.home_tabs_content .tab_item img.cgl-logo {
+.home_tabs_content .tab_item img.cgl-logo,
+.marketingmessage_container img.cgl-logo {
   width: 32px;
   height: 32px;
 }
 
 /* TabItem End */
+
+/* Start */
+
+.community_recommendation_capsule .cgl-logo-container,
+.marketingmessage_container .cgl-logo-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: help;
+  z-index: 199;
+}
+
+.community_recommendation_capsule img.cgl-logo {
+  width: 64px;
+  height: 64px;
+}
+/* End */
 
 @media screen and (max-width: 910px) {
   #home_maincap_v7 .carousel_items .cgl-logo-container {
