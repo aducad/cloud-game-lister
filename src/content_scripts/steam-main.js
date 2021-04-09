@@ -7,6 +7,9 @@ console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
 const MutationObserver =
   window.MutationObserver || window.WebKitMutationObserver
 
+/**
+ * injecting css styles
+ */
 const injectStyleFile = () => {
   const style = document.createElement('link')
   style.rel = 'stylesheet'
@@ -14,13 +17,16 @@ const injectStyleFile = () => {
   style.href = browser.extension.getURL('./assets/styles/steam-main.css')
   document.head.append(style)
 }
-
+/**
+ * This fuction getting a param for
+ * @param {String} selector
+ */
 const checkCarouselInitialization = selector => {
   return new Promise(resolve => {
     let increment = 0
     const interval = setInterval(() => {
       const item = document.querySelector(selector)
-      if (item > 0 || ++increment > 10) {
+      if (item || ++increment > 10) {
         clearInterval(interval)
         resolve()
       }
@@ -28,11 +34,21 @@ const checkCarouselInitialization = selector => {
   })
 }
 
+/**
+ *
+ * @param {Array} ids
+ * @returns list of the games as an object's array
+ */
 const getGameInfo = async ids => {
   const games = await browser.runtime.sendMessage({ type: GET_APPS_INFO, ids })
   return games
 }
-
+/**
+ *
+ * @param {Array} ids
+ * @param {String} module
+ * @param {String} itemSelector
+ */
 const buildIcons = async (ids, module, itemSelector) => {
   // console.log(module, ids)
   const games = await getGameInfo(ids)
@@ -56,7 +72,11 @@ const buildIcons = async (ids, module, itemSelector) => {
     }
   }
 }
-
+/**
+ *
+ * @param {String} selector
+ * @returns An array of collected game ids
+ */
 const getAppIdList = selector => {
   const ids = []
   const tabItems = document.querySelectorAll(selector)
@@ -71,7 +91,11 @@ const getAppIdList = selector => {
   }
   return ids
 }
-
+/**
+ *
+ * @param {String} selector
+ * @param {Function} callback
+ */
 const observeCarousel = (selector, callback) => {
   const observer = new MutationObserver(() => {
     observer.disconnect()
@@ -85,7 +109,10 @@ const observeCarousel = (selector, callback) => {
     })
   }
 }
-
+/**
+ *
+ * @param {Object} settings
+ */
 const carouselHandler = async ({
   module,
   carouselItems = '.carousel_items',
@@ -125,7 +152,7 @@ const homeTabsHandler = async () => {
   buildIcons(ids, '.home_tabs_content', '.tab_item')
 }
 
-const start = async () => {
+const initializeApp = async () => {
   // inject style file
   injectStyleFile()
 
@@ -202,4 +229,4 @@ const start = async () => {
   homeTabsHandler()
 }
 
-start()
+initializeApp()
