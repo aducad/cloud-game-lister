@@ -15,6 +15,19 @@ const injectStyleFile = () => {
   document.head.append(style)
 }
 
+const checkCarouselInitialization = selector => {
+  return new Promise(resolve => {
+    let increment = 0
+    const interval = setInterval(() => {
+      const item = document.querySelector(selector)
+      if (item > 0 || ++increment > 10) {
+        clearInterval(interval)
+        resolve()
+      }
+    }, 100)
+  })
+}
+
 const getGameInfo = async ids => {
   const games = await browser.runtime.sendMessage({ type: GET_APPS_INFO, ids })
   return games
@@ -44,55 +57,9 @@ const buildIcons = async (ids, module, itemSelector) => {
   }
 }
 
-const checkMainCarouselInitialization = () => {
-  return new Promise(resolve => {
-    const interval = setInterval(() => {
-      const carouselItems = document.querySelectorAll(
-        '#home_maincap_v7 .store_main_capsule'
-      )
-      if (carouselItems.length > 0) {
-        clearInterval(interval)
-        resolve(carouselItems)
-      }
-    }, 100)
-  })
-}
-
-const mainCarouselHandler = async () => {
-  const carouselItems = await checkMainCarouselInitialization()
+const getAppIdList = selector => {
   const ids = []
-  for (let index = 0; index < carouselItems.length; index++) {
-    const carouselItem = carouselItems[index]
-    const { dsAppid } = carouselItem.dataset
-    // no need to check packages
-    if (!dsAppid || dsAppid.indexOf(',') !== -1) {
-      continue
-    }
-    ids.push(dsAppid)
-  }
-  buildIcons(ids, '#home_maincap_v7', '.store_main_capsule')
-}
-
-const spotlightCarouselHandler = async () => {
-  const items = document.querySelectorAll(
-    '#spotlight_carousel .carousel_items .home_area_spotlight, #spotlight_carousel .carousel_items .store_capsule'
-  )
-  const ids = []
-  for (let index = 0; index < items.length; index++) {
-    const item = items[index]
-    const { dsAppid } = item.dataset
-
-    if (!dsAppid || dsAppid.indexOf(',') !== -1) {
-      continue
-    }
-    ids.push(dsAppid)
-  }
-  buildIcons(ids, '#spotlight_carousel', '.home_area_spotlight|.store_capsule')
-}
-
-const homeTabsHandler = async () => {
-  const ids = []
-  const tabItems = document.querySelectorAll('.home_tabs_content .tab_item')
+  const tabItems = document.querySelectorAll(selector)
   for (let index = 0; index < tabItems.length; index++) {
     const tabItem = tabItems[index]
     const { dsAppid } = tabItem.dataset
@@ -102,35 +69,21 @@ const homeTabsHandler = async () => {
     }
     ids.push(dsAppid)
   }
-
-  const games = await getGameInfo(ids)
-
-  for (let index = 0; index < games.length; index++) {
-    const game = games[index]
-
-    const carouselItems = document.querySelectorAll(
-      `.home_tabs_content .tab_item[data-ds-appid="${game.appid}"]`
-    )
-    for (let i = 0; i < carouselItems.length; i++) {
-      const logoContainer = buildGeForceIcon(game)
-      const carouselItem = carouselItems[i]
-      carouselItem.classList.add('cgl-item-added')
-      carouselItem.appendChild(logoContainer)
-    }
-  }
+  return ids
 }
 
-const checkCarouselInitialization = selector => {
-  return new Promise(resolve => {
-    let increment = 0
-    const interval = setInterval(() => {
-      const item = document.querySelector(selector)
-      if (item > 0 || ++increment > 10) {
-        clearInterval(interval)
-        resolve()
-      }
-    }, 100)
+const observeCarousel = (selector, callback) => {
+  const observer = new MutationObserver(() => {
+    observer.disconnect()
+    callback()
   })
+  const rootElement = document.querySelector(selector)
+  if (rootElement) {
+    observer.observe(rootElement, {
+      childList: true,
+      subtree: true
+    })
+  }
 }
 
 const carouselHandler = async ({
@@ -154,21 +107,26 @@ const carouselHandler = async ({
   buildIcons(ids, module, itemSelector)
 }
 
-const observeCarousel = (selector, callback) => {
-  const observer = new MutationObserver(() => {
-    observer.disconnect()
-    callback()
-  })
-  const rootElement = document.querySelector(selector)
-  if (rootElement) {
-    observer.observe(rootElement, {
-      childList: true,
-      subtree: true
-    })
-  }
+const mainCarouselHandler = async () => {
+  await checkCarouselInitialization('#home_maincap_v7 .store_main_capsule')
+  const ids = getAppIdList('#home_maincap_v7 .store_main_capsule')
+  buildIcons(ids, '#home_maincap_v7', '.store_main_capsule')
+}
+
+const spotlightCarouselHandler = async () => {
+  const ids = getAppIdList(
+    '#spotlight_carousel .carousel_items .home_area_spotlight,#spotlight_carousel .carousel_items .store_capsule'
+  )
+  buildIcons(ids, '#spotlight_carousel', '.home_area_spotlight|.store_capsule')
+}
+
+const homeTabsHandler = async () => {
+  const ids = getAppIdList('.home_tabs_content .tab_item')
+  buildIcons(ids, '.home_tabs_content', '.tab_item')
 }
 
 const start = async () => {
+  // inject style file
   injectStyleFile()
 
   // main carousel handler
@@ -177,26 +135,26 @@ const start = async () => {
   // spotlight carousel handler
   spotlightCarouselHandler()
 
-  // module_community_recommendations
+  // community recommendations
   const communityRecommendations = {
     module: '#module_community_recommendations',
     itemSelector: '.community_recommendation_capsule'
   }
   carouselHandler(communityRecommendations)
 
-  // module deep dive carousel handler
+  // deep dive
   const deepDive = {
     module: '#module_deep_dive'
   }
   carouselHandler(deepDive)
 
-  // module_recommender
+  // module recommender
   const recommender = {
     module: '#module_recommender'
   }
   carouselHandler(recommender)
 
-  // recently_updated_block
+  // recently updated
   const recentlyUpdatedBlock = {
     module: '.recently_updated_block'
   }
@@ -204,7 +162,7 @@ const start = async () => {
     carouselHandler(recentlyUpdatedBlock)
   })
 
-  // feature_curators_block_0
+  // feature curators
   const featureCurators = {
     module: '#feature_curators_block_0'
   }
@@ -212,13 +170,13 @@ const start = async () => {
     carouselHandler(featureCurators)
   })
 
-  // recommended_creators_ctn
+  // recommended creators
   const recommendedCreators = {
     module: '.recommended_creators_ctn'
   }
   carouselHandler(recommendedCreators)
 
-  // friends_recently_purchased
+  // friends recently purchased
   const friendsRecentlyPurchased = {
     module: '.friends_recently_purchased'
   }
@@ -226,13 +184,13 @@ const start = async () => {
     carouselHandler(friendsRecentlyPurchased)
   })
 
-  // specials_under10
+  // specials under 10
   const specialsUnder10 = {
     module: '.specials_under10'
   }
   carouselHandler(specialsUnder10)
 
-  //
+  // marketing message area
   const marketingmessageArea = {
     module: '.home_ctn.marketingmessage_area',
     carouselItems: '.marketingmessage_container',
