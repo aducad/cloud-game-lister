@@ -4,28 +4,37 @@ import { IS_DEV_MODE } from '../common/config'
 import KEYS from '../common/keys'
 
 const DAY_IN_MILLIISECONDS = 24 * 60 * 60 * 1000
-let appList = []
 const GAME_LIST_URL =
   'https://static.nvidiagrid.net/supported-public-game-list/locales/gfnpc-en-US.json?JSON'
+const STORES = ['Steam']
+
+let appList = []
 
 // ##### Methods
+
+const parseSteamAppIdFromUrl = url => {
+  const paths = url.split('/')
+  let appid = ''
+  if (paths.length > 0) {
+    appid = paths[paths.length - 1]
+  }
+  return appid
+}
 
 const init = async () => {
   console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
 
   const gamesData = await fetch(GAME_LIST_URL).then(i => i.json())
   appList = gamesData
-    .filter(i => i.store === 'Steam')
+    .filter(i => STORES.includes(i.store))
     .map(game => {
-      const paths = game.steamUrl.split('/')
-      let appid = ''
-      if (paths.length > 0) {
-        appid = paths[paths.length - 1]
-      }
+      const { steamUrl } = game
+      const appid = parseSteamAppIdFromUrl(steamUrl)
       return { ...game, appid }
     })
   setTimeout(() => {
     init()
+    // TODO:  Add to settings
   }, DAY_IN_MILLIISECONDS)
 }
 
@@ -34,6 +43,7 @@ const init = async () => {
 // Runtime On Message Handler
 const onRuntimeMessageHandler = (request, sender) => {
   const { type, info } = request
+  // check for webextension-pollyfill
   if (type === 'SIGN_CONNECT') {
     return true
   }
