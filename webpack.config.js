@@ -9,6 +9,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const PurgecssPlugin = require('purgecss-webpack-plugin')
+const Dotenv = require('dotenv-webpack');
 const { version, name, description } = require('./package.json')
 
 module.exports = env => {
@@ -190,7 +191,10 @@ module.exports = env => {
           onlyFiles: true,
           absolute: true
         })
-      })
+      }),
+      new Dotenv({
+        systemvars: true,
+      }),
     )
   }
   return config
