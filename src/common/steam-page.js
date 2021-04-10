@@ -93,6 +93,9 @@ const buildIcons = async (ids, module, itemSelector) => {
     for (let i = 0; i < carouselItems.length; i++) {
       const logoContainer = buildGeForceIcon(game)
       const carouselItem = carouselItems[i]
+      if (carouselItem.querySelector('.broadcast_live_stream_icon')) {
+        carouselItem.classList.add('cgl-broadcasting')
+      }
       carouselItem.classList.add('cgl-item-added')
       carouselItem.appendChild(logoContainer)
     }

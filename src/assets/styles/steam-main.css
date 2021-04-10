@@ -6,8 +6,8 @@
 
 #home_maincap_v7 .carousel_items .cgl-logo-container {
   position: absolute;
-  left: 10px;
-  top: 10px;
+  left: 5px;
+  top: 5px;
   cursor: help;
   z-index: 199;
 }
@@ -65,8 +65,8 @@
 .community_recommendation_capsule .cgl-logo-container,
 .marketingmessage_container .cgl-logo-container {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 5px;
+  left: 5px;
   cursor: help;
   z-index: 199;
 }
@@ -80,6 +80,6 @@
 @media screen and (max-width: 910px) {
 }
 
-.broadcast_live_stream_icon ~ .cgl-logo-container {
-  top: 30px;
+.cgl-broadcasting .cgl-logo-container {
+  top: 30px !important;
 }

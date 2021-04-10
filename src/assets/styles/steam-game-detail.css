@@ -4,8 +4,8 @@
 
 .cgl-logo-container {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 5px;
+  left: 5px;
   cursor: help;
 }
 
@@ -14,6 +14,6 @@ img.cgl-logo {
   height: 64px;
 }
 
-.broadcast_live_stream_icon ~ .cgl-logo-container {
-  top: 30px;
+.cgl-broadcasting .cgl-logo-container {
+  top: 30px !important;
 }

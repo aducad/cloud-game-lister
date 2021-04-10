@@ -42,6 +42,6 @@
 
 /* TabItem End */
 
-.broadcast_live_stream_icon ~ .cgl-logo-container {
-  top: 30px;
+.cgl-broadcasting .cgl-logo-container {
+  top: 30px !important;
 }

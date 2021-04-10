@@ -21,8 +21,8 @@
 
 #genre_large_cluster a .cgl-logo-container {
   position: absolute;
-  left: 10px;
-  top: 10px;
+  left: 5px;
+  top: 5px;
   cursor: help;
   z-index: 199;
 }
@@ -45,6 +45,6 @@
   height: 32px;
 }
 
-.broadcast_live_stream_icon ~ .cgl-logo-container {
-  top: 30px;
+.cgl-broadcasting .cgl-logo-container {
+  top: 30px !important;
 }
