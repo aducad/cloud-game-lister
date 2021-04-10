@@ -12,6 +12,11 @@ let appList = []
 
 // ##### Methods
 
+/**
+ *
+ * @param {String} url
+ * @returns steam application id
+ */
 const parseSteamAppIdFromUrl = url => {
   const paths = url.split('/')
   let appid = ''
@@ -21,6 +26,9 @@ const parseSteamAppIdFromUrl = url => {
   return appid
 }
 
+/**
+ * Initialization methods for background script
+ */
 const init = async () => {
   console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
 
@@ -40,7 +48,11 @@ const init = async () => {
 
 // ##### Handlers
 
-// Runtime On Message Handler
+/**
+ * Runtime message handler
+ * @param {Object} request
+ * @param {Object} sender
+ */
 const onRuntimeMessageHandler = (request, sender) => {
   const { type, info } = request
   // check for webextension-pollyfill

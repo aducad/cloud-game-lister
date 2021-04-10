@@ -17,6 +17,7 @@ const injectStyleFile = () => {
   style.href = browser.extension.getURL('./assets/styles/steam-main.css')
   document.head.append(style)
 }
+
 /**
  * This fuction getting a param for
  * @param {String} selector
@@ -43,6 +44,7 @@ const getGameInfo = async ids => {
   const games = await browser.runtime.sendMessage({ type: GET_APPS_INFO, ids })
   return games
 }
+
 /**
  *
  * @param {Array} ids
@@ -72,6 +74,7 @@ const buildIcons = async (ids, module, itemSelector) => {
     }
   }
 }
+
 /**
  *
  * @param {String} selector
@@ -91,6 +94,7 @@ const getAppIdList = selector => {
   }
   return ids
 }
+
 /**
  *
  * @param {String} selector
@@ -109,6 +113,7 @@ const observeCarousel = (selector, callback) => {
     })
   }
 }
+
 /**
  *
  * @param {Object} settings
@@ -118,19 +123,8 @@ const carouselHandler = async ({
   carouselItems = '.carousel_items',
   itemSelector = '.store_capsule'
 }) => {
-  const selector = `${module} ${carouselItems} ${itemSelector}`
   await checkCarouselInitialization()
-  const items = document.querySelectorAll(selector)
-  const ids = []
-  for (let index = 0; index < items.length; index++) {
-    const item = items[index]
-    const { dsAppid } = item.dataset
-
-    if (!dsAppid || dsAppid.indexOf(',') !== -1) {
-      continue
-    }
-    ids.push(dsAppid)
-  }
+  const ids = getAppIdList(`${module} ${carouselItems} ${itemSelector}`)
   buildIcons(ids, module, itemSelector)
 }
 
@@ -141,9 +135,9 @@ const mainCarouselHandler = async () => {
 }
 
 const spotlightCarouselHandler = async () => {
-  const ids = getAppIdList(
+  const spotlightSelector =
     '#spotlight_carousel .carousel_items .home_area_spotlight,#spotlight_carousel .carousel_items .store_capsule'
-  )
+  const ids = getAppIdList(spotlightSelector)
   buildIcons(ids, '#spotlight_carousel', '.home_area_spotlight|.store_capsule')
 }
 
