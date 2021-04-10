@@ -1,0 +1,41 @@
+.cgl-item-added {
+  position: relative;
+}
+
+.cgl-item-added .cgl-logo-container {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  cursor: help;
+  z-index: 199;
+  filter: drop-shadow(0 0 0.2rem rgb(54, 124, 204));
+}
+
+.cgl-broadcasting.cgl-item-added .cgl-logo-container {
+  top: 30px !important;
+}
+
+.cgl-logo.cgl-icon-x-large {
+  width: 64px !important;
+  height: 64px !important;
+}
+
+.cgl-logo.cgl-icon-large {
+  width: 48px !important;
+  height: 48px !important;
+}
+
+.cgl-logo.cgl-icon-medium {
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.cgl-logo.cgl-icon-small {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+.cgl-logo.cgl-icon-x-small {
+  width: 16px !important;
+  height: 16px !important;
+}

@@ -13,7 +13,7 @@
     {
       "all_frames": false,
       "js": ["./content_scripts/steam-game-detail.js"],
-      "css": ["./assets/styles/steam-game-detail.css"],
+      "css": ["./assets/styles/index.css"],
       "matches": ["*://store.steampowered.com/app/*"],
       "run_at": "document_end"
     },

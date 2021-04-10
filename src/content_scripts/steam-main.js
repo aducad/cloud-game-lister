@@ -4,6 +4,7 @@ import {
   carouselHandler,
   observeCarouselHandler
 } from '../common/steam-page'
+import { ICON_SIZE_CLASSES } from '../common/constants'
 
 console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
 
@@ -11,17 +12,20 @@ const modules = [
   {
     // main slider
     module: '#home_maincap_v7',
-    itemSelector: '.store_main_capsule'
+    itemSelector: '.store_main_capsule',
+    iconSizeClass: ICON_SIZE_CLASSES.XLARGE
   },
   {
     // spotlight carousel handler
     module: '#spotlight_carousel',
-    itemSelector: '.home_area_spotlight|.store_capsule'
+    itemSelector: '.home_area_spotlight|.store_capsule',
+    iconSizeClass: ICON_SIZE_CLASSES.LARGE
   },
   {
     // community recommendations
     module: '#module_community_recommendations',
-    itemSelector: '.community_recommendation_capsule'
+    itemSelector: '.community_recommendation_capsule',
+    iconSizeClass: ICON_SIZE_CLASSES.LARGE
   },
   {
     // deep dive
@@ -59,7 +63,9 @@ const observableModules = [
   },
   {
     // feature curators
-    settings: { module: '#feature_curators_block_0' },
+    settings: {
+      module: '#feature_curators_block_0'
+    },
     rootSelector: '#steam_curators_not_empty'
   },
   {
@@ -71,7 +77,7 @@ const observableModules = [
 
 const init = async () => {
   // inject style file
-  injectStyleFile('./assets/styles/steam-main.css')
+  injectStyleFile('./assets/styles/index.css')
 
   // observable modules
   for (let i = 0; i < observableModules.length; i++) {

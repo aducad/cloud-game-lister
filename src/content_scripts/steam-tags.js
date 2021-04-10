@@ -1,5 +1,6 @@
 import { injectStyleFile } from '../common/utility'
 import { tabHandler, carouselHandler } from '../common/steam-page'
+import { ICON_SIZE_CLASSES } from '../common/constants'
 
 console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
 
@@ -15,13 +16,14 @@ const modules = [
   {
     // main slider
     module: '#genre_large_cluster',
-    itemSelector: 'a'
+    itemSelector: 'a',
+    iconSizeClass: ICON_SIZE_CLASSES.LARGE
   }
 ]
 
 const init = async () => {
   // inject style file
-  injectStyleFile('./assets/styles/steam-tags.css')
+  await injectStyleFile('./assets/styles/index.css')
 
   // carousel modules
   for (let i = 0; i < modules.length; i++) {
@@ -33,7 +35,7 @@ const init = async () => {
   tabHandler('.tab_content_ctn', '.tab_item')
 
   // specials container
-  tabHandler('#specials_container', '.store_capsule')
+  tabHandler('#specials_container', '.store_capsule', ICON_SIZE_CLASSES.SMALL)
 }
 
 init()

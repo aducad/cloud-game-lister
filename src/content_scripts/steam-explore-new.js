@@ -1,6 +1,7 @@
 // import browser from 'webextension-polyfill'
 import { injectStyleFile } from '../common/utility'
 import { carouselHandler, tabHandler } from '../common/steam-page'
+import { ICON_SIZE_CLASSES } from '../common/constants'
 
 console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
 
@@ -9,7 +10,8 @@ const modules = [
     // new releases
     module: '.top_capsules',
     carouselItems: '.newonsteam_headercaps',
-    itemSelector: '.newonsteam_headercap'
+    itemSelector: '.newonsteam_headercap',
+    iconSizeClass: ICON_SIZE_CLASSES.LARGE
   },
   {
     // new top sellers
@@ -30,7 +32,7 @@ const modules = [
 
 const init = async () => {
   // inject style file
-  injectStyleFile('./assets/styles/steam-explore-new.css')
+  injectStyleFile('./assets/styles/index.css')
 
   for (let i = 0; i < modules.length; i++) {
     const module = modules[i]
@@ -38,10 +40,18 @@ const init = async () => {
   }
 
   // under 20
-  tabHandler('.home_specials_ctn.underten:nth-child(1)', '.special')
+  tabHandler(
+    '.home_specials_ctn.underten:nth-child(1)',
+    '.special',
+    ICON_SIZE_CLASSES.SMALL
+  )
 
   // under 10
-  tabHandler('.home_specials_ctn.underten:nth-child(2)', '.special')
+  tabHandler(
+    '.home_specials_ctn.underten:nth-child(2)',
+    '.special',
+    ICON_SIZE_CLASSES.SMALL
+  )
 
   // specials container
   tabHandler('.home_tabs_content .tab_content', '.tab_item')

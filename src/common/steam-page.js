@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill'
 import { GET_APPS_INFO } from './keys'
+import { GEFORCENOW_ICONS, ICON_SIZE_CLASSES } from './constants'
 
 const MutationObserver =
   window.MutationObserver || window.WebKitMutationObserver
@@ -7,23 +8,22 @@ const MutationObserver =
 /**
  * Build geforce now icon
  * @param {Object} game
+ * @param {String} iconSizeClass
  * @returns html element
  */
-const buildGeForceIcon = game => {
-  let imagePath = 'nvidia-128-active'
+const buildGeForceIcon = (game, iconSizeClass) => {
+  let imagePath = GEFORCENOW_ICONS.ACTIVE
   const gameData = { ...game }
   if (!game) {
-    imagePath = 'nvidia-128-passive'
+    imagePath = GEFORCENOW_ICONS.PASSIVE
   } else if (gameData.status !== 'AVAILABLE') {
-    imagePath = 'nvidia-128-maintenance'
+    imagePath = GEFORCENOW_ICONS.MAINTENANCE
   }
 
   const iconPath = browser.runtime.getURL(`assets/icons/${imagePath}.png`)
   const isOptimizedText = gameData.isFullyOptimized ? 'Yes' : 'No'
-  const gameStatus = gameData.status || 'Not Avaliable'
-  const title = `
-  Status: ${gameStatus}\nIs Fully Optimized?: ${isOptimizedText}
-  `
+  const gameStatus = gameData.status || 'Not Available'
+  const title = `Status: ${gameStatus}\nIs Fully Optimized?: ${isOptimizedText}`
 
   // logo container
   const logoContainer = document.createElement('div')
@@ -34,6 +34,7 @@ const buildGeForceIcon = game => {
   const logoImage = document.createElement('img')
   logoImage.src = iconPath
   logoImage.classList.add('cgl-logo')
+  logoImage.classList.add(`cgl-icon-${iconSizeClass}`)
 
   logoContainer.appendChild(logoImage)
 
@@ -76,7 +77,12 @@ const getAppIdList = selector => {
  * @param {String} module
  * @param {String} itemSelector
  */
-const buildIcons = async (ids, module, itemSelector) => {
+const buildIcons = async (
+  ids,
+  module,
+  itemSelector,
+  iconSizeClass = ICON_SIZE_CLASSES.MEDIUM
+) => {
   const games = await getGameInfo(ids)
   for (let index = 0; index < games.length; index++) {
     const game = games[index]
@@ -91,7 +97,7 @@ const buildIcons = async (ids, module, itemSelector) => {
     const carouselItemSelector = currentSelectors.join(',')
     const carouselItems = document.querySelectorAll(carouselItemSelector)
     for (let i = 0; i < carouselItems.length; i++) {
-      const logoContainer = buildGeForceIcon(game)
+      const logoContainer = buildGeForceIcon(game, iconSizeClass)
       const carouselItem = carouselItems[i]
       if (carouselItem.querySelector('.broadcast_live_stream_icon')) {
         carouselItem.classList.add('cgl-broadcasting')
@@ -102,9 +108,13 @@ const buildIcons = async (ids, module, itemSelector) => {
   }
 }
 
-const tabHandler = (contentSelector, itemSelector) => {
+const tabHandler = (
+  contentSelector,
+  itemSelector,
+  iconSizeClass = ICON_SIZE_CLASSES.MEDIUM
+) => {
   const ids = getAppIdList(`${contentSelector} ${itemSelector}`)
-  buildIcons(ids, contentSelector, itemSelector)
+  buildIcons(ids, contentSelector, itemSelector, iconSizeClass)
 }
 
 /**
@@ -131,7 +141,8 @@ const checkCarouselInitialization = selector => {
 const carouselHandler = async ({
   module,
   carouselItems = '.carousel_items',
-  itemSelector = '.store_capsule'
+  itemSelector = '.store_capsule',
+  iconSizeClass = ICON_SIZE_CLASSES.MEDIUM
 }) => {
   await checkCarouselInitialization()
   const currentSelectors = []
@@ -143,7 +154,7 @@ const carouselHandler = async ({
   }
   const carouselItemSelector = currentSelectors.join(',')
   const ids = getAppIdList(carouselItemSelector)
-  buildIcons(ids, module, itemSelector)
+  buildIcons(ids, module, itemSelector, iconSizeClass)
 }
 
 /**
