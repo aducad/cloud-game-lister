@@ -1,0 +1,43 @@
+.cgl-item-added {
+  position: relative;
+}
+
+/* Start */
+
+.store_capsule .cgl-logo-container,
+.newonsteam_headercap .cgl-logo-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  cursor: help;
+  z-index: 199;
+}
+
+.store_capsule img.cgl-logo {
+  width: 32px;
+  height: 32px;
+}
+
+.newonsteam_headercap img.cgl-logo {
+  width: 64px !important;
+  height: 64px !important;
+}
+/* End */
+
+/* TabItem Start */
+
+.home_tabs_content .tab_item .cgl-logo-container {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  cursor: help;
+  z-index: 199;
+}
+
+.home_tabs_content .tab_item img.cgl-logo,
+.marketingmessage_container img.cgl-logo {
+  width: 32px;
+  height: 32px;
+}
+
+/* TabItem End */

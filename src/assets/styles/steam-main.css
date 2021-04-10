@@ -46,8 +46,8 @@
 
 .home_tabs_content .tab_item .cgl-logo-container {
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 5px;
+  top: 5px;
   cursor: help;
   z-index: 199;
 }

@@ -1,10 +1,11 @@
 import browser from 'webextension-polyfill'
 import { STEAM_GAMEPAGE_SCRIPT_LOADED } from '../common/keys'
-import { buildGeForceIcon } from '../common/icon-builder'
+import { buildGeForceIcon } from '../common/steam-page'
 
 console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
 
 const start = async () => {
+  // https://store.steampowered.com/app/680420/OUTRIDERS/
   const [, appID] = new URL(window.location.href).pathname
     .split('/')
     .filter(i => i)

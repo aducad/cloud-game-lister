@@ -9,7 +9,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const PurgecssPlugin = require('purgecss-webpack-plugin')
-const Dotenv = require('dotenv-webpack');
+const Dotenv = require('dotenv-webpack')
 const { version, name, description } = require('./package.json')
 
 module.exports = env => {
@@ -22,6 +22,12 @@ module.exports = env => {
     // eslint-disable-next-line prefer-destructuring
     port = portParameter.split('=')[1]
   }
+  const contentScripts = {
+    'content_scripts/steam-main': './content_scripts/steam-main.js',
+    'content_scripts/steam-game-detail':
+      './content_scripts/steam-game-detail.js',
+    'content_scripts/explore-new': './content_scripts/explore-new.js'
+  }
   const config = {
     devtool: isDevMode ? 'eval-source-map' : false,
     context: path.resolve(__dirname, './src'),
@@ -30,9 +36,7 @@ module.exports = env => {
       popup: './popup/index.js',
       list: './list/index.js',
       background: './background/index.js',
-      'content_scripts/steam-main': './content_scripts/steam-main.js',
-      'content_scripts/steam-game-detail':
-        './content_scripts/steam-game-detail.js'
+      ...contentScripts
     },
     output: {
       path: path.resolve(__dirname, './dist'),
@@ -166,10 +170,7 @@ module.exports = env => {
         port,
         reloadPage: true,
         entries: {
-          contentScript: [
-            'content_scripts/steam-main',
-            'content_scripts/steam-game-detail'
-          ],
+          contentScript: Object.keys(contentScripts),
           background: 'background',
           extensionPage: 'popup',
           list: 'list',
@@ -193,8 +194,8 @@ module.exports = env => {
         })
       }),
       new Dotenv({
-        systemvars: true,
-      }),
+        systemvars: true
+      })
     )
   }
   return config
