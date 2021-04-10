@@ -14,5 +14,6 @@ img.cgl-logo {
   height: 64px;
 }
 
-@media screen and (max-width: 910px) {
+.broadcast_live_stream_icon ~ .cgl-logo-container {
+  top: 30px;
 }
