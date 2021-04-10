@@ -16,6 +16,10 @@ const modules = [
     // main slider
     module: '#genre_large_cluster',
     itemSelector: 'a'
+  },
+  {
+    // live streams
+    module: '.live_streams_ctn'
   }
 ]
 

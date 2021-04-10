@@ -44,6 +44,10 @@ const modules = [
     module: '.home_ctn.marketingmessage_area',
     carouselItems: '.marketingmessage_container',
     itemSelector: '.home_marketing_message'
+  },
+  {
+    // live streams
+    module: '.live_streams_ctn'
   }
 ]
 

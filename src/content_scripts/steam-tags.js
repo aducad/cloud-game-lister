@@ -31,6 +31,9 @@ const init = async () => {
 
   // tabs handler
   tabHandler('.tab_content_ctn', '.tab_item')
+
+  // specials container
+  tabHandler('#specials_container', '.store_capsule')
 }
 
 init()

@@ -37,8 +37,14 @@ const init = async () => {
     carouselHandler(module)
   }
 
-  // tab handler
-  tabHandler('.home_tabs_content', '.tab_item')
+  // under 20
+  tabHandler('.home_specials_ctn.underten:nth-child(1)', '.special')
+
+  // under 10
+  tabHandler('.home_specials_ctn.underten:nth-child(2)', '.special')
+
+  // specials container
+  tabHandler('.home_tabs_content .tab_content', '.tab_item')
 }
 
 init()
