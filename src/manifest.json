@@ -26,6 +26,13 @@
     },
     {
       "all_frames": false,
+      "js": ["./content_scripts/genre.js"],
+      "css": ["./assets/styles/genre.css"],
+      "matches": ["*://store.steampowered.com/genre/*"],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
       "js": ["./content_scripts/steam-main.js"],
       "matches": ["*://store.steampowered.com/"],
       "run_at": "document_end"

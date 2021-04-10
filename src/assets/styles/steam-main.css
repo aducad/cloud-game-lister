@@ -6,7 +6,7 @@
 
 #home_maincap_v7 .carousel_items .cgl-logo-container {
   position: absolute;
-  right: 334px;
+  left: 10px;
   top: 10px;
   cursor: help;
   z-index: 199;
@@ -24,7 +24,7 @@
 .store_capsule .cgl-logo-container,
 .home_area_spotlight .cgl-logo-container {
   position: absolute;
-  right: 5px;
+  left: 5px;
   top: 5px;
   cursor: help;
   z-index: 199;
@@ -66,7 +66,7 @@
 .marketingmessage_container .cgl-logo-container {
   position: absolute;
   top: 10px;
-  right: 10px;
+  left: 10px;
   cursor: help;
   z-index: 199;
 }
@@ -78,7 +78,4 @@
 /* End */
 
 @media screen and (max-width: 910px) {
-  #home_maincap_v7 .carousel_items .cgl-logo-container {
-    right: 10px;
-  }
 }

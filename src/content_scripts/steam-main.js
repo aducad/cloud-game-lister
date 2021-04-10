@@ -69,8 +69,6 @@ const init = async () => {
   // inject style file
   injectStyleFile('./assets/styles/steam-main.css')
 
-  // spotlightCarouselHandler()
-
   // observable modules
   for (let i = 0; i < observableModules.length; i++) {
     const { rootSelector, settings } = observableModules[i]

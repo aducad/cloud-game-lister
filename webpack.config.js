@@ -26,7 +26,8 @@ module.exports = env => {
     'content_scripts/steam-main': './content_scripts/steam-main.js',
     'content_scripts/steam-game-detail':
       './content_scripts/steam-game-detail.js',
-    'content_scripts/explore-new': './content_scripts/explore-new.js'
+    'content_scripts/explore-new': './content_scripts/explore-new.js',
+    'content_scripts/genre': './content_scripts/genre.js'
   }
   const config = {
     devtool: isDevMode ? 'eval-source-map' : false,
