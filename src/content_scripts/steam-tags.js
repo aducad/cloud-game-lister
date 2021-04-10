@@ -1,6 +1,8 @@
 import { injectStyleFile } from '../common/utility'
 import { tabHandler, carouselHandler } from '../common/steam-page'
 
+console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
+
 const modules = [
   {
     // new top sellers
@@ -19,7 +21,7 @@ const modules = [
 
 const init = async () => {
   // inject style file
-  injectStyleFile('./assets/styles/steam-main.css')
+  injectStyleFile('./assets/styles/steam-tags.css')
 
   // carousel modules
   for (let i = 0; i < modules.length; i++) {

@@ -2,6 +2,8 @@
 import { injectStyleFile } from '../common/utility'
 import { carouselHandler, tabHandler } from '../common/steam-page'
 
+console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
+
 const modules = [
   {
     // new releases
@@ -28,7 +30,7 @@ const modules = [
 
 const init = async () => {
   // inject style file
-  injectStyleFile('./assets/styles/explore-new.css')
+  injectStyleFile('./assets/styles/steam-explore-new.css')
 
   for (let i = 0; i < modules.length; i++) {
     const module = modules[i]

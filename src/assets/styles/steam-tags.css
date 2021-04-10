@@ -1,0 +1,46 @@
+.cgl-item-added {
+  position: relative;
+}
+
+/* TabItem Start */
+
+.tab_content_ctn .tab_item .cgl-logo-container {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  cursor: help;
+  z-index: 199;
+}
+
+.tab_content_ctn .tab_item img.cgl-logo {
+  width: 32px;
+  height: 32px;
+}
+
+/* TabItem End */
+
+#genre_large_cluster a .cgl-logo-container {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  cursor: help;
+  z-index: 199;
+}
+
+#genre_large_cluster a img.cgl-logo {
+  width: 64px;
+  height: 64px;
+}
+
+.store_capsule .cgl-logo-container {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  cursor: help;
+  z-index: 199;
+  filter: drop-shadow(0 0 0.2rem rgb(54, 124, 204));
+}
+.store_capsule img.cgl-logo {
+  width: 32px;
+  height: 32px;
+}

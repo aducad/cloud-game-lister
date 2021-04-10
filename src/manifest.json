@@ -13,21 +13,24 @@
     {
       "all_frames": false,
       "js": ["./content_scripts/steam-game-detail.js"],
-      "css": ["./assets/styles/steam-game-detail.css"],
       "matches": ["*://store.steampowered.com/app/*"],
       "run_at": "document_end"
     },
     {
       "all_frames": false,
-      "js": ["./content_scripts/explore-new.js"],
-      "css": ["./assets/styles/explore-new.css"],
+      "js": ["./content_scripts/steam-explore-new.js"],
       "matches": ["*://store.steampowered.com/explore/new/*"],
       "run_at": "document_end"
     },
     {
       "all_frames": false,
-      "js": ["./content_scripts/genre.js"],
-      "css": ["./assets/styles/genre.css"],
+      "js": ["./content_scripts/steam-tags.js"],
+      "matches": ["*://store.steampowered.com/tags/*/*"],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
+      "js": ["./content_scripts/steam-genre.js"],
       "matches": ["*://store.steampowered.com/genre/*"],
       "run_at": "document_end"
     },

@@ -7,8 +7,8 @@
 .store_capsule .cgl-logo-container,
 .newonsteam_headercap .cgl-logo-container {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 5px;
+  left: 5px;
   cursor: help;
   z-index: 199;
 }
