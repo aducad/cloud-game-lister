@@ -39,3 +39,8 @@
   width: 16px !important;
   height: 16px !important;
 }
+
+/* Steam */
+.cgl-item-added .ds_flag {
+  top: 40px;
+}
