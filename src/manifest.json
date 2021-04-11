@@ -25,6 +25,24 @@
     },
     {
       "all_frames": false,
+      "js": ["./content_scripts/steam-community-recommendations.js"],
+      "matches": ["*://store.steampowered.com/communityrecommendations*"],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
+      "js": ["./content_scripts/steam-friend-activity.js"],
+      "matches": ["*://store.steampowered.com/recommended/friendactivity*"],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
+      "js": ["./content_scripts/steam-specials.js"],
+      "matches": ["*://store.steampowered.com/specials*"],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
       "js": ["./content_scripts/steam-tags.js"],
       "matches": ["*://store.steampowered.com/tags/*/*"],
       "run_at": "document_end"

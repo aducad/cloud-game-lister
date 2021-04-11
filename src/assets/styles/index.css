@@ -11,31 +11,37 @@
   filter: drop-shadow(0 0 0.2rem rgb(54, 124, 204));
 }
 
+.cgl-item-added .cgl-logo-container.cgl-icon-small,
+.cgl-item-added .cgl-logo-container.cgl-icon-x-small {
+  top: 0;
+  left: 0;
+}
+
 .cgl-broadcasting.cgl-item-added .cgl-logo-container {
   top: 30px !important;
 }
 
-.cgl-logo.cgl-icon-x-large {
+.cgl-logo-container.cgl-icon-x-large .cgl-logo {
   width: 64px !important;
   height: 64px !important;
 }
 
-.cgl-logo.cgl-icon-large {
+.cgl-logo-container.cgl-icon-large .cgl-logo {
   width: 48px !important;
   height: 48px !important;
 }
 
-.cgl-logo.cgl-icon-medium {
+.cgl-logo-container.cgl-icon-medium .cgl-logo {
   width: 32px !important;
   height: 32px !important;
 }
 
-.cgl-logo.cgl-icon-small {
+.cgl-logo-container.cgl-icon-small .cgl-logo {
   width: 24px !important;
   height: 24px !important;
 }
 
-.cgl-logo.cgl-icon-x-small {
+.cgl-logo-container.cgl-icon-x-small .cgl-logo {
   width: 16px !important;
   height: 16px !important;
 }

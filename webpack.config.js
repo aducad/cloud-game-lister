@@ -29,7 +29,12 @@ module.exports = env => {
     'content_scripts/steam-explore-new':
       './content_scripts/steam-explore-new.js',
     'content_scripts/steam-genre': './content_scripts/steam-genre.js',
-    'content_scripts/steam-tags': './content_scripts/steam-tags.js'
+    'content_scripts/steam-tags': './content_scripts/steam-tags.js',
+    'content_scripts/steam-community-recommendations':
+      './content_scripts/steam-community-recommendations.js',
+    'content_scripts/steam-friend-activity':
+      './content_scripts/steam-friend-activity.js',
+    'content_scripts/steam-specials': './content_scripts/steam-specials.js'
   }
   const config = {
     devtool: isDevMode ? 'eval-source-map' : false,

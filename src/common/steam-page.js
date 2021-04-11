@@ -29,12 +29,12 @@ const buildGeForceIcon = (game, iconSizeClass) => {
   const logoContainer = document.createElement('div')
   logoContainer.title = title
   logoContainer.classList.add('cgl-logo-container')
+  logoContainer.classList.add(`cgl-icon-${iconSizeClass}`)
 
   // create logo
   const logoImage = document.createElement('img')
   logoImage.src = iconPath
   logoImage.classList.add('cgl-logo')
-  logoImage.classList.add(`cgl-icon-${iconSizeClass}`)
 
   logoContainer.appendChild(logoImage)
 
