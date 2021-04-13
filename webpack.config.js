@@ -34,7 +34,8 @@ module.exports = env => {
       './content_scripts/steam-community-recommendations.js',
     'content_scripts/steam-friend-activity':
       './content_scripts/steam-friend-activity.js',
-    'content_scripts/steam-specials': './content_scripts/steam-specials.js'
+    'content_scripts/steam-specials': './content_scripts/steam-specials.js',
+    'content_scripts/steam-curators': './content_scripts/steam-curators.js'
   }
   const config = {
     devtool: isDevMode ? 'eval-source-map' : false,

@@ -25,6 +25,13 @@
     },
     {
       "all_frames": false,
+      "js": ["./content_scripts/steam-curators.js"],
+      "matches": ["*://store.steampowered.com/curators*"],
+      "exclude_matches": ["*://store.steampowered.com/curators/mycurators*"],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
       "js": ["./content_scripts/steam-community-recommendations.js"],
       "matches": ["*://store.steampowered.com/communityrecommendations*"],
       "run_at": "document_end"
