@@ -41,6 +41,9 @@ To use this extension, please install it from the [Chrome Web Store](https://chr
   - [Tags pages](https://store.steampowered.com/tags/en/Competitive)
   - [Genre pages](https://store.steampowered.com/genre/Free%20to%20Play/)
   - [Explore new page](https://store.steampowered.com/explore/new)
+  - [Special Offers](https://store.steampowered.com/specials)
+  - [Community Recommendations](https://store.steampowered.com/communityrecommendations/)
+  - [Friend Activity](https://store.steampowered.com/recommended/friendactivity/)
 - Allows you to see and filter all supported steam games on the extension game list page (link in the popup)
 
 ## Contributing
