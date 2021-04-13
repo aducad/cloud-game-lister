@@ -9,6 +9,12 @@ console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
 
 const modules = [
   {
+    // main slider
+    module: '#genre_large_cluster',
+    itemSelector: 'a',
+    iconSizeClass: ICON_SIZE_CLASSES.LARGE
+  },
+  {
     // new top sellers
     module: `#page_section_container .page_content_ctn:nth-child(1)`
   },
@@ -17,10 +23,9 @@ const modules = [
     module: `#page_section_container .page_content_ctn:nth-child(2)`
   },
   {
-    // main slider
-    module: '#genre_large_cluster',
-    itemSelector: 'a',
-    iconSizeClass: ICON_SIZE_CLASSES.LARGE
+    // recommended special offers
+    itemsContainerSelector: '.contenthub_specials_grid_cell',
+    module: '.contenthub_specials_ctn'
   },
   {
     // live streams
