@@ -56,13 +56,13 @@ This extension requires permissions to <https://store.steampowered.com/>
 
 ## Changelog
 
-### v1.0.22
+### v1.0.22 (under review in the Chrome web store)
 
 Added:
 
-- [Special Offers](https://store.steampowered.com/specials)
-- [Community Recommendations](https://store.steampowered.com/communityrecommendations/)
-- [Friend Activity](https://store.steampowered.com/recommended/friendactivity/)
+- [Special Offers](https://store.steampowered.com/specials) (page support)
+- [Community Recommendations](https://store.steampowered.com/communityrecommendations/) (page support)
+- [Friend Activity](https://store.steampowered.com/recommended/friendactivity/) (page support)
 
 Fixed:
 
@@ -73,6 +73,6 @@ Updated:
 
 - Icon sizes for different modules
 
-### v1.0.19
+### v1.0.19 (current version on Chrome web store)
 
 - Initial release

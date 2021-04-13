@@ -3,7 +3,7 @@
     <div class="card border-info">
       <div class="card-header">
         <button class="btn btn-block btn-info" @click="openPage('list.html')">
-          Games List <span class="badge badge-danger">{{ appsCount }}</span>
+          Game List <span class="badge badge-danger">{{ appsCount }}</span>
         </button>
       </div>
       <div class="card-body p-0">

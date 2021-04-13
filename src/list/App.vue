@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid p-3">
     <div class="card">
-      <div class="card-header">Games List</div>
+      <div class="card-header">Game List</div>
       <div class="card-body">
         <div class="row">
           <div class="col-12">

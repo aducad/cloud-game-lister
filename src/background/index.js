@@ -1,6 +1,7 @@
 import browser from 'webextension-polyfill'
-
 import KEYS from '../common/keys'
+
+console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
 
 const DAY_IN_MILLIISECONDS = 24 * 60 * 60 * 1000
 const WEEK_IN_MILLIISECONDS = 7 * DAY_IN_MILLIISECONDS
@@ -30,8 +31,6 @@ const parseSteamAppIdFromUrl = url => {
  * Initialization methods for background script
  */
 const init = async () => {
-  console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
-
   const gamesData = await fetch(GAME_LIST_URL).then(i => i.json())
   const { applications } = await browser.storage.local.get({ applications: [] })
   const currentTime = new Date().getTime()
@@ -108,12 +107,16 @@ const onRuntimeMessageHandler = (request, sender) => {
     }
     case KEYS.GET_NEW_APPS: {
       return new Promise(async resolve => {
-        const newGames = appList.filter(app => app.isNew)
-        // randomize games
+        let newGames = appList.filter(app => app.isNew)
+        // set all games to array if there is no new game
+        if (newGames.length === 0) {
+          newGames = [...appList]
+        }
+        // randomize games array
         newGames.sort(() => {
           return Math.random() < 0.5 ? 1 : -1
         })
-        const games = newGames.filter((app, index) => index < 5)
+        const games = newGames.filter((_, index) => index < 5)
         resolve({ games })
       })
     }
