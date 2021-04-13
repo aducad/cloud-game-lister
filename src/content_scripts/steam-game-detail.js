@@ -2,8 +2,24 @@ import browser from 'webextension-polyfill'
 import { STEAM_GAMEPAGE_SCRIPT_LOADED } from '../common/keys'
 import { buildGeForceIcon } from '../libs/builders/steam-builder'
 import { ICON_SIZE_CLASSES } from '../common/constants'
+import { dynamicContentHandler } from '../libs/builders/steam-builder'
 
 console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
+
+const modules = [
+  {
+    // franchise block
+    module: '#franchise_block',
+    itemSelector: '.small_cap',
+    itemsContainerSelector: '.block_content'
+  },
+  {
+    // recommended block
+    module: '#recommended_block',
+    itemSelector: '.small_cap',
+    itemsContainerSelector: '.block_content'
+  }
+]
 
 const start = async () => {
   // https://store.steampowered.com/app/680420/OUTRIDERS/
@@ -23,6 +39,11 @@ const start = async () => {
   const leftColumn = document.querySelector('#game_highlights .leftcol')
   leftColumn.classList.add('cgl-item-added')
   leftColumn.appendChild(logoContainer)
+
+  for (let i = 0; i < modules.length; i++) {
+    const module = modules[i]
+    dynamicContentHandler(module)
+  }
 }
 
 start()
