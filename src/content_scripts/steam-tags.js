@@ -23,6 +23,10 @@ const modules = [
     iconSizeClass: ICON_SIZE_CLASSES.LARGE
   },
   {
+    // recommended creators
+    module: '.recommended_creators_ctn'
+  },
+  {
     // live streams
     module: '.live_streams_ctn'
   }
