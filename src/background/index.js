@@ -1,6 +1,5 @@
 import browser from 'webextension-polyfill'
 
-import { IS_DEV_MODE } from '../common/config'
 import KEYS from '../common/keys'
 
 const DAY_IN_MILLIISECONDS = 24 * 60 * 60 * 1000
@@ -59,7 +58,7 @@ const onRuntimeMessageHandler = (request, sender) => {
   if (type === 'SIGN_CONNECT') {
     return true
   }
-  if (IS_DEV_MODE && info) {
+  if (info && process.env.NODE_ENV === 'development') {
     console.log({ sender, type })
   }
   switch (type) {

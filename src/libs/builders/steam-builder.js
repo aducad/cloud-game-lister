@@ -1,7 +1,8 @@
 import browser from 'webextension-polyfill'
-import { GET_APPS_INFO } from './keys'
-import { GEFORCENOW_ICONS, ICON_SIZE_CLASSES } from './constants'
+import { GET_APPS_INFO } from '../../common/keys'
+import { GEFORCENOW_ICONS, ICON_SIZE_CLASSES } from '../../common/constants'
 
+const isDev = process.env.NODE_ENV === 'development'
 const MutationObserver =
   window.MutationObserver || window.WebKitMutationObserver
 
@@ -51,6 +52,16 @@ const getGameInfo = async ids => {
   return games
 }
 
+const applyDevelopmentStyles = mainSelector => {
+  if (!isDev) {
+    return
+  }
+  const moduleElement = document.querySelector(mainSelector)
+  if (moduleElement) {
+    moduleElement.style.border = '2px solid red'
+  }
+}
+
 /**
  *
  * @param {String} selector
@@ -94,11 +105,11 @@ const buildIcons = async (
       const currentSelector = `${module} ${selector}[data-ds-appid="${appid}"]`
       currentSelectors.push(currentSelector)
     }
-    const carouselItemSelector = currentSelectors.join(',')
-    const carouselItems = document.querySelectorAll(carouselItemSelector)
-    for (let i = 0; i < carouselItems.length; i++) {
+    const joinedItemSelector = currentSelectors.join(',')
+    const items = document.querySelectorAll(joinedItemSelector)
+    for (let i = 0; i < items.length; i++) {
       const logoContainer = buildGeForceIcon(game, iconSizeClass)
-      const carouselItem = carouselItems[i]
+      const carouselItem = items[i]
       if (carouselItem.querySelector('.broadcast_live_stream_icon')) {
         carouselItem.classList.add('cgl-broadcasting')
       }
@@ -108,11 +119,12 @@ const buildIcons = async (
   }
 }
 
-const tabHandler = (
+const staticContentHandler = ({
   contentSelector,
   itemSelector,
   iconSizeClass = ICON_SIZE_CLASSES.MEDIUM
-) => {
+}) => {
+  applyDevelopmentStyles(contentSelector)
   const ids = getAppIdList(`${contentSelector} ${itemSelector}`)
   buildIcons(ids, contentSelector, itemSelector, iconSizeClass)
 }
@@ -121,7 +133,7 @@ const tabHandler = (
  * This fuction getting a param for
  * @param {String} selector
  */
-const checkCarouselInitialization = selector => {
+const checkDynamicContentInitialization = selector => {
   return new Promise(resolve => {
     let increment = 0
     const interval = setInterval(() => {
@@ -134,22 +146,24 @@ const checkCarouselInitialization = selector => {
   })
 }
 
+// dynamic builder
 /**
  *
  * @param {Object} settings
  */
-const carouselHandler = async ({
+const dynamicContentHandler = async ({
   module,
-  carouselItems = '.carousel_items',
+  itemsContainerSelector = '.carousel_items',
   itemSelector = '.store_capsule',
   iconSizeClass = ICON_SIZE_CLASSES.MEDIUM
 }) => {
-  await checkCarouselInitialization()
+  await checkDynamicContentInitialization()
+  applyDevelopmentStyles(module)
   const currentSelectors = []
   const selectors = itemSelector.split('|')
   for (let s = 0; s < selectors.length; s++) {
     const selector = selectors[s]
-    const currentSelector = `${module} ${carouselItems} ${selector}`
+    const currentSelector = `${module} ${itemsContainerSelector} ${selector}`
     currentSelectors.push(currentSelector)
   }
   const carouselItemSelector = currentSelectors.join(',')
@@ -157,12 +171,13 @@ const carouselHandler = async ({
   buildIcons(ids, module, itemSelector, iconSizeClass)
 }
 
+// runtime builder
 /**
  *
  * @param {String} selector
  * @param {Function} callback
  */
-const observeCarouselHandler = (selector, callback) => {
+const runtimeContentHandler = (selector, callback) => {
   const observer = new MutationObserver(() => {
     observer.disconnect()
     callback()
@@ -178,11 +193,7 @@ const observeCarouselHandler = (selector, callback) => {
 
 export {
   buildGeForceIcon,
-  buildIcons,
-  carouselHandler,
-  checkCarouselInitialization,
-  getAppIdList,
-  getGameInfo,
-  observeCarouselHandler,
-  tabHandler
+  dynamicContentHandler,
+  runtimeContentHandler,
+  staticContentHandler
 }

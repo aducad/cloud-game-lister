@@ -21,6 +21,10 @@
   top: 30px !important;
 }
 
+.cgl-broadcasting.cgl-item-added .ds_flag ~ .cgl-logo-container {
+  top: 70px !important;
+}
+
 .cgl-logo-container.cgl-icon-x-large .cgl-logo {
   width: 64px !important;
   height: 64px !important;

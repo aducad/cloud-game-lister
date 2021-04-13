@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill'
 import { STEAM_GAMEPAGE_SCRIPT_LOADED } from '../common/keys'
-import { buildGeForceIcon } from '../common/steam-page'
+import { buildGeForceIcon } from '../libs/builders/steam-builder'
 import { ICON_SIZE_CLASSES } from '../common/constants'
 
 console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')

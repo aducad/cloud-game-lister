@@ -1,9 +1,9 @@
 import { injectStyleFile } from '../common/utility'
 import {
-  tabHandler,
-  carouselHandler,
-  observeCarouselHandler
-} from '../common/steam-page'
+  staticContentHandler,
+  dynamicContentHandler,
+  runtimeContentHandler
+} from '../libs/builders/steam-builder'
 import { ICON_SIZE_CLASSES } from '../common/constants'
 
 console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
@@ -28,6 +28,17 @@ const modules = [
     iconSizeClass: ICON_SIZE_CLASSES.LARGE
   },
   {
+    // giant single curator capsule
+    module: '.giant_curator_capsule',
+    itemsContainerSelector: '',
+    itemSelector: '.curator_giant_capsule'
+  },
+  {
+    // recommended by curators
+    module: '#apps_recommended_by_curators_v2',
+    itemsContainerSelector: ' > div'
+  },
+  {
     // deep dive
     module: '#module_deep_dive'
   },
@@ -46,12 +57,8 @@ const modules = [
   {
     // marketing message area
     module: '.home_ctn.marketingmessage_area',
-    carouselItems: '.marketingmessage_container',
+    itemsContainerSelector: '.marketingmessage_container',
     itemSelector: '.home_marketing_message'
-  },
-  {
-    // live streams
-    module: '.live_streams_ctn'
   }
 ]
 
@@ -72,6 +79,11 @@ const observableModules = [
     // friends recently purchased
     settings: { module: '.friends_recently_purchased' },
     rootSelector: '.friends_recently_purchased .carousel_items'
+  },
+  {
+    // live streams
+    settings: { module: '.live_streams_ctn' },
+    rootSelector: '.live_streams_ctn .carousel_items'
   }
 ]
 
@@ -79,22 +91,25 @@ const init = async () => {
   // inject style file
   injectStyleFile('./assets/styles/index.css')
 
-  // observable modules
+  // runtime contents
   for (let i = 0; i < observableModules.length; i++) {
     const { rootSelector, settings } = observableModules[i]
-    observeCarouselHandler(rootSelector, () => {
-      carouselHandler(settings)
+    runtimeContentHandler(rootSelector, () => {
+      dynamicContentHandler(settings)
     })
   }
 
-  // carousel modules
+  // dynamic contents
   for (let i = 0; i < modules.length; i++) {
     const module = modules[i]
-    carouselHandler(module)
+    dynamicContentHandler(module)
   }
 
   // tabs handler
-  tabHandler('.home_tabs_content', '.tab_item')
+  staticContentHandler({
+    contentSelector: '.home_tabs_content',
+    itemSelector: '.tab_item'
+  })
 }
 
 init()

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.21",
+  "version": "1.0.22",
   "name": "cloud-game-lister",
   "description": "cloud-game-lister",
   "author": {
@@ -8,10 +8,9 @@
   },
   "scripts": {
     "dev": "webpack --mode=development --env.NODE_ENV=development --port=4444 --progress --hide-modules --hot --watch",
-    "build": "npm run pack && npm run set-production && npm run remove-evals && npm run zip",
+    "build": "npm run pack && npm run remove-evals && npm run zip",
     "lint": "eslint --ext .js,.vue --fix ./src",
     "pack": "webpack --mode=production --env.NODE_ENV=production --progress --hide-modules",
-    "set-production": "node scripts/set-production.js",
     "remove-evals": "node scripts/remove-evals.js",
     "zip": "node scripts/build-zip.js"
   },
