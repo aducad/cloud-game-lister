@@ -56,6 +56,23 @@ This extension requires permissions to <https://store.steampowered.com/>
 
 ## Changelog
 
-v1.0.19
+### v1.0.22
+
+Added:
+
+- [Special Offers](https://store.steampowered.com/specials)
+- [Community Recommendations](https://store.steampowered.com/communityrecommendations/)
+- [Friend Activity](https://store.steampowered.com/recommended/friendactivity/)
+
+Fixed:
+
+- Ownership flags overlapping with icons
+- Broadcasting flag overlapping with icons
+
+Updated:
+
+- Icon sizes for different modules
+
+### v1.0.19
 
 - Initial release
