@@ -28,7 +28,6 @@ const init = async () => {
   for (let i = 0; i < observableModules.length; i++) {
     const { rootSelector, settings } = observableModules[i]
     runtimeContentHandler(rootSelector, () => {
-      console.log(rootSelector)
       dynamicContentHandler(settings)
     })
   }

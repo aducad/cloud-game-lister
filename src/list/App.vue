@@ -105,7 +105,14 @@
                       :class="getSortingClass('isFullyOptimized')"
                       @click="changeSortKey('isFullyOptimized')"
                     >
-                      Fully Optimized?
+                      Fully Optimized
+                    </th>
+                    <th
+                      class="sortable"
+                      :class="getSortingClass('isNew')"
+                      @click="changeSortKey('isNew')"
+                    >
+                      New
                     </th>
                     <th
                       class="sortable"
@@ -137,6 +144,7 @@
                       </span>
                     </td>
                     <td>{{ row.isFullyOptimized ? 'Yes' : 'No' }}</td>
+                    <td>{{ row.isNew ? 'Yes' : 'No' }}</td>
                     <td>{{ row.publisher }}</td>
                     <td>
                       <a
@@ -184,6 +192,18 @@
                           :value="optimization.value"
                         >
                           {{ optimization.title }}
+                        </option>
+                      </select>
+                    </th>
+                    <th>
+                      <select v-model="filters.isNew" class="form-control">
+                        <option :value="null">All</option>
+                        <option
+                          v-for="isNewOption in isNewOptions"
+                          :key="isNewOption.title"
+                          :value="isNewOption.value"
+                        >
+                          {{ isNewOption.title }}
                         </option>
                       </select>
                     </th>
@@ -239,12 +259,17 @@ export default {
         { title: 'Yes', value: true },
         { title: 'No', value: false }
       ],
+      isNewOptions: [
+        { title: 'Yes', value: true },
+        { title: 'No', value: false }
+      ],
       filters: {
         status: '',
         optimization: null,
         genre: '',
         publisher: '',
-        title: ''
+        title: '',
+        isNew: null
       }
     }
   },
@@ -285,12 +310,22 @@ export default {
     },
     filteredRows() {
       let filtered = this.data
-      const { status, optimization, genre, publisher, title } = this.filters
+      const {
+        status,
+        optimization,
+        genre,
+        publisher,
+        title,
+        isNew
+      } = this.filters
       if (status) {
         filtered = filtered.filter((i) => i.status === status)
       }
       if (optimization !== null) {
         filtered = filtered.filter((i) => i.isFullyOptimized === optimization)
+      }
+      if (isNew !== null) {
+        filtered = filtered.filter((i) => i.isNew === isNew)
       }
       if (genre) {
         filtered = filtered.filter((i) => i.genres && i.genres.includes(genre))

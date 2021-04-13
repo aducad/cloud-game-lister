@@ -1,13 +1,22 @@
 <template>
-  <div class="container-fluid p-2">
-    <div class="row my-2">
-      <div class="col-12">
+  <div class="container-fluid p-0">
+    <div class="card border-info">
+      <div class="card-header">
         <button class="btn btn-block btn-info" @click="openPage('list.html')">
-          Games List
+          Games List <span class="badge badge-danger">{{ appsCount }}</span>
         </button>
       </div>
-      <div class="col-12">
-        <ul class="p-0 mt-2 mb-0">
+      <div class="card-body p-0">
+        <ul v-if="gameList" class="list-group">
+          <li v-for="game in gameList" :key="game.id" class="list-group-item">
+            <a :href="game.steamUrl" target="_blank">
+              {{ game.title }}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <ul class="p-0 mb-0">
           <li v-show="version" class="d-inline-block">
             Version: <strong>{{ version }}</strong>
           </li>
@@ -24,18 +33,38 @@
 
 <script>
 import browser from 'webextension-polyfill'
+import { GET_APPS_COUNT, GET_NEW_APPS } from '../common/keys'
 
 export default {
   data() {
     return {
-      version: ''
+      version: '',
+      appsCount: 0,
+      games: []
+    }
+  },
+  computed: {
+    gameList() {
+      return this.games
     }
   },
   created() {
-    const { version } = browser.runtime.getManifest()
-    this.version = version
+    this.init()
   },
   methods: {
+    async init() {
+      const { version } = browser.runtime.getManifest()
+      this.version = version
+      const { appsCount } = await browser.runtime.sendMessage({
+        type: GET_APPS_COUNT
+      })
+      this.appsCount = appsCount
+
+      const { games } = await browser.runtime.sendMessage({
+        type: GET_NEW_APPS
+      })
+      this.games = games
+    },
     async openPage(url) {
       await browser.tabs.create({ url })
     }

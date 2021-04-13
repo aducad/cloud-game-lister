@@ -3,6 +3,7 @@ import browser from 'webextension-polyfill'
 import KEYS from '../common/keys'
 
 const DAY_IN_MILLIISECONDS = 24 * 60 * 60 * 1000
+const WEEK_IN_MILLIISECONDS = 7 * DAY_IN_MILLIISECONDS
 const GAME_LIST_URL =
   'https://static.nvidiagrid.net/supported-public-game-list/locales/gfnpc-en-US.json?JSON'
 const STORES = ['Steam']
@@ -32,13 +33,32 @@ const init = async () => {
   console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
 
   const gamesData = await fetch(GAME_LIST_URL).then(i => i.json())
+  const { applications } = await browser.storage.local.get({ applications: [] })
+  const currentTime = new Date().getTime()
   appList = gamesData
     .filter(i => STORES.includes(i.store))
     .map(game => {
       const { steamUrl } = game
       const appid = parseSteamAppIdFromUrl(steamUrl)
-      return { ...game, appid }
+      const application = applications.find(
+        application => application.id === appid
+      )
+      let time = currentTime
+      if (application) {
+        time = application.time
+      }
+      const diff = currentTime - time
+      const isNew = WEEK_IN_MILLIISECONDS > diff
+      return { ...game, appid, time, isNew }
     })
+
+  const appids = appList.map(i => {
+    return {
+      id: i.appid,
+      time: i.time
+    }
+  })
+  await browser.storage.local.set({ applications: appids })
   setTimeout(() => {
     init()
     // TODO:  Add to settings
@@ -76,10 +96,25 @@ const onRuntimeMessageHandler = (request, sender) => {
         resolve(games)
       })
     }
-
     case KEYS.GET_APPS: {
       return new Promise(async resolve => {
         resolve({ appList })
+      })
+    }
+    case KEYS.GET_APPS_COUNT: {
+      return new Promise(async resolve => {
+        resolve({ appsCount: appList.length })
+      })
+    }
+    case KEYS.GET_NEW_APPS: {
+      return new Promise(async resolve => {
+        const newGames = appList.filter(app => app.isNew)
+        // randomize games
+        newGames.sort(() => {
+          return Math.random() < 0.5 ? 1 : -1
+        })
+        const games = newGames.filter((app, index) => index < 5)
+        resolve({ games })
       })
     }
     default: {
