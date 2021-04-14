@@ -1,8 +1,14 @@
 # Cloud Game Lister
 
-<a href="https://www.producthunt.com/posts/cloud-gaming-lister?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-cloud-gaming-lister" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=292030&theme=dark" alt="Cloud Gaming Lister - steam,game,cloud gaming,uplay,video game,epic,xcloud | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+## Cloud Gaming Lister is a Chrome extension used for GEFORCE NOW support for [Steam](https://store.steampowered.com/) games.
 
-Cloud Gaming Lister is a Chrome extension used for GEFORCE NOW support for [Steam](https://store.steampowered.com/) games.
+[![GitHub license](https://img.shields.io/badge/license-APACHE-blue.svg)](https://github.com/aducad/cloud-game-lister/blob/master/LICENSE)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/d/cpmaennmoijiboghaekpledlgbojhdml.svg)](https://chrome.google.com/webstore/detail/cloud-gaming-lister/cpmaennmoijiboghaekpledlgbojhdml)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/cpmaennmoijiboghaekpledlgbojhdml.svg)](https://chrome.google.com/webstore/detail/cloud-gaming-lister/cpmaennmoijiboghaekpledlgbojhdml)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/cpmaennmoijiboghaekpledlgbojhdml.svg)](https://chrome.google.com/webstore/detail/cloud-gaming-lister/cpmaennmoijiboghaekpledlgbojhdml)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/price/cpmaennmoijiboghaekpledlgbojhdml.svg)](https://chrome.google.com/webstore/detail/cloud-gaming-lister/cpmaennmoijiboghaekpledlgbojhdml)
+
+<a href="https://www.producthunt.com/posts/cloud-gaming-lister?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-cloud-gaming-lister" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=292030&theme=dark" alt="Cloud Gaming Lister - steam,game,cloud gaming,uplay,video game,epic,xcloud | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
 ## Setup
 
@@ -56,7 +62,31 @@ This extension requires permissions to <https://store.steampowered.com/>
 
 ## Changelog
 
-### v1.0.22 (under review in the Chrome web store)
+### V1.0.25 (under review in the Chrome web store)
+
+Added:
+
+- "Is New" feature for games
+- Random 5 new games (if there is no new games it will show random games) in popup
+- "New" filter for games page (in extension)
+- Popup page total game count in the badge
+- GEFORCE NOW icons to [Curators](https://store.steampowered.com/curators/) page
+- GEFORCE NOW icons to [Game detail](https://store.steampowered.com/app/1139900/Ghostrunner/) page Franchise Block module
+- GEFORCE NOW icons to [Game detail](https://store.steampowered.com/app/1139900/Ghostrunner/) page Similar Games module
+- GEFORCE NOW icons to [Tags](https://store.steampowered.com/tags/en/Competitive) page Recommended Creators module
+- GEFORCE NOW icons to [Genre](https://store.steampowered.com/genre/Free%20to%20Play/) page Recommended Special
+
+Fixed:
+
+- Ownership flags on Broadcasting modules overlapping with icons
+
+Updated:
+Offers
+
+- Popup page "Games List" button text to "Game List"
+- "Games List" page header to "Game List"
+
+### v1.0.22 (current version on Chrome web store)
 
 Added:
 
@@ -73,6 +103,6 @@ Updated:
 
 - Icon sizes for different modules
 
-### v1.0.19 (current version on Chrome web store)
+### v1.0.19
 
 - Initial release
