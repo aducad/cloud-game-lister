@@ -40,7 +40,10 @@ To use this extension, please install it from the [Chrome Web Store](https://chr
 
 ## Features
 
+Features:
+
 - All supported Steam games list for "GEFORCE NOW"
+- Allows you to see new supported games
 - Allows you to see "GEFORCE NOW" support on the steam pages
   - [Main page](https://store.steampowered.com/)
   - [Game detail pages](https://store.steampowered.com/app/680420/OUTRIDERS/)
@@ -50,6 +53,7 @@ To use this extension, please install it from the [Chrome Web Store](https://chr
   - [Special Offers](https://store.steampowered.com/specials)
   - [Community Recommendations](https://store.steampowered.com/communityrecommendations/)
   - [Friend Activity](https://store.steampowered.com/recommended/friendactivity/)
+  - [Curators](https://store.steampowered.com/curators/)
 - Allows you to see and filter all supported steam games on the extension game list page (link in the popup)
 
 ## Contributing
