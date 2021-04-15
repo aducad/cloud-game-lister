@@ -11,6 +11,7 @@ const GAME_LIST_URL =
 const STORES = ['Steam']
 
 let appList = []
+let fetchTimeOut
 
 // ##### Methods
 
@@ -32,6 +33,8 @@ const parseSteamAppIdFromUrl = url => {
  * Initialization methods for background script
  */
 const init = async () => {
+  // clear timeout before calling again
+  clearTimeout(fetchTimeOut)
   const gamesData = await fetch(GAME_LIST_URL).then(i => i.json())
   const { applications } = await browser.storage.local.get({ applications: [] })
   const currentTime = new Date().getTime()
@@ -58,8 +61,9 @@ const init = async () => {
       time: i.time
     }
   })
-  await browser.storage.local.set({ applications: appids })
-  setTimeout(() => {
+  const lastRead = new Date().getTime()
+  await browser.storage.local.set({ applications: appids, lastRead })
+  fetchTimeOut = setTimeout(() => {
     init()
     // TODO:  Add to settings
   }, DAY_IN_MILLIISECONDS)
@@ -121,6 +125,12 @@ const onRuntimeMessageHandler = (request, sender) => {
         })
         const games = newGames.filter((_, index) => index < 5)
         resolve({ games, anyNewGame })
+      })
+    }
+    case KEYS.FETCH_GAMES: {
+      return new Promise(async resolve => {
+        init()
+        resolve()
       })
     }
     default: {

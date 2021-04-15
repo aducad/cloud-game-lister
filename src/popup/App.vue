@@ -5,6 +5,13 @@
         <button class="btn btn-block btn-info" @click="openPage('list.html')">
           Game List <span class="badge badge-danger">{{ appsCount }}</span>
         </button>
+        <button
+          v-if="appsCount <= 0"
+          class="btn btn-block btn-warning"
+          @click="fetchGames"
+        >
+          Fetch Games
+        </button>
       </div>
       <div class="card-body p-0">
         <ul v-if="gameList" class="list-group">
@@ -23,7 +30,7 @@
           <li v-show="version" class="d-inline-block">
             Version: <strong>{{ version }}</strong>
           </li>
-          <li class="d-inline-block float-right mr-2">
+          <li class="d-inline-block float-right">
             <a target="_blank" href="https://twitter.com/steamextensions">
               Twitter
             </a>
@@ -36,13 +43,13 @@
 
 <script>
 import browser from 'webextension-polyfill'
-import { GET_APPS_COUNT, GET_NEW_APPS } from '../common/keys'
+import { GET_APPS_COUNT, GET_NEW_APPS, FETCH_GAMES } from '../common/keys'
 
 export default {
   data() {
     return {
       version: '',
-      appsCount: 0,
+      appsCount: -1,
       games: [],
       anyNewGame: false
     }
@@ -53,6 +60,7 @@ export default {
     }
   },
   created() {
+    browser.storage.onChanged.addListener(this.onStorageChangedHandler)
     this.init()
   },
   methods: {
@@ -72,6 +80,15 @@ export default {
     },
     async openPage(url) {
       await browser.tabs.create({ url })
+    },
+    async fetchGames() {
+      await browser.runtime.sendMessage({ type: FETCH_GAMES })
+    },
+    async onStorageChangedHandler(changes) {
+      const { lastRead } = changes
+      if (lastRead) {
+        this.init()
+      }
     }
   }
 }
