@@ -94,6 +94,7 @@
   },
   "permissions": [
     "storage",
+    "notifications",
     "webRequest",
     "*://store.steampowered.com/search/results*"
   ],

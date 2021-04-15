@@ -4,11 +4,15 @@ import { delay } from '../common/utility'
 
 console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
 
-const DAY_IN_MILLIISECONDS = 24 * 60 * 60 * 1000
+const FETCH_INTERVAL_HOURS = 24
+const HOUR_IN_MILLISECONDS = 60 * 60 * 1000
+const DAY_IN_MILLIISECONDS = FETCH_INTERVAL_HOURS * HOUR_IN_MILLISECONDS
 const WEEK_IN_MILLIISECONDS = 7 * DAY_IN_MILLIISECONDS
 const GAME_LIST_URL =
   'https://static.nvidiagrid.net/supported-public-game-list/locales/gfnpc-en-US.json?JSON'
 const STORES = ['Steam']
+const FETCH_ATTEMPT_LIMIT = 3
+const FETCH_ATTEMPT_DELAY = 500
 
 let appList = []
 let fetchTimeOut
@@ -29,44 +33,74 @@ const parseSteamAppIdFromUrl = url => {
   return appid
 }
 
+const fetchGames = async () => {
+  for (let i = 0; i < FETCH_ATTEMPT_LIMIT; i++) {
+    try {
+      const gamesData = await fetch(GAME_LIST_URL).then(i => i.json())
+      return gamesData
+    } catch {
+      await delay(FETCH_ATTEMPT_DELAY)
+    }
+  }
+}
+
 /**
  * Initialization methods for background script
  */
 const init = async () => {
-  // clear timeout before calling again
-  clearTimeout(fetchTimeOut)
-  const gamesData = await fetch(GAME_LIST_URL).then(i => i.json())
-  const { applications } = await browser.storage.local.get({ applications: [] })
-  const currentTime = new Date().getTime()
-  appList = gamesData
-    .filter(i => STORES.includes(i.store))
-    .map(game => {
-      const { steamUrl } = game
-      const appid = parseSteamAppIdFromUrl(steamUrl)
-      const application = applications.find(
-        application => application.id === appid
-      )
-      let time = currentTime
-      if (application) {
-        time = application.time
+  try {
+    // clear timeout before calling again
+    clearTimeout(fetchTimeOut)
+    const gamesData = await fetchGames()
+    if (!gamesData) {
+      throw 'FETCH_ERROR'
+    }
+    const { applications } = await browser.storage.local.get({
+      applications: []
+    })
+    const currentTime = new Date().getTime()
+    appList = gamesData
+      .filter(i => STORES.includes(i.store))
+      .map(game => {
+        const { steamUrl } = game
+        const appid = parseSteamAppIdFromUrl(steamUrl)
+        const application = applications.find(
+          application => application.id === appid
+        )
+        let time = currentTime
+        if (application) {
+          time = application.time
+        }
+        const diff = currentTime - time
+        const isNew = WEEK_IN_MILLIISECONDS > diff
+        return { ...game, appid, time, isNew }
+      })
+
+    const appids = appList.map(i => {
+      return {
+        id: i.appid,
+        time: i.time
       }
-      const diff = currentTime - time
-      const isNew = WEEK_IN_MILLIISECONDS > diff
-      return { ...game, appid, time, isNew }
     })
 
-  const appids = appList.map(i => {
-    return {
-      id: i.appid,
-      time: i.time
+    const lastRead = new Date().getTime()
+    await browser.storage.local.set({ applications: appids, lastRead })
+  } catch (error) {
+    if (error === 'FETCH_ERROR') {
+      browser.notifications.create(null, {
+        type: 'basic',
+        title: 'Fetch Error',
+        message: `An error occurred while fetching the game list, will be retry after ${FETCH_INTERVAL_HOURS} hours or you can try in popup page by clicking "Fetch Games" button`,
+        iconUrl: '/assets/icons/128x128-logo.png'
+      })
     }
-  })
-  const lastRead = new Date().getTime()
-  await browser.storage.local.set({ applications: appids, lastRead })
-  fetchTimeOut = setTimeout(() => {
-    init()
-    // TODO:  Add to settings
-  }, DAY_IN_MILLIISECONDS)
+  } finally {
+    fetchTimeOut = setTimeout(() => {
+      // if attempt successful or fetch error attempt count exceeded we set the default
+      init()
+      // TODO:  Add to settings
+    }, DAY_IN_MILLIISECONDS)
+  }
 }
 
 // ##### Handlers
