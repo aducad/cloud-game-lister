@@ -35,7 +35,11 @@ module.exports = env => {
     'content_scripts/steam-friend-activity':
       './content_scripts/steam-friend-activity.js',
     'content_scripts/steam-specials': './content_scripts/steam-specials.js',
-    'content_scripts/steam-curators': './content_scripts/steam-curators.js'
+    'content_scripts/steam-curators': './content_scripts/steam-curators.js',
+    'content_scripts/steam-followed-games':
+      './content_scripts/steam-followed-games.js',
+    'content_scripts/steam-bundle': './content_scripts/steam-bundle.js',
+    'content_scripts/steam-search': './content_scripts/steam-search.js'
   }
   const config = {
     devtool: isDevMode ? 'eval-source-map' : false,

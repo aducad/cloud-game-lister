@@ -65,6 +65,24 @@
       "js": ["./content_scripts/steam-main.js"],
       "matches": ["*://store.steampowered.com/"],
       "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
+      "js": ["./content_scripts/steam-followed-games.js"],
+      "matches": ["*://steamcommunity.com/id/*/followedgames*"],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
+      "js": ["./content_scripts/steam-bundle.js"],
+      "matches": ["*://store.steampowered.com/bundle/*/*/*"],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
+      "js": ["./content_scripts/steam-search.js"],
+      "matches": ["*://store.steampowered.com/search*"],
+      "run_at": "document_start"
     }
   ],
   "icons": {
@@ -74,7 +92,11 @@
     "64": "assets/icons/64x64-logo.png",
     "128": "assets/icons/128x128-logo.png"
   },
-  "permissions": ["storage"],
+  "permissions": [
+    "storage",
+    "webRequest",
+    "*://store.steampowered.com/search/results*"
+  ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "web_accessible_resources": [
     "data/*.json",

@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill'
 import KEYS from '../common/keys'
+import { delay } from '../common/utility'
 
 console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
 
@@ -107,17 +108,19 @@ const onRuntimeMessageHandler = (request, sender) => {
     }
     case KEYS.GET_NEW_APPS: {
       return new Promise(async resolve => {
+        let anyNewGame = true
         let newGames = appList.filter(app => app.isNew)
         // set all games to array if there is no new game
         if (newGames.length === 0) {
           newGames = [...appList]
+          anyNewGame = false
         }
         // randomize games array
         newGames.sort(() => {
           return Math.random() < 0.5 ? 1 : -1
         })
         const games = newGames.filter((_, index) => index < 5)
-        resolve({ games })
+        resolve({ games, anyNewGame })
       })
     }
     default: {
@@ -128,9 +131,29 @@ const onRuntimeMessageHandler = (request, sender) => {
   }
 }
 
+// On Web Request Complete Handler
+const onWebRequestCompleteHandler = async details => {
+  if (process.env.NODE_ENV === 'development') {
+    console.log(details)
+  }
+  const { tabId, type } = details
+  if (type === 'xmlhttprequest') {
+    // wait for the page dom handling (maybe this should check in the content_script)
+    await delay(250)
+    await browser.tabs.sendMessage(tabId, {
+      type: KEYS.SEARCH_COMPLETED
+    })
+  }
+  //
+}
 // ##### Listeners
 
 // Runtime On Message Listener
 browser.runtime.onMessage.addListener(onRuntimeMessageHandler)
+
+// On Web Request Complete Listener
+browser.webRequest.onCompleted.addListener(onWebRequestCompleteHandler, {
+  urls: ['*://store.steampowered.com/search/results*']
+})
 
 init()

@@ -12,6 +12,9 @@
             <a :href="game.steamUrl" target="_blank">
               {{ game.title }}
             </a>
+            <span v-show="anyNewGame" class="badge badge-danger float-right">
+              new
+            </span>
           </li>
         </ul>
       </div>
@@ -40,7 +43,8 @@ export default {
     return {
       version: '',
       appsCount: 0,
-      games: []
+      games: [],
+      anyNewGame: false
     }
   },
   computed: {
@@ -60,10 +64,11 @@ export default {
       })
       this.appsCount = appsCount
 
-      const { games } = await browser.runtime.sendMessage({
+      const { games, anyNewGame } = await browser.runtime.sendMessage({
         type: GET_NEW_APPS
       })
       this.games = games
+      this.anyNewGame = anyNewGame
     },
     async openPage(url) {
       await browser.tabs.create({ url })

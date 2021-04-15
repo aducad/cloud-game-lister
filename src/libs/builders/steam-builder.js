@@ -67,17 +67,20 @@ const applyDevelopmentStyles = mainSelector => {
  * @param {String} selector
  * @returns An array of collected game ids
  */
-const getAppIdList = selector => {
+const getAppIdList = (selector, dataAttributeKey = 'data-ds-appid') => {
   const ids = []
   const tabItems = document.querySelectorAll(selector)
   for (let index = 0; index < tabItems.length; index++) {
     const tabItem = tabItems[index]
-    const { dsAppid } = tabItem.dataset
-
-    if (!dsAppid || dsAppid.indexOf(',') !== -1) {
+    const appIdAttribute = tabItem.attributes[dataAttributeKey]
+    if (!appIdAttribute) {
       continue
     }
-    ids.push(dsAppid)
+    const appid = appIdAttribute.value
+    if (!appid || appid.indexOf(',') !== -1) {
+      continue
+    }
+    ids.push(appid)
   }
   return ids
 }
@@ -92,7 +95,8 @@ const buildIcons = async (
   ids,
   module,
   itemSelector,
-  iconSizeClass = ICON_SIZE_CLASSES.MEDIUM
+  iconSizeClass = ICON_SIZE_CLASSES.MEDIUM,
+  dataAppID = 'ds-appid'
 ) => {
   const games = await getGameInfo(ids)
   for (let index = 0; index < games.length; index++) {
@@ -102,7 +106,7 @@ const buildIcons = async (
     const currentSelectors = []
     for (let s = 0; s < selectors.length; s++) {
       const selector = selectors[s]
-      const currentSelector = `${module} ${selector}[data-ds-appid="${appid}"]`
+      const currentSelector = `${module} ${selector}[${dataAppID}="${appid}"]`
       currentSelectors.push(currentSelector)
     }
     const joinedItemSelector = currentSelectors.join(',')
@@ -122,11 +126,22 @@ const buildIcons = async (
 const staticContentHandler = ({
   contentSelector,
   itemSelector,
-  iconSizeClass = ICON_SIZE_CLASSES.MEDIUM
+  iconSizeClass = ICON_SIZE_CLASSES.MEDIUM,
+  dataAttributeKey = 'data-ds-appid'
 }) => {
   applyDevelopmentStyles(contentSelector)
-  const ids = getAppIdList(`${contentSelector} ${itemSelector}`)
-  buildIcons(ids, contentSelector, itemSelector, iconSizeClass)
+  const ids = getAppIdList(
+    `${contentSelector} ${itemSelector}`,
+    dataAttributeKey
+  )
+
+  buildIcons(
+    ids,
+    contentSelector,
+    itemSelector,
+    iconSizeClass,
+    dataAttributeKey
+  )
 }
 
 /**
@@ -155,7 +170,8 @@ const dynamicContentHandler = async ({
   module,
   itemsContainerSelector = '.carousel_items',
   itemSelector = '.store_capsule',
-  iconSizeClass = ICON_SIZE_CLASSES.MEDIUM
+  iconSizeClass = ICON_SIZE_CLASSES.MEDIUM,
+  dataAttributeKey = 'data-ds-appid'
 }) => {
   await checkDynamicContentInitialization()
   applyDevelopmentStyles(module)
@@ -163,12 +179,13 @@ const dynamicContentHandler = async ({
   const selectors = itemSelector.split('|')
   for (let s = 0; s < selectors.length; s++) {
     const selector = selectors[s]
+    console.log(`${module} ${itemsContainerSelector} ${selector}`)
     const currentSelector = `${module} ${itemsContainerSelector} ${selector}`
     currentSelectors.push(currentSelector)
   }
   const carouselItemSelector = currentSelectors.join(',')
-  const ids = getAppIdList(carouselItemSelector)
-  buildIcons(ids, module, itemSelector, iconSizeClass)
+  const ids = getAppIdList(carouselItemSelector, dataAttributeKey)
+  buildIcons(ids, module, itemSelector, iconSizeClass, dataAttributeKey)
 }
 
 // runtime builder
@@ -193,6 +210,7 @@ const runtimeContentHandler = (selector, callback) => {
 
 export {
   buildGeForceIcon,
+  getGameInfo,
   dynamicContentHandler,
   runtimeContentHandler,
   staticContentHandler
