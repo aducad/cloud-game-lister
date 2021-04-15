@@ -127,7 +127,7 @@
                 <tbody>
                   <tr v-for="row in pagedRows" :key="row.id">
                     <td>
-                      <a :href="row.steamUrl" target="_blank">
+                      <a :href="row.url" target="_blank">
                         {{ row.title }}
                       </a>
                     </td>

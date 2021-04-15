@@ -35,6 +35,12 @@
               Twitter
             </a>
           </li>
+          <li class="d-inline-block float-right mr-2">
+            <a target="_blank" :href="changelogUrl"> Changelog </a>
+          </li>
+          <li class="d-inline-block float-right mr-2">
+            <a target="_blank" href="options.html"> Options </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -44,6 +50,7 @@
 <script>
 import browser from 'webextension-polyfill'
 import { GET_APPS_COUNT, GET_NEW_APPS, FETCH_GAMES } from '../common/keys'
+import { CHANGELOG_URL } from '../common/config'
 
 export default {
   data() {
@@ -51,7 +58,8 @@ export default {
       version: '',
       appsCount: -1,
       games: [],
-      anyNewGame: false
+      anyNewGame: false,
+      changelogUrl: CHANGELOG_URL
     }
   },
   computed: {
@@ -96,6 +104,6 @@ export default {
 
 <style>
 body {
-  min-width: 400px;
+  min-width: 450px;
 }
 </style>

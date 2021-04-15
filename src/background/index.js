@@ -1,23 +1,51 @@
 import browser from 'webextension-polyfill'
 import KEYS from '../common/keys'
 import { delay } from '../common/utility'
+import { CHANGELOG_URL } from '../common/config'
 
 console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
 
-const FETCH_INTERVAL_HOURS = 24
+const MANIFEST_FILE = browser.runtime.getManifest()
 const HOUR_IN_MILLISECONDS = 60 * 60 * 1000
-const DAY_IN_MILLIISECONDS = FETCH_INTERVAL_HOURS * HOUR_IN_MILLISECONDS
+const DAY_IN_MILLIISECONDS = 24 * HOUR_IN_MILLISECONDS
 const WEEK_IN_MILLIISECONDS = 7 * DAY_IN_MILLIISECONDS
 const GAME_LIST_URL =
   'https://static.nvidiagrid.net/supported-public-game-list/locales/gfnpc-en-US.json?JSON'
+const onWebRequestCompleteSettings = {
+  urls: ['*://store.steampowered.com/search/results*']
+}
 const STORES = ['Steam']
 const FETCH_ATTEMPT_LIMIT = 3
-const FETCH_ATTEMPT_DELAY = 500
+const FETCH_ATTEMPT_DELAY = 5000
 
 let appList = []
-let fetchTimeOut
+let fetchTimeOutId
+let settings = {
+  notifyOnFetchError: true,
+  notifyOnUpdate: true,
+  openChangelogOnUpdate: true,
+  gameUpdateInterval: 2
+}
 
 // ##### Methods
+
+const createNotification = async (title, message) => {
+  await browser.notifications.create(null, {
+    type: 'basic',
+    title,
+    message,
+    iconUrl: '/assets/icons/128x128-logo.png'
+  })
+}
+
+const getSettings = async () => {
+  settings = await browser.storage.local.get({
+    notifyOnFetchError: true,
+    notifyOnUpdate: true,
+    openChangelogOnUpdate: true,
+    gameUpdateInterval: 2
+  })
+}
 
 /**
  *
@@ -33,6 +61,28 @@ const parseSteamAppIdFromUrl = url => {
   return appid
 }
 
+const notifyUserForUpdate = async (previousVersion, reason) => {
+  let showNotification = true
+  let openChangelog = true
+  if (reason === 'update') {
+    await getSettings()
+    showNotification = settings.notifyOnUpdate
+    openChangelog = settings.openChangelogOnUpdate
+  }
+  if (showNotification) {
+    const { version, name } = MANIFEST_FILE
+    createNotification(
+      'Extension Updated',
+      `${name} has been updated from version ${previousVersion} to version ${version}`
+    )
+  }
+  if (openChangelog) {
+    browser.tabs.create({
+      url: CHANGELOG_URL
+    })
+  }
+}
+
 const fetchGames = async () => {
   for (let i = 0; i < FETCH_ATTEMPT_LIMIT; i++) {
     try {
@@ -44,66 +94,77 @@ const fetchGames = async () => {
   }
 }
 
+const normalizeGamesData = (rawData, applications) => {
+  const currentTime = new Date().getTime()
+  const applicationList = rawData
+    .filter(i => STORES.includes(i.store))
+    .map(game => {
+      const currentGame = game
+      const { steamUrl: url } = currentGame
+      delete currentGame.steamUrl
+      const appid = parseSteamAppIdFromUrl(url)
+      const application = applications.find(
+        application => application.id === id
+      )
+      let time = currentTime
+      if (application) {
+        time = application.time
+      }
+      const diff = currentTime - time
+      const isNew = WEEK_IN_MILLIISECONDS > diff
+      return { ...game, url, appid, time, isNew }
+    })
+  return applicationList
+}
+
 /**
  * Initialization methods for background script
  */
 const init = async () => {
   try {
     // clear timeout before calling again
-    clearTimeout(fetchTimeOut)
+    clearTimeout(fetchTimeOutId)
+    const {
+      applications: previousApplications
+    } = await browser.storage.local.get({
+      applications: []
+    })
+    appList = [...previousApplications]
+
     const gamesData = await fetchGames()
     if (!gamesData) {
       throw 'FETCH_ERROR'
     }
-    const { applications } = await browser.storage.local.get({
-      applications: []
-    })
-    const currentTime = new Date().getTime()
-    appList = gamesData
-      .filter(i => STORES.includes(i.store))
-      .map(game => {
-        const { steamUrl } = game
-        const appid = parseSteamAppIdFromUrl(steamUrl)
-        const application = applications.find(
-          application => application.id === appid
-        )
-        let time = currentTime
-        if (application) {
-          time = application.time
-        }
-        const diff = currentTime - time
-        const isNew = WEEK_IN_MILLIISECONDS > diff
-        return { ...game, appid, time, isNew }
-      })
 
-    const appids = appList.map(i => {
-      return {
-        id: i.appid,
-        time: i.time
-      }
-    })
+    const applications = normalizeGamesData(gamesData, previousApplications)
+    appList = [...applications]
 
     const lastRead = new Date().getTime()
-    await browser.storage.local.set({ applications: appids, lastRead })
+    await browser.storage.local.set({
+      applications,
+      lastRead
+    })
   } catch (error) {
-    if (error === 'FETCH_ERROR') {
-      browser.notifications.create(null, {
-        type: 'basic',
-        title: 'Fetch Error',
-        message: `An error occurred while fetching the game list, will be retry after ${FETCH_INTERVAL_HOURS} hours or you can try in popup page by clicking "Fetch Games" button`,
-        iconUrl: '/assets/icons/128x128-logo.png'
-      })
+    if (error === 'FETCH_ERROR' && settings.notifyOnFetchError) {
+      const errorMessage = `An error occurred while fetching the game list, will be retry after ${
+        settings.gameUpdateInterval
+      } hours or you can try in popup page by clicking "Fetch Games" button`
+      createNotification('Fetch Error', errorMessage)
     }
   } finally {
-    fetchTimeOut = setTimeout(() => {
+    fetchTimeOutId = setTimeout(() => {
       // if attempt successful or fetch error attempt count exceeded we set the default
       init()
-      // TODO:  Add to settings
-    }, DAY_IN_MILLIISECONDS)
+    }, settings.gameUpdateInterval * HOUR_IN_MILLISECONDS)
   }
 }
 
 // ##### Handlers
+
+// On Storage Changed Handler
+const onStorageChangedHandler = async changes => {
+  getSettings()
+}
 
 /**
  * Runtime message handler
@@ -190,14 +251,29 @@ const onWebRequestCompleteHandler = async details => {
   }
   //
 }
+
+// On Installed Handler
+const onInstalledHandler = async details => {
+  const { previousVersion, reason } = details
+  notifyUserForUpdate(previousVersion, reason)
+}
+
 // ##### Listeners
+
+// On Storage Changed Listener
+browser.storage.onChanged.addListener(onStorageChangedHandler)
 
 // Runtime On Message Listener
 browser.runtime.onMessage.addListener(onRuntimeMessageHandler)
 
 // On Web Request Complete Listener
-browser.webRequest.onCompleted.addListener(onWebRequestCompleteHandler, {
-  urls: ['*://store.steampowered.com/search/results*']
-})
+
+browser.webRequest.onCompleted.addListener(
+  onWebRequestCompleteHandler,
+  onWebRequestCompleteSettings
+)
+
+// On Installed Listener
+browser.runtime.onInstalled.addListener(onInstalledHandler)
 
 init()

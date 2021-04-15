@@ -2,55 +2,73 @@
   <div class="flex-grow-1 d-flex flex-column h-100">
     <div class="container">
       <div class="row justify-content-md-center mt-2 pt-2">
-        <div class="col-lg-10">
+        <div class="col-lg-8">
           <div class="card">
             <div class="card-header">
-              <h3>Ayarlar</h3>
+              <h3>Options</h3>
             </div>
             <div class="card-body">
-              <h4 class="card-title">General Settings</h4>
               <div class="form-group">
-                <label for="testTextArea">Test Textarea</label>
-                <textarea
-                  id="testTextArea"
-                  v-model="testTextArea"
-                  class="form-control"
-                  rows="3"
-                ></textarea>
-                <div>
-                  <small class="text-muted">Example sub text</small>
+                <label class="form-check-label" for="notifyOnFetchError">
+                  Show desktop notification for fetching data error
+                </label>
+                <div class="float-right">
+                  <label class="switch">
+                    <input
+                      v-model="settings.notifyOnFetchError"
+                      type="checkbox"
+                      id="notifyOnFetchError"
+                    />
+                    <span class="slider"></span>
+                  </label>
                 </div>
               </div>
               <div class="form-group">
-                <label for="testSelectlist">Test Selectlist</label>
-                <select
-                  id="testSelectlist"
-                  v-model="selectedValue"
-                  class="form-control"
-                >
-                  <option
-                    v-for="value in selectValues"
-                    :key="value"
-                    :value="value"
-                  >
-                    {{ value }}
-                  </option>
-                </select>
+                <label class="form-check-label" for="notifyOnUpdate">
+                  Show desktop notification when extension is updated
+                </label>
+                <div class="float-right">
+                  <label class="switch">
+                    <input
+                      v-model="settings.notifyOnUpdate"
+                      type="checkbox"
+                      id="notifyOnUpdate"
+                    />
+                    <span class="slider"></span>
+                  </label>
+                </div>
               </div>
-              <h4 class="card-title">Advanced Settings</h4>
               <div class="form-group">
-                <label for="testTextbox">Test Textbox</label>
+                <label class="form-check-label" for="openChangelogOnUpdate">
+                  Open changelog page when extension is updated
+                </label>
+                <div class="float-right">
+                  <label class="switch">
+                    <input
+                      v-model="settings.openChangelogOnUpdate"
+                      type="checkbox"
+                      id="openChangelogOnUpdate"
+                    />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col" for="gameUpdateInterval">
+                  Oyun listenizi {{ settings.gameUpdateInterval }} saatte bir
+                  güncelleyin
+                </label>
                 <input
-                  id="testTextbox"
-                  v-model="testTextbox"
-                  type="text"
-                  class="form-control"
+                  class="form-control col-2 float-right"
+                  v-model="settings.gameUpdateInterval"
+                  type="number"
+                  min="1"
+                  step="1"
+                  id="gameUpdateInterval"
                 />
               </div>
-              <div class="mb-2">
-                <button class="btn btn-block btn-info" @click="save">
-                  Kaydet
-                </button>
+              <div v-show="message" class="alert alert-info">
+                {{ message }}
               </div>
             </div>
           </div>
@@ -66,25 +84,49 @@ import browser from 'webextension-polyfill'
 export default {
   data() {
     return {
-      testTextbox: 'Example text',
-      testTextArea: 'Example Value',
-      selectedValue: 'Example Selected',
-      selectValues: ['Example Selected', 'Example Unselected']
+      settings: {
+        notifyOnFetchError: true,
+        notifyOnUpdate: true,
+        openChangelogOnUpdate: true,
+        gameUpdateInterval: -1
+      },
+      message: '',
+      interval: -1
     }
-  },
-  created() {
-    document.querySelector('title').text = 'Ayarlar'
   },
   mounted() {
     this.init()
+    this.$watch(
+      'settings',
+      (_, oldData) => {
+        if (oldData.gameUpdateInterval !== -1) {
+          this.save()
+        }
+      },
+      {
+        deep: true
+      }
+    )
   },
   methods: {
     async init() {
-      const { settings } = await browser.storage.local.get({ settings: {} })
-      console.log({ settings })
+      const settings = await browser.storage.local.get({
+        notifyOnFetchError: true,
+        notifyOnUpdate: true,
+        openChangelogOnUpdate: true,
+        gameUpdateInterval: 2
+      })
+      this.settings = settings
     },
     async save() {
-      await browser.storage.local.set({ settings: {} })
+      clearInterval(this.interval)
+      const settings = this.settings
+      await browser.storage.local.set(settings)
+
+      this.message = 'Options saved!'
+      this.interval = setTimeout(() => {
+        this.message = ''
+      }, 3000)
     }
   }
 }
@@ -94,5 +136,56 @@ export default {
 body,
 html {
   height: 100%;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 20;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 16px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
 }
 </style>
