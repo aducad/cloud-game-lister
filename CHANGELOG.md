@@ -6,7 +6,7 @@
 
 - Added attribute option to steam-buiilder
 - GEFORCE NOW icons to [Followed Games](https://steamcommunity.com/id/changeyourusernamewiththis/followedgames) page (change your user name)
-- GEFORCE NOW icons to [Bundle Detail](https://store.steampowered.com/bundle/4995/EVERSPACE__Ultimate_Edition/) page
+- GEFORCE NOW icons to [Bundle Detail](https://store.steampowered.com/bundle/4995/EVERSPACE__Ultimate_Edition/) page (The sample link will not work after a certain period of time)
 - GEFORCE NOW icons to [Search](https://store.steampowered.com/search) page
 - "new" badge to popup page random game list (if games are new)
 - Options page
@@ -18,9 +18,15 @@
 - Update desktop notification (optional, default true)
 - Open changelog on update desktop notification (optional, default true)
 
-### Fixed:
-
 ### Changed:
+
+- Readme.md file
+- Popup width to 450px
+- Game url paramter name "steamUrl" to "url" (normalized in background.js)
+
+### Notes:
+
+- If we get an error while fetching the data, we try again 3 times with an interval of 5 seconds (when it is successful, it stops) If we still have not received the data, we continue with the saved data.
 
 ## v1.0.25 (current version on Chrome web store)
 
