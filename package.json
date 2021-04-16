@@ -9,10 +9,27 @@
   "scripts": {
     "dev": "webpack --mode=development --env.NODE_ENV=development --port=4444 --progress --hide-modules --hot --watch",
     "build": "npm run pack && npm run remove-evals && npm run zip",
-    "lint": "eslint --ext .js,.vue --fix ./src",
     "pack": "webpack --mode=production --env.NODE_ENV=production --progress --hide-modules",
     "remove-evals": "node scripts/remove-evals.js",
-    "zip": "node scripts/build-zip.js"
+    "zip": "node scripts/build-zip.js",
+    "lint": "eslint",
+    "lint:fix": "npm run lint --fix",
+    "lint:watch": "esw src -w --color",
+    "format": "prettier --write \"**/*.{js,vue,css,json}\"",
+    "validate": "prettier --check \"**/*.{js,vue,css,json}\" && npm run lint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "npm run format",
+      "npm run lint:fix",
+      "npm run validate"
+    ]
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.7.6",
@@ -33,17 +50,18 @@
     "copy-webpack-plugin": "^6.2.1",
     "css-loader": "^3.2.1",
     "dotenv-webpack": "^7.0.2",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.1.1",
-    "eslint-config-prettier": "^6.7.0",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.2.0",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.17.0",
-    "eslint-plugin-vue": "^6.0.1",
+    "eslint-plugin-vue": "^7.9.0",
+    "eslint-watch": "^7.0.0",
     "fast-glob": "^2.2.7",
     "file-loader": "^4.3.0",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^10.5.4",
     "mini-css-extract-plugin": "^0.8.0",
+    "prettier": "^2.2.1",
     "purgecss-webpack-plugin": "^1.6.0",
     "sass-loader": "^7.3.1",
     "script-ext-html-webpack-plugin": "^2.1.4",

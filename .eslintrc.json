@@ -1,8 +1,11 @@
 {
   "env": {
-    "browser": true
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "commonjs": true
   },
-  "extends": ["airbnb", "plugin:vue/recommended", "prettier"],
+  "extends": ["plugin:vue/recommended", "prettier"],
   "globals": {
     "Vue": true,
     "chrome": true,
@@ -40,6 +43,8 @@
     "vue/html-self-closing": "off",
     "vue/no-template-shadow": "off",
     "vue/singleline-html-element-content-newline": "off",
-    "vue/multiline-html-element-content-newline": "off"
+    "vue/multiline-html-element-content-newline": "off",
+    "arrow-body-style": "off",
+    "eqeqeq": "off"
   }
 }
