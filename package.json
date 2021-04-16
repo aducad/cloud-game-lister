@@ -25,7 +25,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.js": [
+    "**/*.{js,vue}": [
       "npm run format",
       "npm run lint:fix",
       "npm run validate"
