@@ -170,7 +170,7 @@ const init = async () => {
     // set new applications
     appList = [...applications]
 
-    setBadgeText(applications.length - previousApplications.length)
+    // setBadgeText(applications.length - previousApplications.length)
 
     const lastRead = new Date().getTime()
     await browser.storage.local.set({
