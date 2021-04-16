@@ -14,9 +14,7 @@ const { version, name, description } = require('./package.json')
 
 module.exports = (env) => {
   const isDevMode = env.NODE_ENV === 'development'
-  const portParameter = process.argv.find(
-    (i) => i.startsWith('--p=') || i.startsWith('--port=')
-  )
+  const portParameter = process.argv.find((i) => i.startsWith('--p=') || i.startsWith('--port='))
   let port = 5000
   if (portParameter) {
     // eslint-disable-next-line prefer-destructuring
@@ -24,20 +22,16 @@ module.exports = (env) => {
   }
   const contentScripts = {
     'content_scripts/steam-main': './content_scripts/steam-main.js',
-    'content_scripts/steam-game-detail':
-      './content_scripts/steam-game-detail.js',
-    'content_scripts/steam-explore-new':
-      './content_scripts/steam-explore-new.js',
+    'content_scripts/steam-game-detail': './content_scripts/steam-game-detail.js',
+    'content_scripts/steam-explore-new': './content_scripts/steam-explore-new.js',
     'content_scripts/steam-genre': './content_scripts/steam-genre.js',
     'content_scripts/steam-tags': './content_scripts/steam-tags.js',
     'content_scripts/steam-community-recommendations':
       './content_scripts/steam-community-recommendations.js',
-    'content_scripts/steam-friend-activity':
-      './content_scripts/steam-friend-activity.js',
+    'content_scripts/steam-friend-activity': './content_scripts/steam-friend-activity.js',
     'content_scripts/steam-specials': './content_scripts/steam-specials.js',
     'content_scripts/steam-curators': './content_scripts/steam-curators.js',
-    'content_scripts/steam-followed-games':
-      './content_scripts/steam-followed-games.js',
+    'content_scripts/steam-followed-games': './content_scripts/steam-followed-games.js',
     'content_scripts/steam-bundle': './content_scripts/steam-bundle.js',
     'content_scripts/steam-search': './content_scripts/steam-search.js'
   }
@@ -96,10 +90,7 @@ module.exports = (env) => {
         },
         {
           test: /\.css$/,
-          use: [
-            isDevMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
-            'css-loader'
-          ]
+          use: [isDevMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader, 'css-loader']
         },
         {
           test: /\.(png|jpg|gif|svg)$/,
