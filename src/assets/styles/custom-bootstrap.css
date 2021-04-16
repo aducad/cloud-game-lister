@@ -1,0 +1,22 @@
+.alert,
+.badge,
+.btn,
+.card,
+.custom-checkbox .custom-control-label::before,
+.form-control,
+.list-group,
+.nav-pills .nav-link,
+.page-item:first-child .page-link,
+.page-item:last-child .page-link,
+.progress {
+  border-radius: 0;
+}
+
+.card-body > .form-group:last-child {
+  margin-bottom: 0;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: #007bff;
+}
