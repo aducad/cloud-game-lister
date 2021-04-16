@@ -3,8 +3,7 @@ import { GET_APPS_INFO } from '../../common/keys'
 import { GEFORCENOW_ICONS, ICON_SIZE_CLASSES } from '../../common/constants'
 
 const isDev = process.env.NODE_ENV === 'development'
-const MutationObserver =
-  window.MutationObserver || window.WebKitMutationObserver
+const MutationObserver = window.MutationObserver || window.WebKitMutationObserver
 
 /**
  * Build geforce now icon
@@ -21,24 +20,65 @@ const buildGeForceIcon = (game, iconSizeClass) => {
     imagePath = GEFORCENOW_ICONS.MAINTENANCE
   }
 
-  const iconPath = browser.runtime.getURL(`assets/icons/${imagePath}.png`)
-  const isOptimizedText = gameData.isFullyOptimized ? 'Yes' : 'No'
-  const gameStatus = gameData.status || 'Not Available'
-  const title = `Status: ${gameStatus}\nIs Fully Optimized?: ${isOptimizedText}`
-
   // logo container
   const logoContainer = document.createElement('div')
-  logoContainer.title = title
   logoContainer.classList.add('cgl-logo-container')
   logoContainer.classList.add(`cgl-icon-${iconSizeClass}`)
+  logoContainer.addEventListener('mouseover', (e) => {
+    // Tooltip Container Element
+    let tooltipContainer = document.querySelector('#clg-tooltip-container')
+    if (!tooltipContainer) {
+      tooltipContainer = document.createElement('div')
+      tooltipContainer.id = 'clg-tooltip-container'
+      document.body.appendChild(tooltipContainer)
+    }
+    const clientRectangle = e.currentTarget.getBoundingClientRect()
+    const { x, y } = clientRectangle
+    tooltipContainer.style.top = `${y}px`
+    tooltipContainer.style.left = `${x}px`
+    tooltipContainer.style.marginTop = '-40px'
+    const tooltipContent = e.currentTarget.querySelector('.clg-tooltip-content')
+    tooltipContainer.appendChild(tooltipContent.cloneNode(true))
+  })
+
+  logoContainer.addEventListener('mouseleave', (e) => {
+    // Tooltip Container Element
+    let tooltipContainer = document.querySelector('#clg-tooltip-container')
+    if (!tooltipContainer) {
+      return
+    }
+    if (tooltipContainer.childNodes.length > 0) {
+      tooltipContainer.innerHTML = ''
+    }
+  })
 
   // create logo
+  const iconPath = browser.runtime.getURL(`assets/icons/${imagePath}.png`)
   const logoImage = document.createElement('img')
   logoImage.src = iconPath
   logoImage.classList.add('cgl-logo')
 
   logoContainer.appendChild(logoImage)
 
+  const isOptimizedText = gameData.isFullyOptimized ? 'Yes' : 'No'
+  const gameStatus = gameData.status || 'Not Available'
+
+  // Tooltip Content Element
+  const tooltipContent = document.createElement('div')
+  tooltipContent.classList.add('clg-tooltip-content')
+
+  // Tooltip Status Element
+  const tooltipStatus = document.createElement('div')
+  tooltipStatus.innerHTML = `Status: <strong>${gameStatus}</strong>`
+
+  // Tooltip Optimization Element
+  const tooltipOptimization = document.createElement('div')
+  tooltipOptimization.innerHTML = `Is Fully Optimized?: <strong>${isOptimizedText}</strong>`
+
+  tooltipContent.appendChild(tooltipStatus)
+  tooltipContent.appendChild(tooltipOptimization)
+
+  logoContainer.appendChild(tooltipContent)
   return logoContainer
 }
 
@@ -130,18 +170,9 @@ const staticContentHandler = ({
   dataAttributeKey = 'data-ds-appid'
 }) => {
   applyDevelopmentStyles(contentSelector)
-  const ids = getAppIdList(
-    `${contentSelector} ${itemSelector}`,
-    dataAttributeKey
-  )
+  const ids = getAppIdList(`${contentSelector} ${itemSelector}`, dataAttributeKey)
 
-  buildIcons(
-    ids,
-    contentSelector,
-    itemSelector,
-    iconSizeClass,
-    dataAttributeKey
-  )
+  buildIcons(ids, contentSelector, itemSelector, iconSizeClass, dataAttributeKey)
 }
 
 /**
@@ -179,7 +210,6 @@ const dynamicContentHandler = async ({
   const selectors = itemSelector.split('|')
   for (let s = 0; s < selectors.length; s++) {
     const selector = selectors[s]
-    console.log(`${module} ${itemsContainerSelector} ${selector}`)
     const currentSelector = `${module} ${itemsContainerSelector} ${selector}`
     currentSelectors.push(currentSelector)
   }

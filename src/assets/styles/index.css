@@ -11,8 +11,7 @@
   filter: drop-shadow(0 0 0.2rem rgb(54, 124, 204));
 }
 
-.cgl-item-added .cgl-logo-container.cgl-icon-small,
-.cgl-item-added .cgl-logo-container.cgl-icon-x-small {
+.cgl-item-added .cgl-logo-container.cgl-icon-small {
   top: 0;
   left: 0;
 }
@@ -45,10 +44,34 @@
   height: 24px !important;
 }
 
-.cgl-logo-container.cgl-icon-x-small .cgl-logo {
-  width: 16px !important;
-  height: 16px !important;
+/* Tooltip Start */
+
+#clg-tooltip-container {
+  position: fixed;
+  z-index: 9999;
 }
+
+/* Similar to steam tooltip style */
+#clg-tooltip-container .clg-tooltip-content {
+  background: #c2c2c2;
+  color: #3d3d3f;
+  border-radius: 3px;
+  padding: 5px;
+  white-space: normal;
+  box-shadow: 0 0 3px #000000;
+  font-size: 11px;
+  width: 120px;
+}
+
+.cgl-logo-container .clg-tooltip-content {
+  display: none;
+}
+
+.cgl-logo-container .clg-tooltip-content > div:first-child {
+  margin-bottom: 5px;
+}
+
+/* Tooltip End */
 
 /* Steam */
 .cgl-item-added .ds_flag {
