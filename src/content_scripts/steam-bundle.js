@@ -1,11 +1,8 @@
 import { injectStyleFile } from '../common/utility'
-import {
-  staticContentHandler,
-  dynamicContentHandler
-} from '../libs/builders/steam-builder'
-import { ICON_SIZE_CLASSES } from '../common/constants'
+import { CONTENT_SCRIPT_T_MESSAGE, CONTENT_SCRIPT_T_MESSAGE_STYLE } from '../common/constants'
+import { staticContentHandler, dynamicContentHandler } from '../libs/builders/steam-builder'
 
-console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
+console.log(CONTENT_SCRIPT_T_MESSAGE, CONTENT_SCRIPT_T_MESSAGE_STYLE)
 
 const modules = [
   {
@@ -19,8 +16,7 @@ const dynamicModules = [
   {
     module: '#recommended_block',
     itemsContainerSelector: '',
-    itemSelector: '.small_cap',
-    iconSizeClass: ICON_SIZE_CLASSES.SMALL
+    itemSelector: '.small_cap'
   }
 ]
 
