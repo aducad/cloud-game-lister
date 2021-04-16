@@ -68,6 +68,11 @@
                   min="1"
                   step="1"
                 />
+                <div class="col-12">
+                  <small class="form-text text-muted">
+                    Will be effective after the first fetch
+                  </small>
+                </div>
               </div>
               <div v-show="message" class="alert alert-info">
                 {{ message }}
@@ -123,6 +128,10 @@ export default {
     async save() {
       clearInterval(this.interval)
       const { settings } = this
+      settings.gameUpdateInterval = parseInt(settings.gameUpdateInterval)
+      if (isNaN(settings.gameUpdateInterval) || settings.gameUpdateInterval < 1) {
+        settings.gameUpdateInterval = 1
+      }
       await browser.storage.local.set(settings)
 
       this.message = 'Options saved!'
@@ -138,6 +147,10 @@ export default {
 body,
 html {
   height: 100%;
+}
+
+.form-group {
+  margin-bottom: 2rem;
 }
 
 .switch {
