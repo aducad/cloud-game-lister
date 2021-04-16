@@ -3,12 +3,12 @@ import { STEAM_GAMEPAGE_SCRIPT_LOADED } from '../common/keys'
 import { buildGeForceIcon } from '../libs/builders/steam-builder'
 import {
   ICON_SIZE_CLASSES,
-  CONTENT_SCRIPT_T_MESSAGE,
-  CONTENT_SCRIPT_T_MESSAGE_STYLE
+  CONTENT_SCRIPT_MESSAGE,
+  CONTENT_SCRIPT_MESSAGE_STYLE
 } from '../common/constants'
 import { dynamicContentHandler } from '../libs/builders/steam-builder'
 
-console.log(CONTENT_SCRIPT_T_MESSAGE, CONTENT_SCRIPT_T_MESSAGE_STYLE)
+console.log(CONTENT_SCRIPT_MESSAGE, CONTENT_SCRIPT_MESSAGE_STYLE)
 
 const modules = [
   {

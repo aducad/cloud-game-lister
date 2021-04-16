@@ -4,11 +4,11 @@ import { delay, injectStyleFile } from '../common/utility'
 import { buildGeForceIcon, getGameInfo } from '../libs/builders/steam-builder'
 import {
   ICON_SIZE_CLASSES,
-  CONTENT_SCRIPT_T_MESSAGE,
-  CONTENT_SCRIPT_T_MESSAGE_STYLE
+  CONTENT_SCRIPT_MESSAGE,
+  CONTENT_SCRIPT_MESSAGE_STYLE
 } from '../common/constants'
 
-console.log(CONTENT_SCRIPT_T_MESSAGE, CONTENT_SCRIPT_T_MESSAGE_STYLE)
+console.log(CONTENT_SCRIPT_MESSAGE, CONTENT_SCRIPT_MESSAGE_STYLE)
 
 const init = () => {
   // inject style file

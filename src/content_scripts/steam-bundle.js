@@ -1,8 +1,8 @@
 import { injectStyleFile } from '../common/utility'
-import { CONTENT_SCRIPT_T_MESSAGE, CONTENT_SCRIPT_T_MESSAGE_STYLE } from '../common/constants'
+import { CONTENT_SCRIPT_MESSAGE, CONTENT_SCRIPT_MESSAGE_STYLE } from '../common/constants'
 import { staticContentHandler, dynamicContentHandler } from '../libs/builders/steam-builder'
 
-console.log(CONTENT_SCRIPT_T_MESSAGE, CONTENT_SCRIPT_T_MESSAGE_STYLE)
+console.log(CONTENT_SCRIPT_MESSAGE, CONTENT_SCRIPT_MESSAGE_STYLE)
 
 const modules = [
   {

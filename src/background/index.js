@@ -2,9 +2,9 @@ import browser from 'webextension-polyfill'
 import KEYS from '../common/keys'
 import { delay } from '../common/utility'
 import { CHANGELOG_URL } from '../common/config'
-import { CONTENT_SCRIPT_T_MESSAGE, CONTENT_SCRIPT_T_MESSAGE_STYLE } from '../common/constants'
+import { CONTENT_SCRIPT_MESSAGE, CONTENT_SCRIPT_MESSAGE_STYLE } from '../common/constants'
 
-console.log(CONTENT_SCRIPT_T_MESSAGE, CONTENT_SCRIPT_T_MESSAGE_STYLE)
+console.log(CONTENT_SCRIPT_MESSAGE, CONTENT_SCRIPT_MESSAGE_STYLE)
 
 const MANIFEST_FILE = browser.runtime.getManifest()
 const HOUR_IN_MILLISECONDS = 60 * 60 * 1000
@@ -12,7 +12,7 @@ const DAY_IN_MILLIISECONDS = 24 * HOUR_IN_MILLISECONDS
 const WEEK_IN_MILLIISECONDS = 7 * DAY_IN_MILLIISECONDS
 const GAME_LIST_URL =
   'https://static.nvidiagrid.net/supported-public-game-list/locales/gfnpc-en-US.json?JSON'
-const onWebRequestCompleteSettings = {
+const ON_WEB_REQUEST_COMPLETE_SETTINGS = {
   urls: ['*://store.steampowered.com/search/results*']
 }
 const STORES = ['Steam']
@@ -30,6 +30,10 @@ let settings = {
 
 // ##### Methods
 
+/**
+ * @param {String} title
+ * @param {String} message
+ */
 const createNotification = async (title, message) => {
   await browser.notifications.create(null, {
     type: 'basic',
@@ -39,6 +43,9 @@ const createNotification = async (title, message) => {
   })
 }
 
+/**
+ * Gets user settings from storage
+ */
 const getSettings = async () => {
   settings = await browser.storage.local.get({
     notifyOnFetchError: true,
@@ -61,6 +68,10 @@ const parseSteamAppIdFromUrl = (url) => {
   return appid
 }
 
+/**
+ * @param {String} previousVersion
+ * @param {String} reason
+ */
 const notifyUserForUpdate = async (previousVersion, reason) => {
   let showNotification = true
   let openChangelog = true
@@ -83,6 +94,9 @@ const notifyUserForUpdate = async (previousVersion, reason) => {
   }
 }
 
+/**
+ * @returns Array of applications
+ */
 const fetchGames = async () => {
   for (let i = 0; i < FETCH_ATTEMPT_LIMIT; i++) {
     try {
@@ -94,6 +108,11 @@ const fetchGames = async () => {
   }
 }
 
+/**
+ * @param {Array} rawData array of applications raw data
+ * @param {Array} applications array of normalized old applications data
+ * @returns Array of normalized applications
+ */
 const normalizeGamesData = (rawData, applications) => {
   const currentTime = new Date().getTime()
   const filteredApplications = rawData.filter((i) => STORES.includes(i.store))
@@ -154,7 +173,9 @@ const init = async () => {
 
 // ##### Handlers
 
-// On Storage Changed Handler
+/**
+ * Storage changed handler
+ */
 const onStorageChangedHandler = async () => {
   getSettings()
 }
@@ -229,7 +250,10 @@ const onRuntimeMessageHandler = (request, sender) => {
   }
 }
 
-// On Web Request Complete Handler
+/**
+ * Web request complete handler
+ * @param {Object} details
+ */
 const onWebRequestCompleteHandler = async (details) => {
   if (process.env.NODE_ENV === 'development') {
     console.log(details)
@@ -245,7 +269,10 @@ const onWebRequestCompleteHandler = async (details) => {
   //
 }
 
-// On Installed Handler
+/**
+ * Install Handler
+ * @param {Object} details
+ */
 const onInstalledHandler = async (details) => {
   const { previousVersion, reason } = details
   notifyUserForUpdate(previousVersion, reason)
@@ -263,7 +290,7 @@ browser.runtime.onMessage.addListener(onRuntimeMessageHandler)
 
 browser.webRequest.onCompleted.addListener(
   onWebRequestCompleteHandler,
-  onWebRequestCompleteSettings
+  ON_WEB_REQUEST_COMPLETE_SETTINGS
 )
 
 // On Installed Listener

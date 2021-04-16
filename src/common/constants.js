@@ -10,6 +10,6 @@ module.exports = {
     MEDIUM: 'medium',
     SMALL: 'small'
   },
-  CONTENT_SCRIPT_T_MESSAGE: `%cSteam Extensions - Cloud Game Lister...`,
-  CONTENT_SCRIPT_T_MESSAGE_STYLE: 'color:#20aae8'
+  CONTENT_SCRIPT_MESSAGE: `%cSteam Extensions - Cloud Game Lister...`,
+  CONTENT_SCRIPT_MESSAGE_STYLE: 'color:#20aae8'
 }
