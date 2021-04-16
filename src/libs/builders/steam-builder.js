@@ -47,12 +47,12 @@ const buildGeForceIcon = (game, iconSizeClass) => {
  * @param {Array} ids
  * @returns list of the games as an object's array
  */
-const getGameInfo = async ids => {
+const getGameInfo = async (ids) => {
   const games = await browser.runtime.sendMessage({ type: GET_APPS_INFO, ids })
   return games
 }
 
-const applyDevelopmentStyles = mainSelector => {
+const applyDevelopmentStyles = (mainSelector) => {
   if (!isDev) {
     return
   }
@@ -148,8 +148,8 @@ const staticContentHandler = ({
  * This fuction getting a param for
  * @param {String} selector
  */
-const checkDynamicContentInitialization = selector => {
-  return new Promise(resolve => {
+const checkDynamicContentInitialization = (selector) => {
+  return new Promise((resolve) => {
     let increment = 0
     const interval = setInterval(() => {
       const item = document.querySelector(selector)

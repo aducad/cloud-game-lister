@@ -23,7 +23,7 @@ const modules = [
   }
 ]
 
-const getElementIndex = element => {
+const getElementIndex = (element) => {
   const children = element.parentNode.childNodes
   for (let i = 0; i < children.length; i++) {
     if (children[i] == element) {

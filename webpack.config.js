@@ -12,10 +12,10 @@ const PurgecssPlugin = require('purgecss-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 const { version, name, description } = require('./package.json')
 
-module.exports = env => {
+module.exports = (env) => {
   const isDevMode = env.NODE_ENV === 'development'
   const portParameter = process.argv.find(
-    i => i.startsWith('--p=') || i.startsWith('--port=')
+    (i) => i.startsWith('--p=') || i.startsWith('--port=')
   )
   let port = 5000
   if (portParameter) {

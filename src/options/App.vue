@@ -15,9 +15,9 @@
                 <div class="float-right">
                   <label class="switch">
                     <input
+                      id="notifyOnFetchError"
                       v-model="settings.notifyOnFetchError"
                       type="checkbox"
-                      id="notifyOnFetchError"
                     />
                     <span class="slider"></span>
                   </label>
@@ -30,9 +30,9 @@
                 <div class="float-right">
                   <label class="switch">
                     <input
+                      id="notifyOnUpdate"
                       v-model="settings.notifyOnUpdate"
                       type="checkbox"
-                      id="notifyOnUpdate"
                     />
                     <span class="slider"></span>
                   </label>
@@ -45,9 +45,9 @@
                 <div class="float-right">
                   <label class="switch">
                     <input
+                      id="openChangelogOnUpdate"
                       v-model="settings.openChangelogOnUpdate"
                       type="checkbox"
-                      id="openChangelogOnUpdate"
                     />
                     <span class="slider"></span>
                   </label>
@@ -59,12 +59,12 @@
                   güncelleyin
                 </label>
                 <input
-                  class="form-control col-2 float-right"
+                  id="gameUpdateInterval"
                   v-model="settings.gameUpdateInterval"
+                  class="form-control col-2 float-right"
                   type="number"
                   min="1"
                   step="1"
-                  id="gameUpdateInterval"
                 />
               </div>
               <div v-show="message" class="alert alert-info">
@@ -120,7 +120,7 @@ export default {
     },
     async save() {
       clearInterval(this.interval)
-      const settings = this.settings
+      const { settings } = this
       await browser.storage.local.set(settings)
 
       this.message = 'Options saved!'

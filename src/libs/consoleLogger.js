@@ -5,7 +5,6 @@ class Logger {
       color: 'darkgrey',
       size: '1rem'
     }
-
     this.body = {
       color: '#4f71d2',
       size: '0.75rem'
@@ -35,7 +34,6 @@ class Logger {
       typeof body === 'string' ? body : JSON.stringify(body, null, 2)
     const { color: titleColor, body: titleBody } = this.title
     const { color: bodyColor, size } = this.body
-
     console.log(
       `%c${titleBody}: %c${bodyValue}`,
       `color: ${titleColor}; font-weight: bold; font-size: ${this.title.size};`,

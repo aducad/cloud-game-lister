@@ -9,15 +9,15 @@ errorLogger.setBodyStyle({ color: 'red' })
 const warningLogger = new Logger('Warning')
 warningLogger.setBodyStyle({ color: 'orange' })
 
-const info = body => {
+const info = (body) => {
   infoLogger.log(body)
 }
 
-const error = body => {
+const error = (body) => {
   errorLogger.log(body)
 }
 
-const warning = body => {
+const warning = (body) => {
   warningLogger.log(body)
 }
 
