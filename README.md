@@ -49,7 +49,7 @@ To use this extension, please install it from the [Chrome Web Store](https://chr
 - Allows you to see "GEFORCE NOW" support on the steam pages
   - [Main page](https://store.steampowered.com/)
   - [Search](https://store.steampowered.com/search)
-  - [Game detail pages](https://store.steampowered.com/app/680420/OUTRIDERS/)
+  - [Game detail page](https://store.steampowered.com/app/680420/OUTRIDERS/)
   - [Bundle Detail](https://store.steampowered.com/bundle/4995/EVERSPACE__Ultimate_Edition/)
   - [Tags pages](https://store.steampowered.com/tags/en/Competitive)
   - [Genre pages](https://store.steampowered.com/genre/Free%20to%20Play/)
@@ -59,6 +59,7 @@ To use this extension, please install it from the [Chrome Web Store](https://chr
   - [Followed Games](https://steamcommunity.com/id/[changeyourusernamewiththis]/followedgames)
   - [Curators](https://store.steampowered.com/curators/)
   - [Community Recommendations](https://store.steampowered.com/communityrecommendations/)
+- Allows you to see new games in popup page
 
 #
 
