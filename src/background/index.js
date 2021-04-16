@@ -135,6 +135,20 @@ const normalizeGamesData = (rawData, applications) => {
 }
 
 /**
+ * @param {Number} newApplicationsLength
+ */
+const setBadgeText = (newApplicationsLength) => {
+  if (newApplicationsLength === 0) {
+    return
+  }
+  let badgeText = newApplicationsLength.toString()
+  if (newApplicationsLength > 99) {
+    badgeText = '99+'
+  }
+  browser.browserAction.setBadgeText({ text: badgeText })
+}
+
+/**
  * Initialization methods for background script
  */
 const init = async () => {
@@ -144,6 +158,7 @@ const init = async () => {
     const { applications: previousApplications } = await browser.storage.local.get({
       applications: []
     })
+    // set local version of applications
     appList = [...previousApplications]
 
     const gamesData = await fetchGames()
@@ -152,7 +167,10 @@ const init = async () => {
     }
 
     const applications = normalizeGamesData(gamesData, previousApplications)
+    // set new applications
     appList = [...applications]
+
+    setBadgeText(applications.length - previousApplications.length)
 
     const lastRead = new Date().getTime()
     await browser.storage.local.set({
