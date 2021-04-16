@@ -4,3 +4,5 @@ scripts/
 temp
 dist
 dist-zip
+package*
+src/manifest.json

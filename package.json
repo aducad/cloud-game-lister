@@ -13,14 +13,14 @@
     "remove-evals": "node scripts/remove-evals.js",
     "zip": "node scripts/build-zip.js",
     "lint": "eslint",
-    "lint:fix": "npm run lint --fix",
+    "lint:fix": "npm run lint .eslintrc.json --fix",
     "lint:watch": "esw -w --color",
-    "format": "prettier --write \"**/*.{js,vue,css,json,html}\"",
-    "validate": "prettier --check \"**/*.{js,vue,css,json,html}\" && npm run lint",
+    "format": "prettier --write \"**/*.{js,vue,json,html}\"",
+    "validate": "prettier .prettierrc --check \"**/*.{js,vue,json,html}\" && npm run lint",
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{js,vue,css,json,html}": [
+    "*.{js,vue,json,html}": [
       "npm run format",
       "npm run lint:fix",
       "npm run validate"

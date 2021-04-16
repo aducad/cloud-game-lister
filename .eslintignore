@@ -4,3 +4,6 @@ config/*.js
 node_modules
 scripts
 package*
+package-*
+src/manifest.json
+.eslintrc.json
