@@ -28,23 +28,10 @@ const modules = [
     itemsContainerSelector: '',
     itemSelector: '.dailydeal_cap'
   },
-  // {
-  //   // daily deal bottom
-  //   module: '.dailydeal_ctn:nth-child(4)', // change selector
-  //   itemsContainerSelector: '',
-  //   itemSelector: '.dailydeal_cap'
-  // },
-  // {
-  //   // contenthub_spotlight_ctn
-  //   module: '#spotlight_scroll',
-  //   itemsContainerSelector: '',
-  //   itemSelector: '.home_area_spotlight'
-  // },
   {
     // specials_container
     module: '#specials_container',
-    itemsContainerSelector: '.contenthub_specials_grid',
-    iconSizeClass: ICON_SIZE_CLASSES.SMALL
+    itemsContainerSelector: '.contenthub_specials_grid'
   }
 ]
 

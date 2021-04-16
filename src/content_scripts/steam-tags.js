@@ -52,8 +52,7 @@ const init = async () => {
   // specials container
   staticContentHandler({
     contentSelector: '#specials_container',
-    itemSelector: '.store_capsule',
-    iconSizeClass: ICON_SIZE_CLASSES.SMALL
+    itemSelector: '.store_capsule'
   })
 }
 

@@ -46,15 +46,13 @@ const init = async () => {
   // under 20
   staticContentHandler({
     contentSelector: '.home_specials_ctn.underten:nth-child(1)',
-    itemSelector: '.special',
-    iconSizeClass: ICON_SIZE_CLASSES.SMALL
+    itemSelector: '.special'
   })
 
   // under 10
   staticContentHandler({
     contentSelector: '.home_specials_ctn.underten:nth-child(2)',
-    itemSelector: '.special',
-    iconSizeClass: ICON_SIZE_CLASSES.SMALL
+    itemSelector: '.special'
   })
 
   // specials container
