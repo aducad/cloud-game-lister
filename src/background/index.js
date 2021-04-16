@@ -48,7 +48,6 @@ const getSettings = async () => {
 }
 
 /**
- *
  * @param {String} url
  * @returns steam application id
  */
