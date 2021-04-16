@@ -2,8 +2,9 @@ import browser from 'webextension-polyfill'
 import KEYS from '../common/keys'
 import { delay } from '../common/utility'
 import { CHANGELOG_URL } from '../common/config'
+import { CONTENT_SCRIPT_T_MESSAGE, CONTENT_SCRIPT_T_MESSAGE_STYLE } from '../common/constants'
 
-console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
+console.log(CONTENT_SCRIPT_T_MESSAGE, CONTENT_SCRIPT_T_MESSAGE_STYLE)
 
 const MANIFEST_FILE = browser.runtime.getManifest()
 const HOUR_IN_MILLISECONDS = 60 * 60 * 1000
@@ -95,24 +96,21 @@ const fetchGames = async () => {
 
 const normalizeGamesData = (rawData, applications) => {
   const currentTime = new Date().getTime()
-  const applicationList = rawData
-    .filter((i) => STORES.includes(i.store))
-    .map((game) => {
-      const currentGame = game
-      const { steamUrl: url } = currentGame
-      delete currentGame.steamUrl
-      const appid = parseSteamAppIdFromUrl(url)
-      const application = applications.find(
-        (application) => application.id === id
-      )
-      let time = currentTime
-      if (application) {
-        time = application.time
-      }
-      const diff = currentTime - time
-      const isNew = WEEK_IN_MILLIISECONDS > diff
-      return { ...game, url, appid, time, isNew }
-    })
+  const filteredApplications = rawData.filter((i) => STORES.includes(i.store))
+  const applicationList = filteredApplications.map((game) => {
+    const currentGame = game
+    const { steamUrl: url, id } = currentGame
+    delete currentGame.steamUrl
+    const application = applications.find((application) => application.id === id)
+    let time = currentTime
+    if (application) {
+      time = application.time
+    }
+    const diff = currentTime - time
+    const isNew = WEEK_IN_MILLIISECONDS > diff
+    const appid = parseSteamAppIdFromUrl(url)
+    return { ...game, url, appid, time, isNew }
+  })
   return applicationList
 }
 
@@ -123,9 +121,7 @@ const init = async () => {
   try {
     // clear timeout before calling again
     clearTimeout(fetchTimeOutId)
-    const {
-      applications: previousApplications
-    } = await browser.storage.local.get({
+    const { applications: previousApplications } = await browser.storage.local.get({
       applications: []
     })
     appList = [...previousApplications]
@@ -159,7 +155,7 @@ const init = async () => {
 // ##### Handlers
 
 // On Storage Changed Handler
-const onStorageChangedHandler = async (changes) => {
+const onStorageChangedHandler = async () => {
   getSettings()
 }
 
