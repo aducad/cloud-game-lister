@@ -15,12 +15,12 @@
     "lint": "eslint",
     "lint:fix": "npm run lint .eslintrc.json --fix",
     "lint:watch": "esw -w --color",
-    "format": "prettier --write \"**/*.{js,vue,json,html}\"",
-    "validate": "prettier .prettierrc --check \"**/*.{js,vue,json,html}\" && npm run lint",
+    "format": "prettier --write \"**/*.{js,vue,json}\"",
+    "validate": "prettier .prettierrc --check \"**/*.{js,vue,json}\" && npm run lint",
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{js,vue,json,html}": [
+    "*.{js,vue,json}": [
       "npm run format",
       "npm run lint:fix",
       "npm run validate"
