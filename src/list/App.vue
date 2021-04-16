@@ -73,6 +73,70 @@
               <table class="table table-bordered table-hover table-striped">
                 <thead>
                   <tr>
+                    <th>
+                      <input
+                        v-model="filters.title"
+                        type="text"
+                        class="form-control"
+                        placeholder="Search games"
+                      />
+                    </th>
+                    <th>
+                      <select v-model="filters.status" class="form-control">
+                        <option value="">All</option>
+                        <option v-for="status in statuses" :key="status" :value="status">
+                          {{ status }}
+                        </option>
+                      </select>
+                    </th>
+                    <th>
+                      <select v-model="filters.optimization" class="form-control">
+                        <option :value="null">All</option>
+                        <option
+                          v-for="optimization in optimizations"
+                          :key="optimization.title"
+                          :value="optimization.value"
+                        >
+                          {{ optimization.title }}
+                        </option>
+                      </select>
+                    </th>
+                    <th>
+                      <select v-model="filters.isNew" class="form-control">
+                        <option :value="null">All</option>
+                        <option
+                          v-for="isNewOption in isNewOptions"
+                          :key="isNewOption.title"
+                          :value="isNewOption.value"
+                        >
+                          {{ isNewOption.title }}
+                        </option>
+                      </select>
+                    </th>
+                    <th>
+                      <select v-model="filters.publisher" class="form-control">
+                        <option value="">All</option>
+                        <option
+                          v-for="publisher in publishers"
+                          :key="publisher"
+                          :value="publisher"
+                        >
+                          {{ publisher }}
+                        </option>
+                      </select>
+                    </th>
+                    <th>
+                      <select v-model="filters.genre" class="form-control">
+                        <option value="">All</option>
+                        <option v-for="genre in genres" :key="genre" :value="genre">
+                          {{ genre }}
+                        </option>
+                      </select>
+                    </th>
+                  </tr>
+                </thead>
+                <thead>
+                  <tr>
                     <th
                       class="sortable"
                       :class="getSortingClass('title')"
@@ -143,70 +207,6 @@
                     </td>
                   </tr>
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th>
-                      <input
-                        v-model="filters.title"
-                        type="text"
-                        class="form-control"
-                        placeholder="Search games"
-                      />
-                    </th>
-                    <th>
-                      <select v-model="filters.status" class="form-control">
-                        <option value="">All</option>
-                        <option v-for="status in statuses" :key="status" :value="status">
-                          {{ status }}
-                        </option>
-                      </select>
-                    </th>
-                    <th>
-                      <select v-model="filters.optimization" class="form-control">
-                        <option :value="null">All</option>
-                        <option
-                          v-for="optimization in optimizations"
-                          :key="optimization.title"
-                          :value="optimization.value"
-                        >
-                          {{ optimization.title }}
-                        </option>
-                      </select>
-                    </th>
-                    <th>
-                      <select v-model="filters.isNew" class="form-control">
-                        <option :value="null">All</option>
-                        <option
-                          v-for="isNewOption in isNewOptions"
-                          :key="isNewOption.title"
-                          :value="isNewOption.value"
-                        >
-                          {{ isNewOption.title }}
-                        </option>
-                      </select>
-                    </th>
-                    <th>
-                      <select v-model="filters.publisher" class="form-control">
-                        <option value="">All</option>
-                        <option
-                          v-for="publisher in publishers"
-                          :key="publisher"
-                          :value="publisher"
-                        >
-                          {{ publisher }}
-                        </option>
-                      </select>
-                    </th>
-                    <th>
-                      <select v-model="filters.genre" class="form-control">
-                        <option value="">All</option>
-                        <option v-for="genre in genres" :key="genre" :value="genre">
-                          {{ genre }}
-                        </option>
-                      </select>
-                    </th>
-                  </tr>
-                </tfoot>
               </table>
             </div>
           </div>
