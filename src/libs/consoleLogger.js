@@ -30,8 +30,7 @@ class Logger {
   }
 
   log(body = '') {
-    const bodyValue =
-      typeof body === 'string' ? body : JSON.stringify(body, null, 2)
+    const bodyValue = typeof body === 'string' ? body : JSON.stringify(body, null, 2)
     const { color: titleColor, body: titleBody } = this.title
     const { color: bodyColor, size } = this.body
     console.log(

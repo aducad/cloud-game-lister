@@ -5,23 +5,17 @@
         <button class="btn btn-block btn-info" @click="openPage('list.html')">
           Game List <span class="badge badge-danger">{{ appsCount }}</span>
         </button>
-        <button
-          v-if="appsCount <= 0"
-          class="btn btn-block btn-warning"
-          @click="fetchGames"
-        >
+        <button v-if="appsCount <= 0" class="btn btn-block btn-warning" @click="fetchGames">
           Fetch Games
         </button>
       </div>
       <div class="card-body p-0">
         <ul v-if="gameList" class="list-group">
           <li v-for="game in gameList" :key="game.id" class="list-group-item">
-            <a :href="game.steamUrl" target="_blank">
+            <a :href="game.url" target="_blank">
               {{ game.title }}
             </a>
-            <span v-show="anyNewGame" class="badge badge-danger float-right">
-              new
-            </span>
+            <span v-show="anyNewGame" class="badge badge-danger float-right"> new </span>
           </li>
         </ul>
       </div>
@@ -31,9 +25,7 @@
             Version: <strong>{{ version }}</strong>
           </li>
           <li class="d-inline-block float-right">
-            <a target="_blank" href="https://twitter.com/steamextensions">
-              Twitter
-            </a>
+            <a target="_blank" href="https://twitter.com/steamextensions"> Twitter </a>
           </li>
           <li class="d-inline-block float-right mr-2">
             <a target="_blank" :href="changelogUrl"> Changelog </a>

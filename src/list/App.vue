@@ -17,10 +17,7 @@
               <div class="col">
                 <nav class="float-right">
                   <ul class="pagination">
-                    <li
-                      class="page-item"
-                      :class="{ disabled: currentPage === 1 }"
-                    >
+                    <li class="page-item" :class="{ disabled: currentPage === 1 }">
                       <button
                         class="page-link"
                         :disabled="currentPage === 1"
@@ -29,10 +26,7 @@
                         first
                       </button>
                     </li>
-                    <li
-                      class="page-item"
-                      :class="{ disabled: currentPage === 1 }"
-                    >
+                    <li class="page-item" :class="{ disabled: currentPage === 1 }">
                       <button
                         class="page-link"
                         :disabled="currentPage === 1"
@@ -51,10 +45,7 @@
                         {{ page }}
                       </button>
                     </li>
-                    <li
-                      class="page-item"
-                      :class="{ disabled: currentPage >= totalPage }"
-                    >
+                    <li class="page-item" :class="{ disabled: currentPage >= totalPage }">
                       <button
                         class="page-link"
                         :disabled="currentPage >= totalPage"
@@ -63,10 +54,7 @@
                         next
                       </button>
                     </li>
-                    <li
-                      class="page-item"
-                      :class="{ disabled: currentPage >= totalPage }"
-                    >
+                    <li class="page-item" :class="{ disabled: currentPage >= totalPage }">
                       <button
                         class="page-link"
                         :disabled="currentPage >= totalPage"
@@ -134,11 +122,7 @@
                     <td class="text-center">
                       <span
                         class="badge"
-                        :class="
-                          row.status === 'AVAILABLE'
-                            ? 'badge-info'
-                            : 'badge-warning'
-                        "
+                        :class="row.status === 'AVAILABLE' ? 'badge-info' : 'badge-warning'"
                       >
                         {{ row.status }}
                       </span>
@@ -162,29 +146,18 @@
                 <tfoot>
                   <tr>
                     <th>
-                      <input
-                        v-model="filters.title"
-                        type="text"
-                        class="form-control"
-                      />
+                      <input v-model="filters.title" type="text" class="form-control" />
                     </th>
                     <th>
                       <select v-model="filters.status" class="form-control">
                         <option value="">All</option>
-                        <option
-                          v-for="status in statuses"
-                          :key="status"
-                          :value="status"
-                        >
+                        <option v-for="status in statuses" :key="status" :value="status">
                           {{ status }}
                         </option>
                       </select>
                     </th>
                     <th>
-                      <select
-                        v-model="filters.optimization"
-                        class="form-control"
-                      >
+                      <select v-model="filters.optimization" class="form-control">
                         <option :value="null">All</option>
                         <option
                           v-for="optimization in optimizations"
@@ -222,11 +195,7 @@
                     <th>
                       <select v-model="filters.genre" class="form-control">
                         <option value="">All</option>
-                        <option
-                          v-for="genre in genres"
-                          :key="genre"
-                          :value="genre"
-                        >
+                        <option v-for="genre in genres" :key="genre" :value="genre">
                           {{ genre }}
                         </option>
                       </select>
@@ -310,14 +279,7 @@ export default {
     },
     filteredRows() {
       let filtered = this.data
-      const {
-        status,
-        optimization,
-        genre,
-        publisher,
-        title,
-        isNew
-      } = this.filters
+      const { status, optimization, genre, publisher, title, isNew } = this.filters
       if (status) {
         filtered = filtered.filter((i) => i.status === status)
       }
@@ -356,11 +318,7 @@ export default {
     pager() {
       const pages = []
       const beforeAfterPageCount = 3
-      for (
-        let i = this.currentPage - 1;
-        i > 0 && pages.length < beforeAfterPageCount;
-        i--
-      ) {
+      for (let i = this.currentPage - 1; i > 0 && pages.length < beforeAfterPageCount; i--) {
         pages.push(i)
       }
       pages.reverse()
