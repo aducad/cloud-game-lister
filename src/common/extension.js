@@ -1,11 +1,11 @@
 import browser from 'webextension-polyfill'
 
-const createPageUrl = pageUrl => {
+const createPageUrl = (pageUrl) => {
   return browser.extension.getURL(pageUrl)
 }
 
-const getExtensionPageTabIdByUrl = pageUrl => {
-  return new Promise(async resolve => {
+const getExtensionPageTabIdByUrl = (pageUrl) => {
+  return new Promise(async (resolve) => {
     const url = createPageUrl(pageUrl)
     const tabs = await browser.tabs.query({ url })
     if (tabs.length > 0) {
@@ -16,7 +16,7 @@ const getExtensionPageTabIdByUrl = pageUrl => {
   })
 }
 
-const getPageTabIdByUrl = url => {
+const getPageTabIdByUrl = (url) => {
   return new Promise(async (resolve, reject) => {
     try {
       const tabs = await browser.tabs.query({ url })

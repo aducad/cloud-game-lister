@@ -25,7 +25,7 @@ const start = async () => {
   // https://store.steampowered.com/app/680420/OUTRIDERS/
   const [, appID] = new URL(window.location.href).pathname
     .split('/')
-    .filter(i => i)
+    .filter((i) => i)
 
   const { game } = await browser.runtime.sendMessage({
     type: STEAM_GAMEPAGE_SCRIPT_LOADED,

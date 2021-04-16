@@ -52,7 +52,7 @@ const getSettings = async () => {
  * @param {String} url
  * @returns steam application id
  */
-const parseSteamAppIdFromUrl = url => {
+const parseSteamAppIdFromUrl = (url) => {
   const paths = url.split('/')
   let appid = ''
   if (paths.length > 0) {
@@ -86,9 +86,9 @@ const notifyUserForUpdate = async (previousVersion, reason) => {
 const fetchGames = async () => {
   for (let i = 0; i < FETCH_ATTEMPT_LIMIT; i++) {
     try {
-      const gamesData = await fetch(GAME_LIST_URL).then(i => i.json())
+      const gamesData = await fetch(GAME_LIST_URL).then((i) => i.json())
       return gamesData
-    } catch {
+    } catch (err) {
       await delay(FETCH_ATTEMPT_DELAY)
     }
   }
@@ -97,14 +97,14 @@ const fetchGames = async () => {
 const normalizeGamesData = (rawData, applications) => {
   const currentTime = new Date().getTime()
   const applicationList = rawData
-    .filter(i => STORES.includes(i.store))
-    .map(game => {
+    .filter((i) => STORES.includes(i.store))
+    .map((game) => {
       const currentGame = game
       const { steamUrl: url } = currentGame
       delete currentGame.steamUrl
       const appid = parseSteamAppIdFromUrl(url)
       const application = applications.find(
-        application => application.id === id
+        (application) => application.id === id
       )
       let time = currentTime
       if (application) {
@@ -146,9 +146,7 @@ const init = async () => {
     })
   } catch (error) {
     if (error === 'FETCH_ERROR' && settings.notifyOnFetchError) {
-      const errorMessage = `An error occurred while fetching the game list, will be retry after ${
-        settings.gameUpdateInterval
-      } hours or you can try in popup page by clicking "Fetch Games" button`
+      const errorMessage = `An error occurred while fetching the game list, will be retry after ${settings.gameUpdateInterval} hours or you can try in popup page by clicking "Fetch Games" button`
       createNotification('Fetch Error', errorMessage)
     }
   } finally {
@@ -162,7 +160,7 @@ const init = async () => {
 // ##### Handlers
 
 // On Storage Changed Handler
-const onStorageChangedHandler = async changes => {
+const onStorageChangedHandler = async (changes) => {
   getSettings()
 }
 
@@ -182,33 +180,33 @@ const onRuntimeMessageHandler = (request, sender) => {
   }
   switch (type) {
     case KEYS.STEAM_GAMEPAGE_SCRIPT_LOADED: {
-      return new Promise(async resolve => {
+      return new Promise(async (resolve) => {
         const { appID } = request
-        const game = appList.find(app => app.appid === appID)
+        const game = appList.find((app) => app.appid === appID)
         resolve({ game })
       })
     }
     case KEYS.GET_APPS_INFO: {
-      return new Promise(async resolve => {
+      return new Promise(async (resolve) => {
         const { ids } = request
-        const games = appList.filter(app => ids.includes(app.appid))
+        const games = appList.filter((app) => ids.includes(app.appid))
         resolve(games)
       })
     }
     case KEYS.GET_APPS: {
-      return new Promise(async resolve => {
+      return new Promise(async (resolve) => {
         resolve({ appList })
       })
     }
     case KEYS.GET_APPS_COUNT: {
-      return new Promise(async resolve => {
+      return new Promise(async (resolve) => {
         resolve({ appsCount: appList.length })
       })
     }
     case KEYS.GET_NEW_APPS: {
-      return new Promise(async resolve => {
+      return new Promise(async (resolve) => {
         let anyNewGame = true
-        let newGames = appList.filter(app => app.isNew)
+        let newGames = appList.filter((app) => app.isNew)
         // set all games to array if there is no new game
         if (newGames.length === 0) {
           newGames = [...appList]
@@ -223,7 +221,7 @@ const onRuntimeMessageHandler = (request, sender) => {
       })
     }
     case KEYS.FETCH_GAMES: {
-      return new Promise(async resolve => {
+      return new Promise(async (resolve) => {
         init()
         resolve()
       })
@@ -237,7 +235,7 @@ const onRuntimeMessageHandler = (request, sender) => {
 }
 
 // On Web Request Complete Handler
-const onWebRequestCompleteHandler = async details => {
+const onWebRequestCompleteHandler = async (details) => {
   if (process.env.NODE_ENV === 'development') {
     console.log(details)
   }
@@ -253,7 +251,7 @@ const onWebRequestCompleteHandler = async details => {
 }
 
 // On Installed Handler
-const onInstalledHandler = async details => {
+const onInstalledHandler = async (details) => {
   const { previousVersion, reason } = details
   notifyUserForUpdate(previousVersion, reason)
 }

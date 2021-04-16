@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill'
 
-const delay = timeout => {
-  return new Promise(resolve => {
+const delay = (timeout) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve()
     }, timeout)
@@ -14,7 +14,7 @@ const delay = timeout => {
  */
 const injectStyleFile = async (filePath, checkInitialize = false) => {
   if (checkInitialize) {
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (document.head) {
           clearInterval(interval)

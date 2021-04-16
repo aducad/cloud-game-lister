@@ -50,7 +50,7 @@ const onRuntimeMessageHandler = (request, sender) => {
   }
   switch (type) {
     case SEARCH_COMPLETED: {
-      return new Promise(async resolve => {
+      return new Promise(async (resolve) => {
         console.time('buildIcons')
         buildIcons()
         console.timeEnd('buildIcons')
