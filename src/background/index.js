@@ -73,19 +73,20 @@ const parseSteamAppIdFromUrl = (url) => {
  * @param {String} reason
  */
 const notifyUserForUpdate = async (previousVersion, reason) => {
+  const { version, name } = MANIFEST_FILE
   let showNotification = true
   let openChangelog = true
+  let updateTitle = 'Extension Installed'
+  let updateMessage = `${name} version ${version} installed`
   if (reason === 'update') {
     await getSettings()
     showNotification = settings.notifyOnUpdate
     openChangelog = settings.openChangelogOnUpdate
+    updateTitle = 'Extension Updated'
+    updateMessage = `${name} has been updated from version ${previousVersion} to version ${version}`
   }
   if (showNotification) {
-    const { version, name } = MANIFEST_FILE
-    createNotification(
-      'Extension Updated',
-      `${name} has been updated from version ${previousVersion} to version ${version}`
-    )
+    createNotification(updateTitle, updateMessage)
   }
   if (openChangelog) {
     browser.tabs.create({
