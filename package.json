@@ -15,8 +15,8 @@
     "lint": "eslint",
     "lint:fix": "npm run lint --fix",
     "lint:watch": "esw src -w --color",
-    "format": "prettier --write \"**/*.{js,vue,css,json}\"",
-    "validate": "prettier --check \"**/*.{js,vue,css,json}\" && npm run lint"
+    "format": "prettier --write \"**/*.{js,vue,css,json,html}\"",
+    "validate": "prettier --check \"**/*.{js,vue,css,json,html}\" && npm run lint"
   },
   "husky": {
     "hooks": {
@@ -25,7 +25,7 @@
     }
   },
   "lint-staged": {
-    "**/*.{js,vue}": [
+    "*.{js,vue,css,json,html}": [
       "npm run format",
       "npm run lint:fix",
       "npm run validate"
