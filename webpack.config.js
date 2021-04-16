@@ -133,7 +133,6 @@ module.exports = (env) => {
       new CopyWebpackPlugin({
         patterns: [
           { from: 'assets', to: 'assets' },
-          { from: 'data', to: 'data' },
           {
             from: '_locales',
             to: '_locales',
