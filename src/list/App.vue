@@ -146,7 +146,12 @@
                 <tfoot>
                   <tr>
                     <th>
-                      <input v-model="filters.title" type="text" class="form-control" />
+                      <input
+                        v-model="filters.title"
+                        type="text"
+                        class="form-control"
+                        placeholder="Search games"
+                      />
                     </th>
                     <th>
                       <select v-model="filters.status" class="form-control">
