@@ -147,19 +147,19 @@ module.exports = (env) => {
         ]
       }),
       new HtmlWebpackPlugin({
-        title: 'Options',
+        title: 'Options | Cloud Gaming Lister',
         template: './index.html',
         filename: 'options.html',
         chunks: ['options']
       }),
       new HtmlWebpackPlugin({
-        title: 'Popup',
+        title: 'Popup | Cloud Gaming Lister',
         template: './index.html',
         filename: 'popup.html',
         chunks: ['popup']
       }),
       new HtmlWebpackPlugin({
-        title: 'List',
+        title: 'Game List | Cloud Gaming Lister',
         template: './index.html',
         filename: 'list.html',
         chunks: ['list']
