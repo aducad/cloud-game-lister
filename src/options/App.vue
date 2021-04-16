@@ -55,8 +55,10 @@
               </div>
               <div class="form-group row">
                 <label class="control-label col" for="gameUpdateInterval">
-                  Oyun listenizi {{ settings.gameUpdateInterval }} saatte bir
-                  güncelleyin
+                  Update your game list every
+                  {{ settings.gameUpdateInterval }} hour{{
+                    settings.gameUpdateInterval > 1 ? 's' : ''
+                  }}
                 </label>
                 <input
                   id="gameUpdateInterval"
