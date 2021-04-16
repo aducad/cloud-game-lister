@@ -8,7 +8,8 @@ module.exports = {
     XLARGE: 'x-large',
     LARGE: 'large',
     MEDIUM: 'medium',
-    SMALL: 'small',
-    XSMALL: 'x-small'
-  }
+    SMALL: 'small'
+  },
+  CONTENT_SCRIPT_T_MESSAGE: `%cSteam Extensions - Cloud Game Lister...`,
+  CONTENT_SCRIPT_T_MESSAGE_STYLE: 'color:#20aae8'
 }

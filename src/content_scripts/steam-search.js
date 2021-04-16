@@ -2,7 +2,13 @@ import browser from 'webextension-polyfill'
 import { SEARCH_COMPLETED } from '../common/keys'
 import { delay, injectStyleFile } from '../common/utility'
 import { buildGeForceIcon, getGameInfo } from '../libs/builders/steam-builder'
-import { ICON_SIZE_CLASSES } from '../common/constants'
+import {
+  ICON_SIZE_CLASSES,
+  CONTENT_SCRIPT_T_MESSAGE,
+  CONTENT_SCRIPT_T_MESSAGE_STYLE
+} from '../common/constants'
+
+console.log(CONTENT_SCRIPT_T_MESSAGE, CONTENT_SCRIPT_T_MESSAGE_STYLE)
 
 const init = () => {
   // inject style file
@@ -13,9 +19,7 @@ init()
 
 const buildIcons = async () => {
   const appIdList = []
-  const appLinks = document.querySelectorAll(
-    '.search_result_row:not(.cgl-applied)'
-  )
+  const appLinks = document.querySelectorAll('.search_result_row:not(.cgl-applied)')
   await delay(500)
   for (let i = 0; i < appLinks.length; i++) {
     const appLink = appLinks[i]

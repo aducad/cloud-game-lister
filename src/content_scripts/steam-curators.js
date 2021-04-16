@@ -1,8 +1,12 @@
 import { injectStyleFile } from '../common/utility'
 import { dynamicContentHandler } from '../libs/builders/steam-builder'
-import { ICON_SIZE_CLASSES } from '../common/constants'
+import {
+  ICON_SIZE_CLASSES,
+  CONTENT_SCRIPT_T_MESSAGE,
+  CONTENT_SCRIPT_T_MESSAGE_STYLE
+} from '../common/constants'
 
-console.log(`%cSteam Extensions - Cloud Game Lister...`, 'color:#20aae8')
+console.log(CONTENT_SCRIPT_T_MESSAGE, CONTENT_SCRIPT_T_MESSAGE_STYLE)
 
 const modules = [
   {
@@ -42,9 +46,7 @@ const init = async () => {
     const module = modules[i]
     dynamicContentHandler(module)
   }
-  const curatorSpotlights = document.querySelectorAll(
-    '.curator_list_title ~ .curator_spotlight'
-  )
+  const curatorSpotlights = document.querySelectorAll('.curator_list_title ~ .curator_spotlight')
   for (let i = 0; i < curatorSpotlights.length; i++) {
     const curatorSpotlight = curatorSpotlights[i]
     const itemIndex = getElementIndex(curatorSpotlight)
