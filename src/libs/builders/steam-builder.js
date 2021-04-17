@@ -178,12 +178,12 @@ const staticContentHandler = async ({
  * This fuction getting a param for
  * @param {String} selector
  */
-const checkDynamicContentInitialization = (selector) => {
+const checkDynamicContentInitialization = (selector, tryCount = 10) => {
   return new Promise((resolve) => {
     let increment = 0
     const interval = setInterval(() => {
       const item = document.querySelector(selector)
-      if (item || ++increment > 10) {
+      if (item || ++increment > tryCount) {
         clearInterval(interval)
         resolve()
       }
@@ -240,6 +240,7 @@ const runtimeContentHandler = (selector, callback) => {
 export {
   buildGeForceIcon,
   getGameInfo,
+  checkDynamicContentInitialization,
   dynamicContentHandler,
   runtimeContentHandler,
   staticContentHandler

@@ -87,6 +87,12 @@
     },
     {
       "all_frames": false,
+      "js": ["./content_scripts/steam-recommender.js"],
+      "matches": ["*://store.steampowered.com/recommender/*"],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
       "js": ["./content_scripts/steam-search.js"],
       "matches": ["*://store.steampowered.com/search*"],
       "run_at": "document_start"

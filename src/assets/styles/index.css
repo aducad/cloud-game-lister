@@ -1,8 +1,10 @@
-.cgl-item-added {
+.cgl-item-added,
+[data-cgl-item-added] {
   position: relative;
 }
 
-.cgl-item-added .cgl-logo-container {
+.cgl-item-added .cgl-logo-container,
+[data-cgl-item-added] .cgl-logo-container {
   position: absolute;
   left: 5px;
   top: 5px;
@@ -11,16 +13,19 @@
   filter: drop-shadow(0 0 0.2rem rgb(54, 124, 204));
 }
 
-.cgl-item-added .cgl-logo-container.cgl-icon-small {
+.cgl-item-added .cgl-logo-container.cgl-icon-small,
+[data-cgl-item-added] .cgl-logo-container.cgl-icon-small {
   top: 0;
   left: 0;
 }
 
-.cgl-broadcasting.cgl-item-added .cgl-logo-container {
+.cgl-broadcasting.cgl-item-added .cgl-logo-container,
+.cgl-broadcasting[data-cgl-item-added] .cgl-logo-container {
   top: 30px !important;
 }
 
-.cgl-broadcasting.cgl-item-added .ds_flag ~ .cgl-logo-container {
+.cgl-broadcasting.cgl-item-added .ds_flag ~ .cgl-logo-container,
+.cgl-broadcasting[data-cgl-item-added] .ds_flag ~ .cgl-logo-container {
   top: 70px !important;
 }
 
@@ -74,6 +79,7 @@
 /* Tooltip End */
 
 /* Steam */
-.cgl-item-added .ds_flag {
+.cgl-item-added .ds_flag,
+[data-cgl-item-added] .ds_flag {
   top: 40px;
 }
