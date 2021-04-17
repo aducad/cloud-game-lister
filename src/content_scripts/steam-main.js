@@ -1,5 +1,5 @@
 import browser from 'webextension-polyfill'
-import { delay, injectStyleFile } from '../common/utility'
+import { injectStyleFile } from '../common/utility'
 import {
   staticContentHandler,
   dynamicContentHandler,
