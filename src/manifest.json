@@ -98,7 +98,8 @@
     "notifications",
     "webRequest",
     "*://store.steampowered.com/search/results*",
-    "*://store.steampowered.com/explore/render*"
+    "*://store.steampowered.com/explore/render*",
+    "*://store.steampowered.com/contenthub/querypaginated*"
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "web_accessible_resources": ["data/*.json", "assets/*.svg", "assets/*.css", "assets/icons/*"]

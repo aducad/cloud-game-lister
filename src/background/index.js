@@ -15,7 +15,8 @@ const GAME_LIST_URL =
 const ON_WEB_REQUEST_COMPLETE_SETTINGS = {
   urls: [
     '*://store.steampowered.com/search/results*',
-    '*://store.steampowered.com/explore/render*'
+    '*://store.steampowered.com/explore/render*',
+    '*://store.steampowered.com/contenthub/querypaginated*'
   ]
 }
 const STORES = ['Steam']
@@ -280,14 +281,16 @@ const onWebRequestCompleteHandler = async (details) => {
   if (process.env.NODE_ENV === 'development') {
     console.log(details)
   }
-  const { tabId, type } = details
-  if (type === 'xmlhttprequest') {
-    // wait for the page dom handling (maybe this should check in the content_script)
-    await delay(250)
-    await browser.tabs.sendMessage(tabId, {
-      type: KEYS.WEB_REQUEST_COMPLETED
-    })
+  const { tabId, type, url, statusCode } = details
+  if (statusCode !== 200 || type !== 'xmlhttprequest') {
+    return
   }
+  // wait for the page dom handling (maybe this should check in the content_script)
+  await delay(250)
+  await browser.tabs.sendMessage(tabId, {
+    type: KEYS.WEB_REQUEST_COMPLETED,
+    url
+  })
 }
 
 /**
