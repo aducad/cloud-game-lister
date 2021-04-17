@@ -70,9 +70,6 @@ const init = async () => {
   // Concurrent Users Tab Content
   handleTab('#ConcurrentUsersTable')
 
-  // Top Rated Tab Content
-  handleTab('#TopRatedTable')
-
   // Coming Soon Tab Content
   handleTab('#ComingSoonTable')
 
