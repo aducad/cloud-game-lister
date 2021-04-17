@@ -1,4 +1,6 @@
+import browser from 'webextension-polyfill'
 import { injectStyleFile } from '../common/utility'
+import { WEB_REQUEST_COMPLETED } from '../common/keys'
 import { staticContentHandler, dynamicContentHandler } from '../libs/builders/steam-builder'
 import {
   ICON_SIZE_CLASSES,
@@ -35,6 +37,22 @@ const modules = [
   }
 ]
 
+const handleTab = (id) => {
+  staticContentHandler({
+    contentSelector: id,
+    itemSelector: '.tab_item'
+  })
+}
+
+const getTabId = (url) => {
+  const paths = new URL(url).pathname.split('/').filter((i) => i)
+  let currentTab = ''
+  if (paths.length > 3) {
+    currentTab = paths[3]
+  }
+  return `#${currentTab}Table`
+}
+
 const init = async () => {
   // inject style file
   await injectStyleFile('./assets/styles/index.css')
@@ -45,11 +63,39 @@ const init = async () => {
     dynamicContentHandler(module)
   }
 
-  // tabs handler
-  staticContentHandler({
-    contentSelector: '.tab_content_ctn',
-    itemSelector: '.tab_item'
-  })
+  // New Releases Tab Content
+  handleTab('#NewReleasesTable')
+
+  // Top Sellers Tab Content
+  handleTab('#TopSellersTable')
+
+  // Concurrent Users Tab Content
+  handleTab('#ConcurrentUsersTable')
+
+  // Top Rated Tab Content
+  handleTab('#TopRatedTable')
+
+  // Coming Soon Tab Content
+  handleTab('#ComingSoonTable')
 }
+
+const onRuntimeMessageHandler = (request, sender) => {
+  const { type } = request
+  if (type === 'SIGN_CONNECT') {
+    return true
+  }
+  switch (type) {
+    case WEB_REQUEST_COMPLETED: {
+      return new Promise(async (resolve) => {
+        const { url } = request
+        const tabId = getTabId(url)
+        handleTab(tabId)
+        resolve()
+      })
+    }
+  }
+}
+
+browser.runtime.onMessage.addListener(onRuntimeMessageHandler)
 
 init()
