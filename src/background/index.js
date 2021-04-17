@@ -13,7 +13,10 @@ const WEEK_IN_MILLIISECONDS = 7 * DAY_IN_MILLIISECONDS
 const GAME_LIST_URL =
   'https://static.nvidiagrid.net/supported-public-game-list/locales/gfnpc-en-US.json?JSON'
 const ON_WEB_REQUEST_COMPLETE_SETTINGS = {
-  urls: ['*://store.steampowered.com/search/results*']
+  urls: [
+    '*://store.steampowered.com/search/results*',
+    '*://store.steampowered.com/explore/render*'
+  ]
 }
 const STORES = ['Steam']
 const FETCH_ATTEMPT_LIMIT = 3
@@ -282,10 +285,9 @@ const onWebRequestCompleteHandler = async (details) => {
     // wait for the page dom handling (maybe this should check in the content_script)
     await delay(250)
     await browser.tabs.sendMessage(tabId, {
-      type: KEYS.SEARCH_COMPLETED
+      type: KEYS.WEB_REQUEST_COMPLETED
     })
   }
-  //
 }
 
 /**

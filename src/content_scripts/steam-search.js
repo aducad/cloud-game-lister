@@ -1,5 +1,5 @@
 import browser from 'webextension-polyfill'
-import { SEARCH_COMPLETED } from '../common/keys'
+import { WEB_REQUEST_COMPLETED } from '../common/keys'
 import { delay, injectStyleFile } from '../common/utility'
 import { buildGeForceIcon, getGameInfo } from '../libs/builders/steam-builder'
 import {
@@ -32,7 +32,6 @@ const buildIcons = async () => {
     appIdList.push(dsAppid)
   }
   const games = await getGameInfo(appIdList)
-  console.log(games)
   for (let index = 0; index < games.length; index++) {
     const game = games[index]
     const { appid } = game
@@ -53,11 +52,9 @@ const onRuntimeMessageHandler = (request, sender) => {
     return true
   }
   switch (type) {
-    case SEARCH_COMPLETED: {
+    case WEB_REQUEST_COMPLETED: {
       return new Promise(async (resolve) => {
-        console.time('buildIcons')
         buildIcons()
-        console.timeEnd('buildIcons')
         resolve()
       })
     }

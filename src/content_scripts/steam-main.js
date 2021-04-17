@@ -1,4 +1,5 @@
-import { injectStyleFile } from '../common/utility'
+import browser from 'webextension-polyfill'
+import { delay, injectStyleFile } from '../common/utility'
 import {
   staticContentHandler,
   dynamicContentHandler,
@@ -9,6 +10,7 @@ import {
   CONTENT_SCRIPT_MESSAGE,
   CONTENT_SCRIPT_MESSAGE_STYLE
 } from '../common/constants'
+import { WEB_REQUEST_COMPLETED } from '../common/keys'
 
 console.log(CONTENT_SCRIPT_MESSAGE, CONTENT_SCRIPT_MESSAGE_STYLE)
 
@@ -115,5 +117,52 @@ const init = async () => {
     itemSelector: '.tab_item'
   })
 }
+
+const buildScrollIcons = async () => {
+  // Build Two Wide Module
+  await staticContentHandler({
+    contentSelector: '.home_content.twowide:not(.cgl-applied)',
+    itemSelector: '.home_content_item'
+  })
+
+  // Build Four Wide Module
+  await staticContentHandler({
+    contentSelector: '.home_content.fourwide:not(.cgl-applied)',
+    itemSelector: '.home_content_item'
+  })
+
+  // Build Single Module
+  await staticContentHandler({
+    contentSelector: '.home_content.single:not(.cgl-applied)',
+    itemSelector: '.gamelink'
+  })
+
+  const containers = document.querySelectorAll(
+    '.home_content:not(.cgl-applied),.home_content.single:not(.cgl-applied)'
+  )
+
+  // Apply cgl-applied class
+  for (let i = 0; i < containers.length; i++) {
+    const container = containers[i]
+    container.classList.add('cgl-applied')
+  }
+}
+
+const onRuntimeMessageHandler = (request, sender) => {
+  const { type } = request
+  if (type === 'SIGN_CONNECT') {
+    return true
+  }
+  switch (type) {
+    case WEB_REQUEST_COMPLETED: {
+      return new Promise(async (resolve) => {
+        buildScrollIcons()
+        resolve()
+      })
+    }
+  }
+}
+
+browser.runtime.onMessage.addListener(onRuntimeMessageHandler)
 
 init()

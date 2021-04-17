@@ -163,7 +163,7 @@ const buildIcons = async (
   }
 }
 
-const staticContentHandler = ({
+const staticContentHandler = async ({
   contentSelector,
   itemSelector,
   iconSizeClass = ICON_SIZE_CLASSES.MEDIUM,
@@ -171,8 +171,7 @@ const staticContentHandler = ({
 }) => {
   applyDevelopmentStyles(contentSelector)
   const ids = getAppIdList(`${contentSelector} ${itemSelector}`, dataAttributeKey)
-
-  buildIcons(ids, contentSelector, itemSelector, iconSizeClass, dataAttributeKey)
+  await buildIcons(ids, contentSelector, itemSelector, iconSizeClass, dataAttributeKey)
 }
 
 /**
