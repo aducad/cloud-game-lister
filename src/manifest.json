@@ -81,6 +81,12 @@
     },
     {
       "all_frames": false,
+      "js": ["./content_scripts/steam-wishlist.js"],
+      "matches": ["*://store.steampowered.com/wishlist/profiles/*"],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
       "js": ["./content_scripts/steam-search.js"],
       "matches": ["*://store.steampowered.com/search*"],
       "run_at": "document_start"
