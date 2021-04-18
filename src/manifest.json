@@ -93,6 +93,12 @@
     },
     {
       "all_frames": false,
+      "js": ["./content_scripts/steam-franchise.js"],
+      "matches": ["*://store.steampowered.com/franchise/*", "*://store.steampowered.com/developer/*", "*://store.steampowered.com/curator/*"],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
       "js": ["./content_scripts/steam-search.js"],
       "matches": ["*://store.steampowered.com/search*"],
       "run_at": "document_start"

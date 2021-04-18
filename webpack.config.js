@@ -35,7 +35,8 @@ module.exports = (env) => {
     'content_scripts/steam-bundle': './content_scripts/steam-bundle.js',
     'content_scripts/steam-search': './content_scripts/steam-search.js',
     'content_scripts/steam-wishlist': './content_scripts/steam-wishlist.js',
-    'content_scripts/steam-recommender': './content_scripts/steam-recommender.js'
+    'content_scripts/steam-recommender': './content_scripts/steam-recommender.js',
+    'content_scripts/steam-franchise': './content_scripts/steam-franchise.js'
   }
   const config = {
     devtool: isDevMode ? 'eval-source-map' : false,
