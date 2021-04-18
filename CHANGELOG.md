@@ -1,6 +1,6 @@
 # Changelog
 
-### v1.1.4 (Unreleased)
+### v1.2.0 (Unreleased)
 
 ### Added:
 
@@ -10,11 +10,13 @@
 - Icons applied after page change in [Tags](https://store.steampowered.com/tags/en/Competitive) page tabs section
 - Icons applied after page change in [Genre](https://store.steampowered.com/genre/Free%20to%20Play/) page tabs section
 - Icons applied after page change in [Special Offers](https://store.steampowered.com/specials) page tabs section
-- Game list fetch interval option check
+- Game list fetch interval option validation
 
 ### Changed:
 
-### V1.1.3 (under review on Chrome web store)
+- Search page web request hooks removed
+
+### v1.1.3 (current version on Chrome web store)
 
 ### Added:
 
@@ -47,7 +49,7 @@
 
 - If we get an error while fetching the data, we try again 3 times with an interval of 5 seconds (when it is successful, it stops) If we still have not received the data, we continue with the saved data.
 
-## v1.0.25 (current version on Chrome web store)
+## v1.0.25
 
 ### Added:
 
