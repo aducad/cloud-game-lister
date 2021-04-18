@@ -1,4 +1,3 @@
-import browser from 'webextension-polyfill'
 import { injectStyleFile } from '../common/utility'
 import {
   staticContentHandler,
@@ -10,7 +9,6 @@ import {
   CONTENT_SCRIPT_MESSAGE,
   CONTENT_SCRIPT_MESSAGE_STYLE
 } from '../common/constants'
-import { WEB_REQUEST_COMPLETED } from '../common/keys'
 
 console.log(CONTENT_SCRIPT_MESSAGE, CONTENT_SCRIPT_MESSAGE_STYLE)
 
@@ -116,6 +114,18 @@ const init = async () => {
     contentSelector: '.home_tabs_content',
     itemSelector: '.tab_item'
   })
+
+  // footer scroll load more
+  runtimeContentHandler(
+    '#content_more',
+    async () => {
+      buildScrollIcons()
+    },
+    false,
+    {
+      childList: true
+    }
+  )
 }
 
 const buildScrollIcons = async () => {
@@ -147,22 +157,5 @@ const buildScrollIcons = async () => {
     container.classList.add('cgl-applied')
   }
 }
-
-const onRuntimeMessageHandler = (request, sender) => {
-  const { type } = request
-  if (type === 'SIGN_CONNECT') {
-    return true
-  }
-  switch (type) {
-    case WEB_REQUEST_COMPLETED: {
-      return new Promise(async (resolve) => {
-        buildScrollIcons()
-        resolve()
-      })
-    }
-  }
-}
-
-browser.runtime.onMessage.addListener(onRuntimeMessageHandler)
 
 init()

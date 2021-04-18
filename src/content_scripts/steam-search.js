@@ -1,7 +1,10 @@
-import browser from 'webextension-polyfill'
-import { WEB_REQUEST_COMPLETED } from '../common/keys'
 import { delay, injectStyleFile } from '../common/utility'
-import { buildGeForceIcon, getGameInfo } from '../libs/builders/steam-builder'
+import {
+  buildGeForceIcon,
+  checkDynamicContentInitialization,
+  getGameInfo,
+  runtimeContentHandler
+} from '../libs/builders/steam-builder'
 import {
   ICON_SIZE_CLASSES,
   CONTENT_SCRIPT_MESSAGE,
@@ -10,17 +13,22 @@ import {
 
 console.log(CONTENT_SCRIPT_MESSAGE, CONTENT_SCRIPT_MESSAGE_STYLE)
 
-const init = () => {
-  // inject style file
-  injectStyleFile('./assets/styles/index.css', true)
+const observeRows = () => {
+  const searchRowsSelector = '#search_resultsRows'
+  runtimeContentHandler(
+    searchRowsSelector,
+    () => {
+      buildIcons()
+    },
+    false,
+    { childList: true }
+  )
 }
 
-init()
-
 const buildIcons = async () => {
+  await delay(500)
   const appIdList = []
   const appLinks = document.querySelectorAll('.search_result_row:not(.cgl-applied)')
-  await delay(500)
   for (let i = 0; i < appLinks.length; i++) {
     const appLink = appLinks[i]
     appLink.classList.add('cgl-applied')
@@ -38,27 +46,30 @@ const buildIcons = async () => {
     const appRowSelector = `.search_result_row.cgl-applied[data-ds-appid="${appid}"]`
     const appRow = document.querySelector(appRowSelector)
     const logoContainer = buildGeForceIcon(game, ICON_SIZE_CLASSES.MEDIUM)
-    // if (appRow.querySelector('.broadcast_live_stream_icon')) {
-    //   appRow.classList.add('cgl-broadcasting')
-    // }
     appRow.classList.add('cgl-item-added')
     appRow.appendChild(logoContainer)
   }
 }
 
-const onRuntimeMessageHandler = (request, sender) => {
-  const { type } = request
-  if (type === 'SIGN_CONNECT') {
-    return true
-  }
-  switch (type) {
-    case WEB_REQUEST_COMPLETED: {
-      return new Promise(async (resolve) => {
-        buildIcons()
-        resolve()
-      })
-    }
-  }
+const init = async () => {
+  // inject style file
+  injectStyleFile('./assets/styles/index.css', true)
+
+  // build icons for static items
+  await buildIcons()
+  observeRows()
+
+  const searchResultsSelector = '#search_results'
+  await checkDynamicContentInitialization(searchResultsSelector, 50)
+  runtimeContentHandler(
+    searchResultsSelector,
+    async () => {
+      buildIcons()
+      observeRows()
+    },
+    false,
+    { childList: true }
+  )
 }
 
-browser.runtime.onMessage.addListener(onRuntimeMessageHandler)
+init()

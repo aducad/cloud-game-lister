@@ -12,13 +12,7 @@ const DAY_IN_MILLIISECONDS = 24 * HOUR_IN_MILLISECONDS
 const WEEK_IN_MILLIISECONDS = 7 * DAY_IN_MILLIISECONDS
 const GAME_LIST_URL =
   'https://static.nvidiagrid.net/supported-public-game-list/locales/gfnpc-en-US.json?JSON'
-const ON_WEB_REQUEST_COMPLETE_SETTINGS = {
-  urls: [
-    '*://store.steampowered.com/search/results*',
-    '*://store.steampowered.com/explore/render*',
-    '*://store.steampowered.com/contenthub/querypaginated*'
-  ]
-}
+
 const STORES = ['Steam']
 const FETCH_ATTEMPT_LIMIT = 3
 const FETCH_ATTEMPT_DELAY = 5000
@@ -274,26 +268,6 @@ const onRuntimeMessageHandler = (request, sender) => {
 }
 
 /**
- * Web request complete handler
- * @param {Object} details
- */
-const onWebRequestCompleteHandler = async (details) => {
-  if (process.env.NODE_ENV === 'development') {
-    console.log(details)
-  }
-  const { tabId, type, url, statusCode } = details
-  if (statusCode !== 200 || type !== 'xmlhttprequest') {
-    return
-  }
-  // wait for the page dom handling (maybe this should check in the content_script)
-  await delay(250)
-  await browser.tabs.sendMessage(tabId, {
-    type: KEYS.WEB_REQUEST_COMPLETED,
-    url
-  })
-}
-
-/**
  * Install Handler
  * @param {Object} details
  */
@@ -309,13 +283,6 @@ browser.storage.onChanged.addListener(onStorageChangedHandler)
 
 // Runtime On Message Listener
 browser.runtime.onMessage.addListener(onRuntimeMessageHandler)
-
-// On Web Request Complete Listener
-
-browser.webRequest.onCompleted.addListener(
-  onWebRequestCompleteHandler,
-  ON_WEB_REQUEST_COMPLETE_SETTINGS
-)
 
 // On Installed Listener
 browser.runtime.onInstalled.addListener(onInstalledHandler)

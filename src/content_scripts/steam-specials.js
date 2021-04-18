@@ -1,7 +1,9 @@
-import browser from 'webextension-polyfill'
 import { injectStyleFile } from '../common/utility'
-import { staticContentHandler, dynamicContentHandler } from '../libs/builders/steam-builder'
-import { WEB_REQUEST_COMPLETED } from '../common/keys'
+import {
+  staticContentHandler,
+  dynamicContentHandler,
+  runtimeContentHandler
+} from '../libs/builders/steam-builder'
 import {
   ICON_SIZE_CLASSES,
   CONTENT_SCRIPT_MESSAGE,
@@ -44,55 +46,46 @@ const handleTab = (id) => {
   })
 }
 
-const getTabId = (url) => {
-  const paths = new URL(url).pathname.split('/').filter((i) => i)
-  let currentTab = ''
-  if (paths.length > 3) {
-    currentTab = paths[3]
+const staticObservableModules = [
+  {
+    selector: '#NewReleasesRows'
+  },
+  {
+    selector: '#TopSellersRows'
+  },
+  {
+    selector: '#ConcurrentUsersRows'
+  },
+  {
+    selector: '#ComingSoonRows'
   }
-  return `#${currentTab}Table`
-}
-
+]
 const init = async () => {
   // inject style file
   injectStyleFile('./assets/styles/index.css')
-
-  // New Releases Tab Content
-  handleTab('#NewReleasesTable')
-
-  // Top Sellers Tab Content
-  handleTab('#TopSellersTable')
-
-  // Concurrent Users Tab Content
-  handleTab('#ConcurrentUsersTable')
-
-  // Coming Soon Tab Content
-  handleTab('#ComingSoonTable')
 
   // modules
   for (let i = 0; i < modules.length; i++) {
     const module = modules[i]
     dynamicContentHandler(module)
   }
-}
 
-const onRuntimeMessageHandler = (request, sender) => {
-  const { type } = request
-  if (type === 'SIGN_CONNECT') {
-    return true
-  }
-  switch (type) {
-    case WEB_REQUEST_COMPLETED: {
-      return new Promise(async (resolve) => {
-        const { url } = request
-        const tabId = getTabId(url)
-        handleTab(tabId)
-        resolve()
-      })
-    }
+  // static observable modules
+  for (let i = 0; i < staticObservableModules.length; i++) {
+    const staticObservableModule = staticObservableModules[i]
+    const { selector } = staticObservableModule
+    handleTab(selector)
+    runtimeContentHandler(
+      selector,
+      () => {
+        handleTab(selector)
+      },
+      false,
+      {
+        childList: true
+      }
+    )
   }
 }
-
-browser.runtime.onMessage.addListener(onRuntimeMessageHandler)
 
 init()

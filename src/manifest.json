@@ -108,7 +108,6 @@
   "permissions": [
     "storage",
     "notifications",
-    "webRequest",
     "*://store.steampowered.com/search/results*",
     "*://store.steampowered.com/explore/render*",
     "*://store.steampowered.com/contenthub/querypaginated*"

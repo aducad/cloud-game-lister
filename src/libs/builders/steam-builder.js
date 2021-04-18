@@ -223,18 +223,26 @@ const dynamicContentHandler = async ({
  * @param {String} selector
  * @param {Function} callback
  */
-const runtimeContentHandler = (selector, callback) => {
+const runtimeContentHandler = (
+  selector,
+  callback,
+  disconnectImmediately = true,
+  options = {
+    childList: true,
+    subtree: true
+  }
+) => {
   const observer = new MutationObserver(() => {
-    observer.disconnect()
+    if (disconnectImmediately) {
+      observer.disconnect()
+    }
     callback()
   })
   const rootElement = document.querySelector(selector)
-  if (rootElement) {
-    observer.observe(rootElement, {
-      childList: true,
-      subtree: true
-    })
+  if (!rootElement) {
+    return
   }
+  observer.observe(rootElement, options)
 }
 
 export {
