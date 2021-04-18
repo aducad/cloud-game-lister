@@ -1,11 +1,25 @@
 # Changelog
 
-### V1.1.3 (Unreleased)
+### v1.1.4 (Unreleased)
+
+### Added:
+
+- GEFORCE NOW icons to [Wishlist](https://store.steampowered.com/wishlist/profiles) page
+- GEFORCE NOW icons to [Recommender](https://store.steampowered.com/recommender) page
+- Icons applied after footer section scrolled on [Main](https://store.steampowered.com/) page
+- Icons applied after page change in [Tags](https://store.steampowered.com/tags/en/Competitive) page tabs section
+- Icons applied after page change in [Genre](https://store.steampowered.com/genre/Free%20to%20Play/) page tabs section
+- Icons applied after page change in [Special Offers](https://store.steampowered.com/specials) page tabs section
+- Game list fetch interval option check
+
+### Changed:
+
+### V1.1.3 (under review on Chrome web store)
 
 ### Added:
 
 - Added attribute option to steam-buiilder
-- GEFORCE NOW icons to [Followed Games](https://steamcommunity.com/id/changeyourusernamewiththis/followedgames) page (change your user name)
+- GEFORCE NOW icons to [Followed Games](https://steamcommunity.com/id/*/followedgames) page (change "\*" with your steam profile name in url)
 - GEFORCE NOW icons to [Bundle Detail](https://store.steampowered.com/bundle/4995/EVERSPACE__Ultimate_Edition/) page (The example link will not work after a certain period of time)
 - GEFORCE NOW icons to [Search](https://store.steampowered.com/search) page
 - "new" badge to popup page random game list (if games are new)

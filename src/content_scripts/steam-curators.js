@@ -1,5 +1,9 @@
 import { injectStyleFile } from '../common/utility'
-import { dynamicContentHandler } from '../libs/builders/steam-builder'
+import {
+  dynamicContentHandler,
+  staticContentHandler,
+  runtimeContentHandler
+} from '../libs/builders/steam-builder'
 import {
   ICON_SIZE_CLASSES,
   CONTENT_SCRIPT_MESSAGE,
@@ -56,6 +60,37 @@ const init = async () => {
       itemsContainerSelector
     })
   }
+
+  // CuratorsRows
+
+  runtimeContentHandler(
+    '#CuratorsRows',
+    () => {
+      console.log('observer worked')
+    },
+    false,
+    { childList: true }
+  )
+
+  // const observer = new MutationObserver(async () => {
+  //   console.log('MutationObserver')
+  //   // await staticContentHandler({
+  //   //   contentSelector: '.curator_recommendation_capsule',
+  //   //   itemSelector: '.wishlist_row:not(.cgl-applied)',
+  //   //   dataAttributeKey: 'data-app-id'
+  //   // })
+  //   // const rows = document.querySelectorAll('#CuratorsRows .wishlist_row:not(.cgl-applied)')
+  //   // for (let index = 0; index < rows.length; index++) {
+  //   //   const row = rows[index]
+  //   //   row.classList.add('cgl-applied')
+  //   // }
+  // })
+  // const rootElement = document.querySelector('#CuratorsRows')
+  // if (rootElement) {
+  //   observer.observe(rootElement, {
+  //     childList: true
+  //   })
+  // }
 }
 
 init()

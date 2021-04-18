@@ -47,18 +47,20 @@ To use this extension, please install it from the [Chrome Web Store](https://chr
 - Allows you to see new supported games (in popup and in extension game list page)
 - Allows you to see and filter all supported steam games on the extension game list page (link in the popup)
 - Allows you to see "GEFORCE NOW" support on the steam pages
-  - [Main page](https://store.steampowered.com/)
-  - [Search](https://store.steampowered.com/search)
-  - [Game detail page](https://store.steampowered.com/app/680420/OUTRIDERS/)
-  - [Bundle Detail](https://store.steampowered.com/bundle/4995/EVERSPACE__Ultimate_Edition/)
-  - [Tags pages](https://store.steampowered.com/tags/en/Competitive)
-  - [Genre pages](https://store.steampowered.com/genre/Free%20to%20Play/)
-  - [Explore new page](https://store.steampowered.com/explore/new)
-  - [Special Offers](https://store.steampowered.com/specials)
-  - [Friend Activity](https://store.steampowered.com/recommended/friendactivity/)
-  - [Followed Games](https://steamcommunity.com/id/[changeyourusernamewiththis]/followedgames)
-  - [Curators](https://store.steampowered.com/curators/)
-  - [Community Recommendations](https://store.steampowered.com/communityrecommendations/)
+  - [Main](https://store.steampowered.com/) page
+  - [Search](https://store.steampowered.com/search) page
+  - [Game detail](https://store.steampowered.com/app/680420/OUTRIDERS/) page
+  - [Bundle Detail](https://store.steampowered.com/bundle/4995/EVERSPACE__Ultimate_Edition/) page (The example link will not work after a certain period of time)
+  - [Tags](https://store.steampowered.com/tags/en/Competitive) pages
+  - [Genre](https://store.steampowered.com/genre/Free%20to%20Play/) pages
+  - [Explore new](https://store.steampowered.com/explore/new) page
+  - [Special Offers](https://store.steampowered.com/specials) page
+  - [Wishlist](https://store.steampowered.com/wishlist/profiles) page
+  - [Recommender](https://store.steampowered.com/recommender) page
+  - [Friend Activity](https://store.steampowered.com/recommended/friendactivity/) page
+  - [Followed Games](https://steamcommunity.com/id/*/followedgames) page (change "\*" with your steam profile name in url)
+  - [Curators](https://store.steampowered.com/curators/) page
+  - [Community Recommendations](https://store.steampowered.com/communityrecommendations/) page
 - Allows you to see new games in popup page
 
 #
@@ -122,12 +124,3 @@ You may contribute to this project by opening an [issue](issues) to file a bug r
 ## Privacy Policy
 
 This extension requires permissions to <https://store.steampowered.com/>
-
-#
-
-## Known Issues
-
-- The icon does not appear when pagination changes in the tab section (such as New and Popular) of the [Tags pages](https://store.steampowered.com/tags/en/Competitive)
-- The icon does not appear when pagination changes in the tab section (such as New and Popular) of the [Genre pages](https://store.steampowered.com/genre/Free%20to%20Play/)
-- The icon does not appear when pagination changes in the tab section (such as New and Popular) of the [Special Offers](https://store.steampowered.com/specials)
-- The icon does not appear if keep scroll after footer of the [Main page](https://store.steampowered.com/)
