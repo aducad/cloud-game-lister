@@ -185,18 +185,19 @@ const init = async () => {
   try {
     // clear timeout before calling again
     clearTimeout(fetchTimeOutId)
-    const { applications: previousApplications } = await browser.storage.local.get({
+    const { applications: oldApplications } = await browser.storage.local.get({
       applications: []
     })
     // set local version of applications
-    appList = [...previousApplications]
+    appList = [...oldApplications]
 
     const gamesData = await fetchGames()
     if (!gamesData) {
       throw 'FETCH_ERROR'
     }
 
-    const applications = normalizeGamesData(gamesData, previousApplications)
+    const oldApplicationsIdList = oldApplications.map((application) => application.id)
+    const applications = normalizeGamesData(gamesData, oldApplications)
     // set new applications
     appList = [...applications]
 
@@ -206,9 +207,16 @@ const init = async () => {
       lastRead
     })
 
-    const newGamesCount = applications.length - previousApplications.length
-    setBadgeForNewGames(newGamesCount)
-    showNewGamesNotification(newGamesCount)
+    // oldApplicationsIdList
+
+    const newApplicationsIdList = applications.filter(
+      (application) => !oldApplicationsIdList.includes(application.id)
+    )
+
+    await browser.storage.local.set({ newApplicationsIdList })
+
+    setBadgeForNewGames(newApplicationsIdList.length)
+    showNewGamesNotification(newApplicationsIdList.length)
   } catch (error) {
     if (error === 'FETCH_ERROR' && settings.notifyOnFetchError) {
       const errorMessage = `An error occurred while fetching the game list, will be retry after ${settings.gameUpdateInterval} hours or you can try in popup page by clicking "Fetch Games" button`
@@ -262,7 +270,15 @@ const onRuntimeMessageHandler = (request, sender) => {
     }
     case KEYS.GET_APPS: {
       return new Promise(async (resolve) => {
-        resolve({ appList })
+        const { onlyNew } = request
+        let apps = [...appList]
+        if (onlyNew) {
+          const { newApplicationsIdList } = await browser.storage.local.get({
+            newApplicationsIdList: []
+          })
+          apps = appList.filter((app) => newApplicationsIdList.includes(app.id))
+        }
+        resolve({ appList: apps })
       })
     }
     case KEYS.GET_APPS_COUNT: {

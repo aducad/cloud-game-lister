@@ -1,7 +1,17 @@
 <template>
   <div class="container-fluid p-3">
     <div class="card">
-      <div class="card-header">Game List</div>
+      <div class="card-header">
+        <div class="row">
+          <div class="col">Game List</div>
+          <div class="col-auto">
+            <a v-show="onlyNew" class="btn btn-info" href="list.html">All Games</a>
+            <a v-show="!onlyNew" class="btn btn-info" href="list.html?only-new=true">
+              Recently Added Games
+            </a>
+          </div>
+        </div>
+      </div>
       <div class="card-body">
         <div class="row">
           <div class="col-12">
@@ -223,6 +233,7 @@ import KEYS from '../common/keys'
 export default {
   data() {
     return {
+      onlyNew: true,
       pageSize: 10,
       currentPage: 1,
       currentSort: 'title',
@@ -361,6 +372,7 @@ export default {
     }
   },
   created() {
+    this.onlyNew = new URL(window.location.href).searchParams.get('only-new') === 'true'
     this.init()
   },
   mounted() {
@@ -377,7 +389,8 @@ export default {
   methods: {
     async init() {
       const { appList } = await browser.runtime.sendMessage({
-        type: KEYS.GET_APPS
+        type: KEYS.GET_APPS,
+        onlyNew: this.onlyNew
       })
       this.data = appList
     },
