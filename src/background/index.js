@@ -22,11 +22,16 @@ let fetchTimeOutId
 let settings = {
   notifyOnFetchError: true,
   notifyOnUpdate: true,
+  notifyOnNewGamesAdded: true,
   openChangelogOnUpdate: true,
   gameUpdateInterval: 2
 }
 
 // ##### Methods
+
+const pluralizeWord = (condition, word, pluralized = `${word}s`) => {
+  return condition ? pluralized : word
+}
 
 /**
  * @param {String} title
@@ -48,6 +53,7 @@ const getSettings = async () => {
   settings = await browser.storage.local.get({
     notifyOnFetchError: true,
     notifyOnUpdate: true,
+    notifyOnNewGamesAdded: true,
     openChangelogOnUpdate: true,
     gameUpdateInterval: 2
   })
@@ -139,11 +145,37 @@ const setBadgeText = (newApplicationsLength) => {
   if (newApplicationsLength === 0) {
     return
   }
-  let badgeText = newApplicationsLength.toString()
+  let text = newApplicationsLength.toString()
   if (newApplicationsLength > 99) {
-    badgeText = '99+'
+    text = '99+'
   }
-  browser.browserAction.setBadgeText({ text: badgeText })
+  browser.browserAction.setBadgeText({ text })
+}
+
+const setBadgeTitle = (title) => {
+  browser.browserAction.setTitle({
+    title
+  })
+}
+
+const setBadgeForNewGames = (newGamesCount) => {
+  if (newGamesCount === 0) {
+    return
+  }
+  setBadgeText(newGamesCount)
+  const gameWord = pluralizeWord(newGamesCount > 1, 'game')
+  setBadgeTitle(`${newGamesCount} new ${gameWord} added`)
+}
+
+const showNewGamesNotification = (newGamesCount) => {
+  if (newGamesCount === 0 || !settings.notifyOnNewGamesAdded) {
+    return
+  }
+  const gameWord = pluralizeWord(newGamesCount > 1, 'Game')
+  createNotification(
+    `New ${gameWord} Added`,
+    `${newGamesCount} new Steam ${gameWord.toLowerCase()} added`
+  )
 }
 
 /**
@@ -168,13 +200,15 @@ const init = async () => {
     // set new applications
     appList = [...applications]
 
-    // setBadgeText(applications.length - previousApplications.length)
-
     const lastRead = new Date().getTime()
     await browser.storage.local.set({
       applications,
       lastRead
     })
+
+    const newGamesCount = applications.length - previousApplications.length
+    setBadgeForNewGames(newGamesCount)
+    showNewGamesNotification(newGamesCount)
   } catch (error) {
     if (error === 'FETCH_ERROR' && settings.notifyOnFetchError) {
       const errorMessage = `An error occurred while fetching the game list, will be retry after ${settings.gameUpdateInterval} hours or you can try in popup page by clicking "Fetch Games" button`

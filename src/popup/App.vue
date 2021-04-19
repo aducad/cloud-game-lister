@@ -61,6 +61,8 @@ export default {
   },
   created() {
     browser.storage.onChanged.addListener(this.onStorageChangedHandler)
+    browser.browserAction.setBadgeText({ text: '' })
+    browser.browserAction.setTitle({ title: '' })
     this.init()
   },
   methods: {

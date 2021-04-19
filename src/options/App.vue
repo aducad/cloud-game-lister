@@ -39,6 +39,21 @@
                 </div>
               </div>
               <div class="form-group">
+                <label class="form-check-label" for="notifyOnNewGamesAdded">
+                  Show desktop notification when new game(s) added
+                </label>
+                <div class="float-right">
+                  <label class="switch">
+                    <input
+                      id="notifyOnNewGamesAdded"
+                      v-model="settings.notifyOnNewGamesAdded"
+                      type="checkbox"
+                    />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
                 <label class="form-check-label" for="openChangelogOnUpdate">
                   Open changelog page when extension is updated
                 </label>
@@ -94,6 +109,7 @@ export default {
       settings: {
         notifyOnFetchError: true,
         notifyOnUpdate: true,
+        notifyOnNewGamesAdded: true,
         openChangelogOnUpdate: true,
         gameUpdateInterval: -1
       },
@@ -120,6 +136,7 @@ export default {
       const settings = await browser.storage.local.get({
         notifyOnFetchError: true,
         notifyOnUpdate: true,
+        notifyOnNewGamesAdded: true,
         openChangelogOnUpdate: true,
         gameUpdateInterval: 2
       })
