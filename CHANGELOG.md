@@ -11,6 +11,10 @@
 - Icons applied after page change in [Genre](https://store.steampowered.com/genre/Free%20to%20Play/) page tabs section
 - Icons applied after page change in [Special Offers](https://store.steampowered.com/specials) page tabs section
 - Game list fetch interval option validation
+- Desktop notification option for new games
+- Desktop notification for new games
+- Badge text for new games
+- Badge title for new games
 
 ### Changed:
 

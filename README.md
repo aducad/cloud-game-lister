@@ -48,18 +48,22 @@ To use this extension, please install it from the [Chrome Web Store](https://chr
 - Allows you to see and filter all supported steam games on the extension game list page (link in the popup)
 - Allows you to see "GEFORCE NOW" support on the steam pages
   - [Main page](https://store.steampowered.com/)
-  - [Search](https://store.steampowered.com/search)
+  - [Search pages](https://store.steampowered.com/search)
   - [Game detail page](https://store.steampowered.com/app/680420/OUTRIDERS/)
   - [Bundle Detail](https://store.steampowered.com/bundle/4995/EVERSPACE__Ultimate_Edition/)
   - [Tags pages](https://store.steampowered.com/tags/en/Competitive)
   - [Genre pages](https://store.steampowered.com/genre/Free%20to%20Play/)
   - [Explore new page](https://store.steampowered.com/explore/new)
-  - [Special Offers](https://store.steampowered.com/specials)
-  - [Friend Activity](https://store.steampowered.com/recommended/friendactivity/)
-  - [Followed Games](https://steamcommunity.com/id/[changeyourusernamewiththis]/followedgames)
-  - [Curators](https://store.steampowered.com/curators/)
-  - [Community Recommendations](https://store.steampowered.com/communityrecommendations/)
+  - [Special Offers page](https://store.steampowered.com/specials)
+  - [Friend Activity page](https://store.steampowered.com/recommended/friendactivity/)
+  - [Followed Games page](https://steamcommunity.com/id/[changeyourusernamewiththis]/followedgames)
+  - [Curators page](https://store.steampowered.com/curators/)
+  - [Curator Detail page](https://store.steampowered.com/curator/1370293-Cynical-Brit-Gaming/)
+  - [Community Recommendations page](https://store.steampowered.com/communityrecommendations/)
+  - [Franchise page](https://store.steampowered.com/franchise/allingames/)
+  - [Developer page](https://store.steampowered.com/developer/valve)
 - Allows you to see new games in popup page
+- Desktop notifications for new game(s) (optional)
 
 #
 
@@ -121,13 +125,4 @@ You may contribute to this project by opening an [issue](issues) to file a bug r
 
 ## Privacy Policy
 
-This extension requires permissions to <https://store.steampowered.com/>
-
-#
-
-## Known Issues
-
-- The icon does not appear when pagination changes in the tab section (such as New and Popular) of the [Tags pages](https://store.steampowered.com/tags/en/Competitive)
-- The icon does not appear when pagination changes in the tab section (such as New and Popular) of the [Genre pages](https://store.steampowered.com/genre/Free%20to%20Play/)
-- The icon does not appear when pagination changes in the tab section (such as New and Popular) of the [Special Offers](https://store.steampowered.com/specials)
-- The icon does not appear if keep scroll after footer of the [Main page](https://store.steampowered.com/)
+This extension requires permissions for "storage" and "notifications"
