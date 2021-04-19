@@ -6,6 +6,10 @@
 
 - GEFORCE NOW icons to [Wishlist](https://store.steampowered.com/wishlist/profiles) page
 - GEFORCE NOW icons to [Recommender](https://store.steampowered.com/recommender) page
+- GEFORCE NOW icons to [Curator Detail](https://store.steampowered.com/curator/1370293-Cynical-Brit-Gaming/) page (The example link may not work after a certain period of time)
+- GEFORCE NOW icons to [Franchise](https://store.steampowered.com/franchise/allingames/) page (The example link may not work after a certain period of time)
+- GEFORCE NOW icons to [Developer](https://store.steampowered.com/developer/valve) page
+- GEFORCE NOW icons to [Community Recommendations](https://store.steampowered.com/communityrecommendations/) page
 - Icons applied after footer section scrolled on [Main](https://store.steampowered.com/) page
 - Icons applied after page change in [Tags](https://store.steampowered.com/tags/en/Competitive) page tabs section
 - Icons applied after page change in [Genre](https://store.steampowered.com/genre/Free%20to%20Play/) page tabs section
