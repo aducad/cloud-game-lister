@@ -1,6 +1,6 @@
 # Changelog
 
-### v1.2.0 (Unreleased)
+### v1.2.0 (current version on Chrome web store)
 
 ### Added:
 
@@ -24,7 +24,7 @@
 
 - Search page web request hooks removed
 
-### v1.1.3 (current version on Chrome web store)
+### v1.1.3
 
 ### Added:
 
