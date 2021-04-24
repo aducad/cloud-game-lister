@@ -32,6 +32,7 @@
     "chokidar": "^3.5.1",
     "node-sass": "^4.14.1",
     "vue": "^2.6.12",
+    "vue-i18n": "^8.24.3",
     "webextension-polyfill": "^0.6.0"
   },
   "devDependencies": {
