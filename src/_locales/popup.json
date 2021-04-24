@@ -1,0 +1,24 @@
+{
+  "en": {
+    "message": {
+      "newBage": "new",
+      "gameList": "Game List",
+      "fetchGames": "Fetch Games",
+      "version": "Version:",
+      "twitter": "Twitter",
+      "changelog": "Changelog",
+      "options": "Options"
+    }
+  },
+  "tr": {
+    "message": {
+      "newBage": "yeni",
+      "gameList": "Oyun listesi",
+      "fetchGames": "Fetch Games",
+      "version": "Version:",
+      "twitter": "Twitter",
+      "changelog": "Yenilikler",
+      "options": "Seçenekler"
+    }
+  }
+}
