@@ -152,7 +152,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
            <a href="#maintenance-demiryasinoruc" title="Maintenance">🚧</a> <a href="https://github.com/aducad/cloud-game-lister/pulls?q=is%3Apr+reviewed-by%3Ademiryasinoruc" title="Reviewed Pull Requests">👀</a>
       </td>
       <td align="center">
-         <a href="https://github.com/demiryasinoruc">
+         <a href="https://github.com/wwardaww">
          <img src="https://avatars0.githubusercontent.com/u/12273655?v=4" width="100px;" alt=""/><br /><sub><b>Arda Fidancı</b></sub>
          </a><br />
            <a href="https://github.com/aducad/cloud-game-lister/commits?author=wwardaww" title="Code">💻</a>
