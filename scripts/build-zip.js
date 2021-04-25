@@ -14,13 +14,6 @@ const packageFile = require('../package.json')
 const DEST_DIR = path.join(__dirname, '../dist')
 const DEST_ZIP_DIR = path.join(__dirname, '../dist-zip')
 
-const extractExtensionNameFromLocales = () => {
-  const { default_locale } = manifestFile
-  const messagesPath = `../src/_locales/${default_locale}/messages.json`
-  const messages = require(messagesPath)
-  return messages.extensionName.message
-}
-
 const makeDestZipDirIfNotExists = () => {
   if (!fs.existsSync(DEST_ZIP_DIR)) {
     fs.mkdirSync(DEST_ZIP_DIR)
@@ -46,11 +39,7 @@ const buildZip = (src, dist, zipFilename) => {
 }
 
 const main = () => {
-  let { name } = manifestFile
-  const { version } = packageFile
-  if (name === '__MSG_extensionName__') {
-    name = extractExtensionNameFromLocales()
-  }
+  const { version, name } = packageFile
   const zipFilename = `${name}-${version}.zip`
   checkFileIsExist(DEST_ZIP_DIR, zipFilename)
   makeDestZipDirIfNotExists()

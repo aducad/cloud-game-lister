@@ -31,4 +31,15 @@ const getPageTabIdByUrl = (url) => {
   })
 }
 
-export { createPageUrl, getExtensionPageTabIdByUrl, getPageTabIdByUrl }
+const getLocale = (selectedLanguage, fallbackLanguage, validLanguages) => {
+  if (selectedLanguage) {
+    return selectedLanguage
+  }
+  const lang = browser.i18n.getUILanguage()
+  if (validLanguages.some((language) => language === lang)) {
+    return lang
+  }
+  return fallbackLanguage
+}
+
+export { createPageUrl, getExtensionPageTabIdByUrl, getLocale, getPageTabIdByUrl }

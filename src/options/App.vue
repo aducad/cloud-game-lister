@@ -68,7 +68,7 @@
                   </label>
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row mb-4">
                 <label class="control-label col" for="gameUpdateInterval">
                   {{ $t('message.updateEvery') }}
                   {{ settings.gameUpdateInterval }} {{ $t('message.hours') }}
@@ -87,6 +87,20 @@
                   </small>
                 </div>
               </div>
+              <div class="form-group row">
+                <label class="control-label col" for="gameUpdateInterval">
+                  {{ $t('message.language') }}
+                </label>
+                <select
+                  v-model="$i18n.locale"
+                  class="form-control col-2 float-right"
+                  @change="changeLang"
+                >
+                  <option v-for="lang in langs" :key="lang.key" :value="lang.key">
+                    {{ lang.name }}
+                  </option>
+                </select>
+              </div>
               <div v-show="message" class="alert alert-info">
                 {{ message }}
               </div>
@@ -100,6 +114,7 @@
 
 <script>
 import browser from 'webextension-polyfill'
+import { LANGUAGES } from '../common/config'
 
 export default {
   data() {
@@ -111,6 +126,7 @@ export default {
         openChangelogOnUpdate: true,
         gameUpdateInterval: -1
       },
+      langs: LANGUAGES,
       message: '',
       interval: -1
     }
@@ -140,19 +156,24 @@ export default {
       })
       this.settings = settings
     },
-    async save() {
+    showSaveMessage() {
       clearInterval(this.interval)
+      this.message = this.$t('message.optionsSaved')
+      this.interval = setTimeout(() => {
+        this.message = ''
+      }, 3000)
+    },
+    async save() {
       const { settings } = this
       settings.gameUpdateInterval = parseInt(settings.gameUpdateInterval)
       if (isNaN(settings.gameUpdateInterval) || settings.gameUpdateInterval < 1) {
         settings.gameUpdateInterval = 1
       }
       await browser.storage.local.set(settings)
-
-      this.message = this.$t('message.optionsSaved')
-      this.interval = setTimeout(() => {
-        this.message = ''
-      }, 3000)
+    },
+    async changeLang() {
+      localStorage.setItem('cloud_game_lister_lang', this.$i18n.locale)
+      this.showSaveMessage()
     }
   }
 }

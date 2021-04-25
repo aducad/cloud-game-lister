@@ -16,7 +16,7 @@
               {{ game.title }}
             </a>
             <span v-show="anyNewGame" class="badge badge-danger float-right">
-              {{ $t('message.newBage') }}
+              {{ $t('message.newBadge') }}
             </span>
           </li>
         </ul>
@@ -31,11 +31,6 @@
               {{ $t('message.twitter') }}
             </a>
           </li>
-          <select v-model="$i18n.locale" @change="changeLang">
-            <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang">
-              {{ lang }}
-            </option>
-          </select>
           <li class="d-inline-block float-right mr-2">
             <a target="_blank" :href="changelogUrl"> {{ $t('message.changelog') }} </a>
           </li>
@@ -51,7 +46,7 @@
 <script>
 import browser from 'webextension-polyfill'
 import { GET_APPS_COUNT, GET_NEW_APPS, FETCH_GAMES } from '../common/keys'
-import { CHANGELOG_URL, LANGUAGES } from '../common/config'
+import { CHANGELOG_URL } from '../common/config'
 
 export default {
   data() {
@@ -60,7 +55,6 @@ export default {
       appsCount: -1,
       games: [],
       anyNewGame: false,
-      langs: LANGUAGES,
       changelogUrl: CHANGELOG_URL
     }
   },
@@ -101,9 +95,6 @@ export default {
       if (lastRead) {
         this.init()
       }
-    },
-    async changeLang() {
-      localStorage.setItem('cloud_game_lister_lang', this.$i18n.locale)
     }
   }
 }

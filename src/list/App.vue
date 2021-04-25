@@ -96,8 +96,8 @@
                     <th>
                       <select v-model="filters.status" class="form-control">
                         <option value="">{{ $t('message.all') }}</option>
-                        <option v-for="status in statuses" :key="status" :value="status">
-                          {{ status }}
+                        <option v-for="status in statuses" :key="status.key" :value="status.key">
+                          {{ status.text }}
                         </option>
                       </select>
                     </th>
@@ -230,7 +230,7 @@
 
 <script>
 import browser from 'webextension-polyfill'
-import KEYS from '../common/keys'
+import { GET_APPS } from '../common/keys'
 
 export default {
   data() {
@@ -257,7 +257,13 @@ export default {
   computed: {
     statuses() {
       const statuses = this.data.map((row) => row.status)
-      return [...new Set(statuses)]
+      const statusKeys = [...new Set(statuses)].map((status) => {
+        return {
+          key: status,
+          text: this.$t(`message.${status.toLowerCase()}`)
+        }
+      })
+      return statusKeys
     },
     publishers() {
       const publishers = this.data.map((row) => row.publisher)
@@ -391,12 +397,11 @@ export default {
   methods: {
     async init() {
       const { appList } = await browser.runtime.sendMessage({
-        type: KEYS.GET_APPS,
+        type: GET_APPS,
         onlyNew: this.onlyNew
       })
       this.data = appList
     },
-
     getSortingClass(currentSortHeader) {
       const classList = []
       if (this.currentSortHeader === currentSortHeader) {

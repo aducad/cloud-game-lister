@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "__MSG_extensionName__",
+  "name": "Cloud Gaming Lister",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
   "background": {

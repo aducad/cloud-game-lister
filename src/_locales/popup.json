@@ -1,7 +1,7 @@
 {
   "en": {
     "message": {
-      "newBage": "new",
+      "newBadge": "new",
       "gameList": "Game List",
       "fetchGames": "Fetch Games",
       "version": "Version:",
@@ -12,7 +12,7 @@
   },
   "tr": {
     "message": {
-      "newBage": "yeni",
+      "newBadge": "yeni",
       "gameList": "Oyun listesi",
       "fetchGames": "Fetch Games",
       "version": "Version:",
