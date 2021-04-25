@@ -1,0 +1,28 @@
+{
+  "en": {
+    "message": {
+      "options": "Options",
+      "nodificationError": "Show desktop notification for fetching data error",
+      "nodificationUpdate": "Show desktop notification when extension is updated",
+      "nodificationNewGame": "Show desktop notification when new game(s) added",
+      "changelogPage": "Open changelog page when extension is updated",
+      "updateEvery": "Update your game list every",
+      "hours": "hour(s)",
+      "effect": " Will be effective after the first fetch",
+      "optionsSaved": "Options saved!"
+    }
+  },
+  "tr": {
+    "message": {
+      "options": "Seçenekler",
+      "nodificationError": "Hataları masaüstü bildirimi olarak göster",
+      "nodificationUpdate": "Eklenti gücellemelerini masaüstü bildirimi olarak göster",
+      "nodificationNewGame": "Yeni oyunar eklendiğinde masaüstü bildirimi olarak göster",
+      "changelogPage": "Eklenti Güncellendiğinde yenilikleri göster",
+      "updateEvery": "Oyunları şu saatte bir güncelle: ",
+      "hours": "saat",
+      "effect": "Seçenekler ilk güncellemeden sonra etkin olacaktır",
+      "optionsSaved": "Seçenekler Kaydedildi!"
+    }
+  }
+}

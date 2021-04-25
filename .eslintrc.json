@@ -5,7 +5,7 @@
     "node": true,
     "commonjs": true
   },
-  "extends": ["plugin:vue/recommended", "prettier"],
+  "extends": ["plugin:vue/recommended", "prettier", "plugin:json/recommended"],
   "globals": {
     "Vue": true,
     "chrome": true,

@@ -1,0 +1,48 @@
+{
+  "en": {
+    "message": {
+      "allGames": "All Games",
+      "gameList": "Game List",
+      "recentGames": "Recently Added Games",
+      "first": "first",
+      "prev": "prev",
+      "next": "next",
+      "last": "last",
+      "all": "all",
+      "title": "Title",
+      "status": "Status",
+      "optimized": "Fully Optimized",
+      "new": "New",
+      "publisher": "Publisher",
+      "genres": "Genre(s)",
+      "yes": "Yes",
+      "no": "No",
+      "available": "Available",
+      "maintenance": "Maintenance",
+      "searchGames": "Search games"
+    }
+  },
+  "tr": {
+    "message": {
+      "allGames": "Bütün Oyunlar",
+      "gameList": "Oyun Listesi",
+      "recentGames": "Yeni Eklenen Oyunlar",
+      "first": "ilk",
+      "prev": "önceki",
+      "next": "sonraki",
+      "last": "son",
+      "all": "Tümü",
+      "title": "Başlık",
+      "status": "Durum",
+      "optimized": "Tam Optimize",
+      "new": "Yeni",
+      "publisher": "Yayıncı",
+      "genres": "Türler",
+      "yes": "Evet",
+      "no": "Hayır",
+      "available": "Mevcut",
+      "maintenance": "Bakımda",
+      "searchGames": "Oyun Ara"
+    }
+  }
+}

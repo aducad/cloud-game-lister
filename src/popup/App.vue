@@ -3,10 +3,10 @@
     <div class="card border-info">
       <div class="card-header">
         <button class="btn btn-block btn-info" @click="openPage('list.html')">
-          Game List <span class="badge badge-danger">{{ appsCount }}</span>
+          {{ $t('message.gameList') }} <span class="badge badge-danger">{{ appsCount }}</span>
         </button>
         <button v-if="appsCount <= 0" class="btn btn-block btn-warning" @click="fetchGames">
-          Fetch Games
+          {{ $t('message.fetchGames') }}
         </button>
       </div>
       <div class="card-body p-0">
@@ -15,23 +15,32 @@
             <a :href="game.url" target="_blank">
               {{ game.title }}
             </a>
-            <span v-show="anyNewGame" class="badge badge-danger float-right"> new </span>
+            <span v-show="anyNewGame" class="badge badge-danger float-right">
+              {{ $t('message.newBage') }}
+            </span>
           </li>
         </ul>
       </div>
       <div class="card-footer">
         <ul class="p-0 mb-0">
           <li v-show="version" class="d-inline-block">
-            Version: <strong>{{ version }}</strong>
+            {{ $t('message.version') }} <strong>{{ version }}</strong>
           </li>
           <li class="d-inline-block float-right">
-            <a target="_blank" href="https://twitter.com/steamextensions"> Twitter </a>
+            <a target="_blank" href="https://twitter.com/steamextensions">
+              {{ $t('message.twitter') }}
+            </a>
+          </li>
+          <select v-model="$i18n.locale" @change="changeLang">
+            <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang">
+              {{ lang }}
+            </option>
+          </select>
+          <li class="d-inline-block float-right mr-2">
+            <a target="_blank" :href="changelogUrl"> {{ $t('message.changelog') }} </a>
           </li>
           <li class="d-inline-block float-right mr-2">
-            <a target="_blank" :href="changelogUrl"> Changelog </a>
-          </li>
-          <li class="d-inline-block float-right mr-2">
-            <a target="_blank" href="options.html"> Options </a>
+            <a target="_blank" href="options.html"> {{ $t('message.options') }} </a>
           </li>
         </ul>
       </div>
@@ -42,7 +51,7 @@
 <script>
 import browser from 'webextension-polyfill'
 import { GET_APPS_COUNT, GET_NEW_APPS, FETCH_GAMES } from '../common/keys'
-import { CHANGELOG_URL } from '../common/config'
+import { CHANGELOG_URL, LANGUAGES } from '../common/config'
 
 export default {
   data() {
@@ -51,6 +60,7 @@ export default {
       appsCount: -1,
       games: [],
       anyNewGame: false,
+      langs: LANGUAGES,
       changelogUrl: CHANGELOG_URL
     }
   },
@@ -91,6 +101,9 @@ export default {
       if (lastRead) {
         this.init()
       }
+    },
+    async changeLang() {
+      localStorage.setItem('cloud_game_lister_lang', this.$i18n.locale)
     }
   }
 }

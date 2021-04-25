@@ -3,11 +3,13 @@
     <div class="card">
       <div class="card-header">
         <div class="row">
-          <div class="col">Game List</div>
+          <div class="col">{{ $t('message.gameList') }}</div>
           <div class="col-auto">
-            <a v-show="onlyNew" class="btn btn-info" href="list.html">All Games</a>
+            <a v-show="onlyNew" class="btn btn-info" href="list.html">{{
+              $t('message.allGames')
+            }}</a>
             <a v-show="!onlyNew" class="btn btn-info" href="list.html?only-new=true">
-              Recently Added Games
+              {{ $t('message.recentGames') }}
             </a>
           </div>
         </div>
@@ -33,7 +35,7 @@
                         :disabled="currentPage === 1"
                         @click="currentPage = 1"
                       >
-                        first
+                        {{ $t('message.first') }}
                       </button>
                     </li>
                     <li class="page-item" :class="{ disabled: currentPage === 1 }">
@@ -42,7 +44,7 @@
                         :disabled="currentPage === 1"
                         @click="--currentPage"
                       >
-                        prev
+                        {{ $t('message.prev') }}
                       </button>
                     </li>
                     <li
@@ -61,7 +63,7 @@
                         :disabled="currentPage >= totalPage"
                         @click="++currentPage"
                       >
-                        next
+                        {{ $t('message.next') }}
                       </button>
                     </li>
                     <li class="page-item" :class="{ disabled: currentPage >= totalPage }">
@@ -70,7 +72,7 @@
                         :disabled="currentPage >= totalPage"
                         @click="currentPage = totalPage"
                       >
-                        last
+                        {{ $t('message.last') }}
                       </button>
                     </li>
                   </ul>
@@ -88,12 +90,12 @@
                         v-model="filters.title"
                         type="text"
                         class="form-control"
-                        placeholder="Search games"
+                        :placeholder="$t('message.searchGames')"
                       />
                     </th>
                     <th>
                       <select v-model="filters.status" class="form-control">
-                        <option value="">All</option>
+                        <option value="">{{ $t('message.all') }}</option>
                         <option v-for="status in statuses" :key="status" :value="status">
                           {{ status }}
                         </option>
@@ -101,7 +103,7 @@
                     </th>
                     <th>
                       <select v-model="filters.optimization" class="form-control">
-                        <option :value="null">All</option>
+                        <option :value="null">{{ $t('message.all') }}</option>
                         <option
                           v-for="optimization in optimizations"
                           :key="optimization.title"
@@ -113,7 +115,7 @@
                     </th>
                     <th>
                       <select v-model="filters.isNew" class="form-control">
-                        <option :value="null">All</option>
+                        <option :value="null">{{ $t('message.all') }}</option>
                         <option
                           v-for="isNewOption in isNewOptions"
                           :key="isNewOption.title"
@@ -125,7 +127,7 @@
                     </th>
                     <th>
                       <select v-model="filters.publisher" class="form-control">
-                        <option value="">All</option>
+                        <option value="">{{ $t('message.all') }}</option>
                         <option
                           v-for="publisher in publishers"
                           :key="publisher"
@@ -137,7 +139,7 @@
                     </th>
                     <th>
                       <select v-model="filters.genre" class="form-control">
-                        <option value="">All</option>
+                        <option value="">{{ $t('message.all') }}</option>
                         <option v-for="genre in genres" :key="genre" :value="genre">
                           {{ genre }}
                         </option>
@@ -152,14 +154,14 @@
                       :class="getSortingClass('title')"
                       @click="changeSortKey('title')"
                     >
-                      Title
+                      {{ $t('message.title') }}
                     </th>
                     <th
                       class="sortable"
                       :class="getSortingClass('status')"
                       @click="changeSortKey('status')"
                     >
-                      Status
+                      {{ $t('message.status') }}
                     </th>
                     <th
                       class="sortable"
@@ -167,23 +169,23 @@
                       :class="getSortingClass('isFullyOptimized')"
                       @click="changeSortKey('isFullyOptimized')"
                     >
-                      Fully Optimized
+                      {{ $t('message.optimized') }}
                     </th>
                     <th
                       class="sortable"
                       :class="getSortingClass('isNew')"
                       @click="changeSortKey('isNew')"
                     >
-                      New
+                      {{ $t('message.new') }}
                     </th>
                     <th
                       class="sortable"
                       :class="getSortingClass('publish')"
                       @click="changeSortKey('publish')"
                     >
-                      Publisher
+                      {{ $t('message.publisher') }}
                     </th>
-                    <th>Genre(s)</th>
+                    <th>{{ $t('message.genres') }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -198,11 +200,11 @@
                         class="badge"
                         :class="row.status === 'AVAILABLE' ? 'badge-info' : 'badge-warning'"
                       >
-                        {{ row.status }}
+                        {{ $t('message.' + row.status.toLowerCase()) }}
                       </span>
                     </td>
-                    <td>{{ row.isFullyOptimized ? 'Yes' : 'No' }}</td>
-                    <td>{{ row.isNew ? 'Yes' : 'No' }}</td>
+                    <td>{{ row.isFullyOptimized ? $t('message.yes') : $t('message.no') }}</td>
+                    <td>{{ row.isNew ? $t('message.yes') : $t('message.no') }}</td>
                     <td>{{ row.publisher }}</td>
                     <td>
                       <a
@@ -240,14 +242,8 @@ export default {
       currentSortHeader: 'title',
       currentSortDir: 'asc',
       data: [],
-      optimizations: [
-        { title: 'Yes', value: true },
-        { title: 'No', value: false }
-      ],
-      isNewOptions: [
-        { title: 'Yes', value: true },
-        { title: 'No', value: false }
-      ],
+      optimizations: [],
+      isNewOptions: [],
       filters: {
         status: '',
         optimization: null,
@@ -373,6 +369,12 @@ export default {
   },
   created() {
     this.onlyNew = new URL(window.location.href).searchParams.get('only-new') === 'true'
+    const options = [
+      { title: this.$t('message.yes'), value: true },
+      { title: this.$t('message.no'), value: false }
+    ]
+    this.optimizations = options
+    this.isNewOptions = options
     this.init()
   },
   mounted() {

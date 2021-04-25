@@ -5,12 +5,12 @@
         <div class="col-lg-8">
           <div class="card">
             <div class="card-header">
-              <h3>Options</h3>
+              <h3>{{ $t('message.options') }}</h3>
             </div>
             <div class="card-body">
               <div class="form-group">
                 <label class="form-check-label" for="notifyOnFetchError">
-                  Show desktop notification for fetching data error
+                  {{ $t('message.nodificationError') }}
                 </label>
                 <div class="float-right">
                   <label class="switch">
@@ -25,7 +25,7 @@
               </div>
               <div class="form-group">
                 <label class="form-check-label" for="notifyOnUpdate">
-                  Show desktop notification when extension is updated
+                  {{ $t('message.nodificationUpdate') }}
                 </label>
                 <div class="float-right">
                   <label class="switch">
@@ -40,7 +40,7 @@
               </div>
               <div class="form-group">
                 <label class="form-check-label" for="notifyOnNewGamesAdded">
-                  Show desktop notification when new game(s) added
+                  {{ $t('message.nodificationNewGame') }}
                 </label>
                 <div class="float-right">
                   <label class="switch">
@@ -55,7 +55,7 @@
               </div>
               <div class="form-group">
                 <label class="form-check-label" for="openChangelogOnUpdate">
-                  Open changelog page when extension is updated
+                  {{ $t('message.changelogPage') }}
                 </label>
                 <div class="float-right">
                   <label class="switch">
@@ -70,10 +70,8 @@
               </div>
               <div class="form-group row">
                 <label class="control-label col" for="gameUpdateInterval">
-                  Update your game list every
-                  {{ settings.gameUpdateInterval }} hour{{
-                    settings.gameUpdateInterval > 1 ? 's' : ''
-                  }}
+                  {{ $t('message.updateEvery') }}
+                  {{ settings.gameUpdateInterval }} {{ $t('message.hours') }}
                 </label>
                 <input
                   id="gameUpdateInterval"
@@ -85,7 +83,7 @@
                 />
                 <div class="col-12">
                   <small class="form-text text-muted">
-                    Will be effective after the first fetch
+                    {{ $t('message.effect') }}
                   </small>
                 </div>
               </div>
@@ -151,7 +149,7 @@ export default {
       }
       await browser.storage.local.set(settings)
 
-      this.message = 'Options saved!'
+      this.message = this.$t('message.optionsSaved')
       this.interval = setTimeout(() => {
         this.message = ''
       }, 3000)
