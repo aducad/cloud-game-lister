@@ -71,7 +71,7 @@
               <div class="form-group row">
                 <label class="control-label col" for="gameUpdateInterval">
                   {{ $t('message.updateEvery') }}
-                  {{ settings.gameUpdateInterval }} {{ $t('message.hours') }}{{}}
+                  {{ settings.gameUpdateInterval }} {{ $t('message.hours') }}
                 </label>
                 <input
                   id="gameUpdateInterval"

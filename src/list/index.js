@@ -10,7 +10,7 @@ import VueI18n from 'vue-i18n'
 Vue.use(VueI18n)
 const selectedLang = localStorage.getItem('cloud_game_lister_lang')
 const i18n = new VueI18n({
-  locale: selectedLang ? selectedLang : 'en',
+  locale: selectedLang || 'en',
   messages: lang
 })
 

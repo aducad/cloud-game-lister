@@ -376,7 +376,6 @@ export default {
     this.optimizations = options
     this.isNewOptions = options
     this.init()
-    chrome.extension.getBackgroundPage().console.log(options, 'lang')
   },
   mounted() {
     this.$watch(
