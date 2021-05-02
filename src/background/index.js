@@ -288,19 +288,24 @@ const onRuntimeMessageHandler = (request, sender) => {
     }
     case KEYS.GET_NEW_APPS: {
       return new Promise(async (resolve) => {
-        let anyNewGame = true
-        let newGames = appList.filter((app) => app.isNew)
+        let newGames = [...appList.filter((app) => app.isNew)]
         // set all games to array if there is no new game
         if (newGames.length === 0) {
           newGames = [...appList]
-          anyNewGame = false
         }
         // randomize games array
         newGames.sort(() => {
           return Math.random() < 0.5 ? 1 : -1
         })
-        const games = newGames.filter((_, index) => index < 5)
-        resolve({ games, anyNewGame })
+        let games = newGames.filter((_, index) => index < 5)
+        if (games.length < 5) {
+          const oldGames = [...appList.filter((app) => !app.isNew)]
+          oldGames.sort(() => {
+            return Math.random() < 0.5 ? 1 : -1
+          })
+          games = [...games, ...oldGames.filter((_, index) => index < 5 - games.length)]
+        }
+        resolve({ games })
       })
     }
     case KEYS.FETCH_GAMES: {

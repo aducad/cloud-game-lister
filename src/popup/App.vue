@@ -15,7 +15,7 @@
             <a :href="game.url" target="_blank">
               {{ game.title }}
             </a>
-            <span v-show="anyNewGame" class="badge badge-danger float-right">
+            <span v-show="game.isNew" class="badge badge-danger float-right">
               {{ $t('message.newBadge') }}
             </span>
           </li>
@@ -54,7 +54,6 @@ export default {
       version: '',
       appsCount: -1,
       games: [],
-      anyNewGame: false,
       changelogUrl: CHANGELOG_URL
     }
   },
@@ -78,11 +77,10 @@ export default {
       })
       this.appsCount = appsCount
 
-      const { games, anyNewGame } = await browser.runtime.sendMessage({
+      const { games } = await browser.runtime.sendMessage({
         type: GET_NEW_APPS
       })
       this.games = games
-      this.anyNewGame = anyNewGame
     },
     async openPage(url) {
       await browser.tabs.create({ url })
