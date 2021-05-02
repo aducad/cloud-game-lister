@@ -245,8 +245,17 @@ const runtimeContentHandler = (
   observer.observe(rootElement, options)
 }
 
+const steamAppIdExtractorFromUrl = (url) => {
+  const paths = new URL(url).pathname.split('/').filter((i) => i)
+  if (paths.length > 1) {
+    return paths[1]
+  }
+  return null
+}
+
 export {
   buildGeForceIcon,
+  steamAppIdExtractorFromUrl,
   getGameInfo,
   checkDynamicContentInitialization,
   dynamicContentHandler,

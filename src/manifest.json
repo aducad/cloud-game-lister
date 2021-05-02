@@ -94,7 +94,17 @@
     {
       "all_frames": false,
       "js": ["./content_scripts/steam-franchise.js"],
-      "matches": ["*://store.steampowered.com/franchise/*", "*://store.steampowered.com/developer/*", "*://store.steampowered.com/curator/*"],
+      "matches": [
+        "*://store.steampowered.com/franchise/*",
+        "*://store.steampowered.com/developer/*",
+        "*://store.steampowered.com/curator/*"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
+      "js": ["./content_scripts/steam-goldenweek.js"],
+      "matches": ["*://store.steampowered.com/sale/goldenweek*"],
       "run_at": "document_end"
     },
     {
@@ -111,10 +121,7 @@
     "64": "assets/icons/64x64-logo.png",
     "128": "assets/icons/128x128-logo.png"
   },
-  "permissions": [
-    "storage",
-    "notifications"
-  ],
+  "permissions": ["storage", "notifications"],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "web_accessible_resources": ["data/*.json", "assets/*.svg", "assets/*.css", "assets/icons/*"]
 }

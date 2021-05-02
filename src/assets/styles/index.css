@@ -77,7 +77,7 @@
   white-space: normal;
   box-shadow: 0 0 3px #000000;
   font-size: 11px;
-  width: 120px;
+  width: auto;
 }
 
 .cgl-logo-container .clg-tooltip-content {
