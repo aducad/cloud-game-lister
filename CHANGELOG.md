@@ -1,5 +1,19 @@
 # Changelog
 
+### v1.3.0 (Unreleased)
+
+### Added:
+
+- GEFORCE NOW icons to [Golden Week](https://store.steampowered.com/sale/goldenweek) page
+- Icons applied to [Main](https://store.steampowered.com/) page top new releases section
+- Localization (currently only in extension pages)
+- Language option added to options page
+- Turkish translations
+
+### Changed:
+
+- If the length of the new games is under 5, the old games were combined with the new games on the popup page.
+
 ### v1.2.0 (current version on Chrome web store)
 
 ### Added:
