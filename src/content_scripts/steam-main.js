@@ -63,6 +63,10 @@ const modules = [
     module: '.home_ctn.marketingmessage_area',
     itemsContainerSelector: '.marketingmessage_container',
     itemSelector: '.home_marketing_message'
+  },
+  {
+    // top new releases
+    module: '#module_top_new_releases'
   }
 ]
 
