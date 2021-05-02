@@ -5,7 +5,6 @@
       "gameList": "Game List",
       "fetchGames": "Fetch Games",
       "version": "Version:",
-      "twitter": "Twitter",
       "changelog": "Changelog",
       "options": "Options"
     }
@@ -16,7 +15,6 @@
       "gameList": "Oyun listesi",
       "fetchGames": "Fetch Games",
       "version": "Version:",
-      "twitter": "Twitter",
       "changelog": "Yenilikler",
       "options": "Seçenekler"
     }

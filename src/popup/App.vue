@@ -27,9 +27,7 @@
             {{ $t('message.version') }} <strong>{{ version }}</strong>
           </li>
           <li class="d-inline-block float-right">
-            <a target="_blank" href="https://twitter.com/steamextensions">
-              {{ $t('message.twitter') }}
-            </a>
+            <a target="_blank" href="https://twitter.com/steamextensions"> Twitter </a>
           </li>
           <li class="d-inline-block float-right mr-2">
             <a target="_blank" :href="changelogUrl"> {{ $t('message.changelog') }} </a>
