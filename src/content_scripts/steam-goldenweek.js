@@ -41,7 +41,7 @@ const observeRows = () => {
             const parent = appRow.closest(
               '[class*="salepreviewwidgets_SaleItemBrowserRow"],[class*="salepreviewwidgets_OuterCapsuleContainer"]'
             )
-            if (!parent) {
+            if (!parent || parent.querySelector('.cgl-logo-container')) {
               continue
             }
             parent.classList.add('cgl-item-added')

@@ -18,7 +18,7 @@
       "options": "Seçenekler",
       "nodificationError": "Hataları masaüstü bildirimi olarak göster",
       "nodificationUpdate": "Eklenti gücellemelerini masaüstü bildirimi olarak göster",
-      "nodificationNewGame": "Yeni oyunar eklendiğinde masaüstü bildirimi olarak göster",
+      "nodificationNewGame": "Yeni oyunlar eklendiğinde masaüstü bildirimi olarak göster",
       "changelogPage": "Eklenti güncellendiğinde yenilikleri göster",
       "updateEvery": "Oyunları şu saatte bir güncelle: ",
       "hours": "saat",
