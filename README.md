@@ -55,6 +55,7 @@ To use this extension, please install it from the [Chrome Web Store](https://chr
   - [Genre pages](https://store.steampowered.com/genre/Free%20to%20Play/)
   - [Explore new page](https://store.steampowered.com/explore/new)
   - [Special Offers page](https://store.steampowered.com/specials)
+  - [Golden Week page](https://store.steampowered.com/sale/goldenweek)
   - [Friend Activity page](https://store.steampowered.com/recommended/friendactivity/)
   - [Followed Games page](https://steamcommunity.com/id/[changeyourusernamewiththis]/followedgames)
   - [Curators page](https://store.steampowered.com/curators/)
@@ -126,7 +127,9 @@ You may contribute to this project by opening an [issue](issues) to file a bug r
 ## Privacy Policy
 
 This extension requires permissions for "storage" and "notifications"
+
 #
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -140,7 +143,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
          <img src="https://avatars0.githubusercontent.com/u/7765958?v=4" width="100px;" alt=""/><br /><sub><b>Emre Sandikci</b></sub>
          </a><br />
            <a href="https://github.com/aducad/cloud-game-lister/commits?author=emresandikci" title="Code">💻</a>
-          <a href="#ideas-aducad-cgl" title="Ideas, Planning, & Feedback">🤔</a> 
+          <a href="#ideas-aducad-cgl" title="Ideas, Planning, & Feedback">🤔</a>
           <a href="#maintenance-emresandikci" title="Maintenance">🚧</a> <a href="https://github.com/aducad/cloud-game-lister/pulls?q=is%3Apr+reviewed-by%3Aemresandikci" title="Reviewed Pull Requests">👀</a>
       </td>
       <td align="center">
@@ -148,7 +151,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
          <img src="https://avatars0.githubusercontent.com/u/937795?v=4" width="100px;" alt=""/><br /><sub><b>Demir Yasin Oruc</b></sub>
          </a><br />
            <a href="https://github.com/aducad/cloud-game-lister/commits?author=demiryasinoruc" title="Code">💻</a>
-           <a href="#ideas-aducad-cgl" title="Ideas, Planning, & Feedback">🤔</a> 
+           <a href="#ideas-aducad-cgl" title="Ideas, Planning, & Feedback">🤔</a>
            <a href="#maintenance-demiryasinoruc" title="Maintenance">🚧</a> <a href="https://github.com/aducad/cloud-game-lister/pulls?q=is%3Apr+reviewed-by%3Ademiryasinoruc" title="Reviewed Pull Requests">👀</a>
       </td>
       <td align="center">
@@ -156,7 +159,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
          <img src="https://avatars0.githubusercontent.com/u/12273655?v=4" width="100px;" alt=""/><br /><sub><b>Arda Fidancı</b></sub>
          </a><br />
            <a href="https://github.com/aducad/cloud-game-lister/commits?author=wwardaww" title="Code">💻</a>
-          <a href="https://github.com/aducad/cloud-game-lister/commit/c49621396a1ff0ddfb07d8f73f923f0396d26abc" title="Translation">🌍</a>   
+          <a href="https://github.com/aducad/cloud-game-lister/commit/c49621396a1ff0ddfb07d8f73f923f0396d26abc" title="Translation">🌍</a>
       </td>
    </tr>
 </table>
