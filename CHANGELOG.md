@@ -1,6 +1,12 @@
 # Changelog
 
-### v1.3.0 (Unreleased)
+### v1.3.1 (Unreleased)
+
+### Added:
+
+- GEFORCE NOW icons to User Games (https://steamcommunity.com/id/\*/games/?tab=all), (https://steamcommunity.com/id/\*/games/?tab=perfect), (https://steamcommunity.com/id/\*/games/?tab=recent) pages (change "\*" with your steam profile name in url)
+
+### v1.3.0 (current version on Chrome web store)
 
 ### Added:
 
@@ -14,7 +20,7 @@
 
 - If the length of the new games is under 5, the old games were combined with the new games on the popup page.
 
-### v1.2.0 (current version on Chrome web store)
+### v1.2.0
 
 ### Added:
 

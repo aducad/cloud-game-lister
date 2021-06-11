@@ -58,6 +58,7 @@ To use this extension, please install it from the [Chrome Web Store](https://chr
   - [Golden Week page](https://store.steampowered.com/sale/goldenweek)
   - [Friend Activity page](https://store.steampowered.com/recommended/friendactivity/)
   - [Followed Games page](https://steamcommunity.com/id/[changeyourusernamewiththis]/followedgames)
+  - [User Games page](https://steamcommunity.com/id/[changeyourusernamewiththis]/games/?tab=[tab]) (tabs: recent, all, perfect)
   - [Curators page](https://store.steampowered.com/curators/)
   - [Curator Detail page](https://store.steampowered.com/curator/1370293-Cynical-Brit-Gaming/)
   - [Community Recommendations page](https://store.steampowered.com/communityrecommendations/)

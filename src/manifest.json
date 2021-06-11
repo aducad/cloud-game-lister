@@ -75,6 +75,12 @@
     },
     {
       "all_frames": false,
+      "js": ["./content_scripts/steam-user-games.js"],
+      "matches": ["*://steamcommunity.com/id/*/games/?tab=*"],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
       "js": ["./content_scripts/steam-bundle.js"],
       "matches": ["*://store.steampowered.com/bundle/*/*/*"],
       "run_at": "document_end"
