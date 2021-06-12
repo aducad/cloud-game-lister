@@ -1,12 +1,22 @@
 # Changelog
 
-### v1.3.1 (Unreleased)
+### v1.3.2 (Unreleased)
 
 ### Added:
 
-- GEFORCE NOW icons to User Games (https://steamcommunity.com/id/\*/games/?tab=all), (https://steamcommunity.com/id/\*/games/?tab=perfect), (https://steamcommunity.com/id/\*/games/?tab=recent) pages (change "\*" with your steam profile name in url)
+- GEFORCE NOW icons to User Games pages (https://steamcommunity.com/profile/\*/games/), (https://steamcommunity.com/profile/\*/games/?tab=all), (https://steamcommunity.com/profile/\*/games/?tab=perfect), (https://steamcommunity.com/profile/\*/games/?tab=recent) pages (change "\*" with steam id in url)
 
-### v1.3.0 (current version on Chrome web store)
+### Changed:
+
+- Url pattern changed for User Games
+
+### v1.3.1 (current version on Chrome web store)
+
+### Added:
+
+- GEFORCE NOW icons to User Games (https://steamcommunity.com/id/\*/games/), (https://steamcommunity.com/id/\*/games/?tab=all), (https://steamcommunity.com/id/\*/games/?tab=perfect), (https://steamcommunity.com/id/\*/games/?tab=recent) pages (change "\*" with your steam profile name in url)
+
+### v1.3.0
 
 ### Added:
 

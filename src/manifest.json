@@ -76,7 +76,7 @@
     {
       "all_frames": false,
       "js": ["./content_scripts/steam-user-games.js"],
-      "matches": ["*://steamcommunity.com/id/*/games/?tab=*"],
+      "matches": ["*://steamcommunity.com/id/*/games*", "*://steamcommunity.com/profiles/*/games*"],
       "run_at": "document_end"
     },
     {
