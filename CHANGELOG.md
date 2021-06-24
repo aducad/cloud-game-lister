@@ -1,6 +1,12 @@
 # Changelog
 
-### v1.3.2 (Unreleased)
+### v1.3.3 (current version on Chrome web store)
+
+### Added:
+
+- GEFORCE NOW icons to Summer Sale Pages and Modules
+
+### v1.3.2
 
 ### Added:
 
@@ -10,7 +16,7 @@
 
 - Url pattern changed for User Games
 
-### v1.3.1 (current version on Chrome web store)
+### v1.3.1
 
 ### Added:
 
