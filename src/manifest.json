@@ -110,7 +110,13 @@
     {
       "all_frames": false,
       "js": ["./content_scripts/steam-goldenweek.js"],
-      "matches": ["*://store.steampowered.com/sale/goldenweek*"],
+      "matches": ["*://store.steampowered.com/sale/goldenweek*", "*://store.steampowered.com/sale/nextfest*"],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
+      "js": ["./content_scripts/steam-summersale2021-genre.js"],
+      "matches": ["*://store.steampowered.com/sale/summer2021_*"],
       "run_at": "document_end"
     },
     {

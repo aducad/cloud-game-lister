@@ -2,7 +2,9 @@ import { injectStyleFile } from '../common/utility'
 import {
   staticContentHandler,
   dynamicContentHandler,
-  runtimeContentHandler
+  runtimeContentHandler,
+  getGameInfo,
+  buildGeForceIcon
 } from '../libs/builders/steam-builder'
 import {
   ICON_SIZE_CLASSES,
@@ -67,6 +69,14 @@ const modules = [
   {
     // top new releases
     module: '#module_top_new_releases'
+  },
+  // 2021 sale
+  // #home_browsemore_carousel2 özel yapılacak
+  {
+    // #topsellers_tier
+    module: '#topsellers_tier',
+    itemsContainerSelector: '',
+    itemSelector: '.sale_capsule'
   }
 ]
 
@@ -92,12 +102,102 @@ const observableModules = [
     // live streams
     settings: { module: '.live_streams_ctn' },
     rootSelector: '.live_streams_ctn .carousel_items'
+  },
+  // ##### 2021 sale #####
+  {
+    // #tier1_target
+    settings: {
+      module: '#tier1_target',
+      itemsContainerSelector: '.salerow',
+      itemSelector: '.sale_capsule'
+    },
+    rootSelector: '#tier1_target'
+  },
+  {
+    // #tier2_target
+    settings: {
+      module: '#tier2_target',
+      itemsContainerSelector: '.salerow',
+      itemSelector: '.sale_capsule'
+    },
+    rootSelector: '#tier2_target'
+  },
+  {
+    // #wishlist_tier
+    settings: {
+      module: '#wishlist_tier',
+      itemsContainerSelector: '',
+      itemSelector: '.sale_capsule'
+    },
+    rootSelector: '#wishlist_tier'
+  },
+  {
+    // #sale_discounts_area
+    settings: {
+      module: '#sale_discounts_area',
+      itemsContainerSelector: '.home_discount_games_ctn',
+      itemSelector: '.sale_capsule'
+    },
+    rootSelector: '#sale_discounts_area'
+  },
+  {
+    // #sale_category_blocks
+    rootSelector: '#sale_category_blocks',
+    settings: {
+      module: '.home_category_games_ctn',
+      itemsContainerSelector: '.salerow',
+      itemSelector: '.sale_capsule'
+    }
+  },
+  {
+    // #sale_tag_categories
+    rootSelector: '#sale_tag_categories',
+    settings: {
+      module: '.home_category_games_ctn',
+      itemsContainerSelector: '.salerow',
+      itemSelector: '.sale_capsule'
+    }
+  },
+  {
+    // .home_newupcoming_games_ctn
+    rootSelector: '.home_newupcoming_games_ctn',
+    settings: {
+      module: '.home_newupcoming_games_ctn',
+      itemsContainerSelector: '',
+      itemSelector: '.sale_capsule'
+    }
   }
 ]
+
+const buildHeroRowsIcons = async () => {
+  const appIdList = []
+  const appLinks = document.querySelectorAll('.hero_row .hero_capsule a.hero_click_overlay')
+  for (let i = 0; i < appLinks.length; i++) {
+    const appLink = appLinks[i]
+    appLink.classList.add('cgl-applied')
+    const url = new URL(appLink.href)
+    const appid = url.pathname.split('/').filter((s) => s)[1]
+    appIdList.push(appid)
+  }
+  const games = await getGameInfo(appIdList)
+  for (let index = 0; index < games.length; index++) {
+    const game = games[index]
+    const { appid } = game
+    const appSelector = `.hero_row .hero_capsule a.hero_click_overlay[href*="/app/${appid}"]`
+    const appRow = document.querySelector(appSelector)
+    const logoContainer = buildGeForceIcon(game, ICON_SIZE_CLASSES.MEDIUM)
+    appRow.classList.add('cgl-item-added')
+    appRow.appendChild(logoContainer)
+  }
+}
 
 const init = async () => {
   // inject style file
   injectStyleFile('./assets/styles/index.css')
+
+  // 2021 sale
+  buildHeroRowsIcons()
+  // 2021 sale
 
   // runtime contents
   for (let i = 0; i < observableModules.length; i++) {
