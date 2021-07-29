@@ -55,7 +55,7 @@ To use this extension, please install it from the [Chrome Web Store](https://chr
   - [Genre pages](https://store.steampowered.com/genre/Free%20to%20Play/)
   - [Explore new page](https://store.steampowered.com/explore/new)
   - [Special Offers page](https://store.steampowered.com/specials)
-  - [Golden Week page](https://store.steampowered.com/sale/goldenweek)
+  - [Sale pages](https://store.steampowered.com/sale/[changesalenamewiththis])
   - [Friend Activity page](https://store.steampowered.com/recommended/friendactivity/)
   - [Followed Games page](https://steamcommunity.com/id/[changeyourusernamewiththis]/followedgames)
   - [User Games page](https://steamcommunity.com/id/[changeyourusernamewiththis]/games/?tab=[tab]) (custom url) (tabs: recent, all, perfect)

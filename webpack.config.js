@@ -38,9 +38,7 @@ module.exports = (env) => {
     'content_scripts/steam-wishlist': './content_scripts/steam-wishlist.js',
     'content_scripts/steam-recommender': './content_scripts/steam-recommender.js',
     'content_scripts/steam-franchise': './content_scripts/steam-franchise.js',
-    'content_scripts/steam-goldenweek': './content_scripts/steam-goldenweek.js',
-    'content_scripts/steam-summersale2021-genre':
-      './content_scripts/steam-summersale2021-genre.js'
+    'content_scripts/steam-sale': './content_scripts/steam-sale.js'
   }
   const config = {
     devtool: isDevMode ? 'eval-source-map' : false,

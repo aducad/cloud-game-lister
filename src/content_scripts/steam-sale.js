@@ -39,7 +39,7 @@ const observeRows = () => {
           for (let i = 0; i < appRows.length; i++) {
             const appRow = appRows[i]
             const parent = appRow.closest(
-              '[class*="salepreviewwidgets_SaleItemBrowserRow"],[class*="salepreviewwidgets_OuterCapsuleContainer"]'
+              '[class*="animated_featured_capsule_FeatureCtn"],[class*="salepreviewwidgets_SaleItemBrowserRow"],[class*="salepreviewwidgets_OuterCapsuleContainer"]'
             )
             if (!parent || parent.querySelector('.cgl-logo-container')) {
               continue
