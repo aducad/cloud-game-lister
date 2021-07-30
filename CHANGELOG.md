@@ -1,12 +1,12 @@
 # Changelog
 
-### v1.3.4 (Unreleased)
+### v1.3.4 (current version on Chrome web store)
 
 ### Added:
 
 - GEFORCE NOW icons to all Sale Pages (Experimental)
 
-### v1.3.3 (current version on Chrome web store)
+### v1.3.3
 
 ### Added:
 
