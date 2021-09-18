@@ -1,5 +1,11 @@
 # Changelog
 
+### v1.3.5 (Under Review)
+
+### Added:
+
+- Remove extension badge text in click notification
+
 ### v1.3.4 (current version on Chrome web store)
 
 ### Added:
