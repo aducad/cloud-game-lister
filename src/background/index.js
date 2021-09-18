@@ -331,6 +331,11 @@ const onInstalledHandler = async (details) => {
   notifyUserForUpdate(previousVersion, reason)
 }
 
+const onNotificationClickHandler = () => {
+  browser.browserAction.setBadgeText({ text: '' })
+  browser.browserAction.setTitle({ title: '' })
+}
+
 // ##### Listeners
 
 // On Storage Changed Listener
@@ -341,5 +346,10 @@ browser.runtime.onMessage.addListener(onRuntimeMessageHandler)
 
 // On Installed Listener
 browser.runtime.onInstalled.addListener(onInstalledHandler)
+
+// On Notification Click Listener
+if (browser.notifications.onClicked) {
+  browser.notifications.onClicked.addListener(onNotificationClickHandler)
+}
 
 init()
