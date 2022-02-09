@@ -22,20 +22,45 @@
         </ul>
       </div>
       <div class="card-footer">
-        <ul class="p-0 mb-0">
-          <li v-show="version" class="d-inline-block">
-            {{ $t('message.version') }} <strong>{{ version }}</strong>
-          </li>
-          <li class="d-inline-block float-right">
-            <a target="_blank" href="https://twitter.com/steamextensions"> Twitter </a>
-          </li>
-          <li class="d-inline-block float-right mr-2">
-            <a target="_blank" :href="changelogUrl"> {{ $t('message.changelog') }} </a>
-          </li>
-          <li class="d-inline-block float-right mr-2">
-            <a target="_blank" href="options.html"> {{ $t('message.options') }} </a>
-          </li>
-        </ul>
+        <div class="row">
+          <div class="col-4">
+            <span class="version">
+              {{ $t('message.version') }} <strong>{{ version }}</strong>
+            </span>
+          </div>
+          <div class="col-8 text-right">
+            <a
+              :title="$t('message.changelog')"
+              class="btn btn-outline-primary"
+              target="_blank"
+              @click="openPage(changelogUrl)"
+            >
+              <i class="fa fa-history"></i>
+            </a>
+            <a
+              class="btn btn-outline-info"
+              target="_blank"
+              href="https://twitter.com/steamextensions"
+            >
+              <i class="fa fa-twitter"></i>
+            </a>
+            <span class="mx-2">|</span>
+            <button
+              class="btn btn-outline-primary"
+              :title="$t('message.gameList')"
+              @click="openPage('list.html')"
+            >
+              <i class="fa fa-list"></i>
+            </button>
+            <button
+              class="btn btn-outline-info"
+              :title="$t('message.options')"
+              @click="openPage('options.html')"
+            >
+              <i class="fa fa-cog"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -97,7 +122,11 @@ export default {
 </script>
 
 <style>
+@import url('/assets/fonts/font-awesome/css/font-awesome.min.css');
 body {
   min-width: 450px;
+}
+.version {
+  line-height: 38px;
 }
 </style>
