@@ -19,7 +19,8 @@
       "no": "No",
       "available": "Available",
       "maintenance": "Maintenance",
-      "searchGames": "Search games"
+      "searchGames": "Search games",
+      "patching": "Patching"
     }
   },
   "tr": {
@@ -42,7 +43,8 @@
       "no": "Hayır",
       "available": "Mevcut",
       "maintenance": "Bakımda",
-      "searchGames": "Oyun Ara"
+      "searchGames": "Oyun Ara",
+      "patching": "Güncelleniyor"
     }
   }
 }
