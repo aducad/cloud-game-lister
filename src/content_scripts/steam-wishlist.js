@@ -19,6 +19,7 @@ const init = async () => {
     for (let index = 0; index < rows.length; index++) {
       const row = rows[index]
       row.classList.add('cgl-applied')
+      row.classList.add('position-absolute')
     }
   })
   const rootElement = document.querySelector('#wishlist_ctn')

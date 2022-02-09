@@ -3,6 +3,11 @@
   position: relative;
 }
 
+.cgl-item-added.position-absolute,
+[data-cgl-item-added].position-absolute {
+  position: absolute;
+}
+
 .cgl-item-added .cgl-logo-container,
 [data-cgl-item-added] .cgl-logo-container {
   position: absolute;
