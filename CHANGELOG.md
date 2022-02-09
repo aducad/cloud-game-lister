@@ -1,12 +1,26 @@
 # Changelog
 
-### v1.3.5 (Under Review)
+### v1.3.6 (Under Review)
+
+### Fixed:
+
+- Whislist page game ordering bug
+
+### Added:
+
+- "Patching" message translation to Game List page (in extension)
+
+### Changed:
+
+- Popup footer design
+
+### v1.3.5 (current version on Chrome web store)
 
 ### Added:
 
 - Remove extension badge text in click notification
 
-### v1.3.4 (current version on Chrome web store)
+### v1.3.4
 
 ### Added:
 
