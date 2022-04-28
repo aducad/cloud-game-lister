@@ -1,6 +1,16 @@
 # Changelog
 
-### v1.3.6 (Under Review)
+### v1.3.7 (Under Review)
+
+### Fixed:
+
+- Games list not updated
+
+### Changed:
+
+- Game names trimmed in popup
+
+### v1.3.6 (current version on Chrome web store)
 
 ### Fixed:
 
@@ -14,7 +24,7 @@
 
 - Popup footer design
 
-### v1.3.5 (current version on Chrome web store)
+### v1.3.5
 
 ### Added:
 
