@@ -10,10 +10,9 @@ const MANIFEST_FILE = browser.runtime.getManifest()
 const HOUR_IN_MILLISECONDS = 60 * 60 * 1000
 const DAY_IN_MILLIISECONDS = 24 * HOUR_IN_MILLISECONDS
 const WEEK_IN_MILLIISECONDS = 7 * DAY_IN_MILLIISECONDS
-const GAME_LIST_URL =
-  'https://static.nvidiagrid.net/supported-public-game-list/locales/gfnpc-en-US.json?JSON'
+const GAME_LIST_URL = 'https://gameplus.com.tr/gaming-api/games/list'
 
-const STORES = ['Steam']
+const STORES = ['steam']
 const FETCH_ATTEMPT_LIMIT = 3
 const FETCH_ATTEMPT_DELAY = 5000
 
@@ -106,7 +105,7 @@ const fetchGames = async () => {
   for (let i = 0; i < FETCH_ATTEMPT_LIMIT; i++) {
     try {
       const gamesData = await fetch(GAME_LIST_URL).then((i) => i.json())
-      return gamesData
+      return gamesData.data
     } catch (err) {
       await delay(FETCH_ATTEMPT_DELAY)
     }
@@ -120,7 +119,7 @@ const fetchGames = async () => {
  */
 const normalizeGamesData = (rawData, applications) => {
   const currentTime = new Date().getTime()
-  const filteredApplications = rawData.filter((i) => STORES.includes(i.store))
+  const filteredApplications = rawData.filter((i) => STORES.includes(i.store.toLowerCase()))
   const applicationList = filteredApplications.map((game) => {
     const currentGame = game
     const { steamUrl: url, id } = currentGame
