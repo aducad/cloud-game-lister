@@ -129,4 +129,13 @@ body {
 .version {
   line-height: 38px;
 }
+
+.list-group-item a {
+  max-width: 365px;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  float: left;
+}
 </style>
