@@ -1,6 +1,12 @@
 # Changelog
 
-### v1.3.7 (Under Review)
+### v1.3.8 (Under Review)
+
+### Fixed:
+
+- Status and Optimizations fields not shown properly in "Games List" page
+
+### v1.3.7 (current version on Chrome web store)
 
 ### Fixed:
 
@@ -10,7 +16,7 @@
 
 - Game names trimmed in popup
 
-### v1.3.6 (current version on Chrome web store)
+### v1.3.6
 
 ### Fixed:
 

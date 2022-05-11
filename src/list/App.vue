@@ -106,10 +106,10 @@
                         <option :value="null">{{ $t('message.all') }}</option>
                         <option
                           v-for="optimization in optimizations"
-                          :key="optimization.title"
-                          :value="optimization.value"
+                          :key="optimization.key"
+                          :value="optimization.key"
                         >
-                          {{ optimization.title }}
+                          {{ optimization.text }}
                         </option>
                       </select>
                     </th>
@@ -200,10 +200,20 @@
                         class="badge"
                         :class="row.status === 'AVAILABLE' ? 'badge-info' : 'badge-warning'"
                       >
-                        {{ $t('message.' + row.status.toLowerCase()) }}
+                        {{
+                          row.status
+                            ? $t('message.' + row.status.toLowerCase())
+                            : $t('message.undefined')
+                        }}
                       </span>
                     </td>
-                    <td>{{ row.isFullyOptimized ? $t('message.yes') : $t('message.no') }}</td>
+                    <td>
+                      {{
+                        row.isFullyOptimized
+                          ? $t('message.' + row.isFullyOptimized)
+                          : $t('message.undefined')
+                      }}
+                    </td>
                     <td>{{ row.isNew ? $t('message.yes') : $t('message.no') }}</td>
                     <td>{{ row.publisher }}</td>
                     <td>
@@ -242,7 +252,6 @@ export default {
       currentSortHeader: 'title',
       currentSortDir: 'asc',
       data: [],
-      optimizations: [],
       isNewOptions: [],
       filters: {
         status: '',
@@ -260,10 +269,21 @@ export default {
       const statusKeys = [...new Set(statuses)].map((status) => {
         return {
           key: status,
-          text: this.$t(`message.${status.toLowerCase()}`)
+          text: this.$t(`message.${status}`)
         }
       })
-      return statusKeys
+      return statusKeys.filter((i) => i.key)
+    },
+    optimizations() {
+      const optimizations = this.data.map((row) => row.isFullyOptimized)
+      const optimizationKeys = [...new Set(optimizations)].map((optimization) => {
+        return {
+          key: optimization,
+          text: this.$t(`message.${optimization}`)
+        }
+      })
+      console.log(optimizationKeys)
+      return optimizationKeys
     },
     publishers() {
       const publishers = this.data.map((row) => row.publisher)
@@ -379,7 +399,7 @@ export default {
       { title: this.$t('message.yes'), value: true },
       { title: this.$t('message.no'), value: false }
     ]
-    this.optimizations = options
+    // this.optimizations = options
     this.isNewOptions = options
     this.init()
   },
@@ -400,6 +420,7 @@ export default {
         type: GET_APPS,
         onlyNew: this.onlyNew
       })
+      console.log(appList)
       this.data = appList
     },
     getSortingClass(currentSortHeader) {
