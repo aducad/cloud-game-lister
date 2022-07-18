@@ -1,12 +1,18 @@
 # Changelog
 
-### v1.3.8 (Under Review)
+### v1.3.9 (Under Review)
+
+### Fixed:
+
+- Genres (tags) translated to English
+
+### v1.3.8 (current version on Chrome web store)
 
 ### Fixed:
 
 - Status and Optimizations fields not shown properly in "Games List" page
 
-### v1.3.7 (current version on Chrome web store)
+### v1.3.7
 
 ### Fixed:
 
