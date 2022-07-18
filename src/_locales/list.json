@@ -25,6 +25,84 @@
       "maintenance": "Maintenance",
       "searchGames": "Search games",
       "patching": "Patching"
+    },
+    "genres": {
+      "Aile Dostu": {
+        "search": "Family%20Friendly",
+        "text": "Family Friendly"
+      },
+      "Aksiyon": {
+        "search": "action",
+        "text": "Action"
+      },
+      "Arcade": {
+        "search": "Arcade",
+        "text": "Arcade"
+      },
+      "Basit Eğlence": {
+        "search": "Casual",
+        "text": "Casual"
+      },
+      "Bağımsız": {
+        "search": "Indie",
+        "text": "Indie"
+      },
+      "Bulmaca": {
+        "search": "Puzzle",
+        "text": "Puzzle"
+      },
+      "Canlandırma": {
+        "search": "RPG",
+        "text": "RPG"
+      },
+      "Devasa Çok Oyunculu Çevrimiçi": {
+        "search": "Massively Multiplayer",
+        "text": "Massively Multiplayer"
+      },
+      "Dövüş oyunu": {
+        "search": "Fighting",
+        "text": "Fighting"
+      },
+      "Kahramanın gözünden oynanan ateş etme oyunu": {
+        "search": "FPS",
+        "text": "FPS"
+      },
+      "Macera": {
+        "search": "adventure",
+        "text": "Adventure"
+      },
+      "Oynaması Ücretsiz": {
+        "search": "Free to Play",
+        "text": "Free to Play"
+      },
+      "Platform": {
+        "search": "Platformer",
+        "text": "Platformer"
+      },
+      "Simülasyon": {
+        "search": "Simulation",
+        "text": "Simulation"
+      },
+      "Spor": {
+        "search": "Sports",
+        "text": "Sports"
+      },
+      "Strateji": {
+        "search": "strategy",
+        "text": "Strategy"
+      },
+      "Yarış": {
+        "search": "Racing",
+        "text": "Racing"
+      },
+      "Üçüncü Şahıs Nişancı": {
+        "search": "action_tps",
+        "text": "Third Person Shooter"
+      },
+      "Çok Oyunculu Çevrimiçi Çarpışma Arenası": {
+        "search": "MOBA",
+        "text": "MOBA"
+      }
     }
   },
   "tr": {
