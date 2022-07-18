@@ -5,9 +5,9 @@
         <div class="row">
           <div class="col">{{ $t('message.gameList') }}</div>
           <div class="col-auto">
-            <a v-show="onlyNew" class="btn btn-info" href="list.html">{{
-              $t('message.allGames')
-            }}</a>
+            <a v-show="onlyNew" class="btn btn-info" href="list.html">
+              {{ $t('message.allGames') }}
+            </a>
             <a v-show="!onlyNew" class="btn btn-info" href="list.html?only-new=true">
               {{ $t('message.recentGames') }}
             </a>
@@ -282,7 +282,6 @@ export default {
           text: this.$t(`message.${optimization}`)
         }
       })
-      console.log(optimizationKeys)
       return optimizationKeys
     },
     publishers() {
@@ -295,7 +294,10 @@ export default {
       this.data.forEach((row) => {
         genres = [...genres, ...row.genres]
       })
-      return [...new Set(genres)]
+      const uniqueGenres = [...new Set(genres)]
+      uniqueGenres.sort()
+
+      return uniqueGenres
     },
     pagedRows() {
       const pagedRows = this.sortedRows.slice(this.start, this.end)
@@ -420,7 +422,13 @@ export default {
         type: GET_APPS,
         onlyNew: this.onlyNew
       })
-      console.log(appList)
+      appList.forEach((app) => {
+        if (app.genres) {
+          app.genres = app.genres.map((genre) => {
+            return this.getGenreText(genre)
+          })
+        }
+      })
       this.data = appList
     },
     getSortingClass(currentSortHeader) {
@@ -454,6 +462,13 @@ export default {
         return `${genre},`
       }
       return genre
+    },
+    getGenreText(genre) {
+      const genreLocalization = this.$t(`genres.${genre}`)
+      if (typeof genreLocalization === 'string') {
+        return genreLocalization
+      }
+      return genreLocalization.text
     }
   }
 }
