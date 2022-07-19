@@ -1,6 +1,6 @@
 # Changelog
 
-### v1.3.10 (Under Review)
+### v1.3.1 (Under Review)
 
 ### Added:
 
@@ -8,7 +8,7 @@
 
 ### Fixed:
 
-- New apps list bug on listing page
+- New apps list bug on listing page (old new apps remain until new apps are added)
 
 # Changelog
 

@@ -209,7 +209,9 @@ const init = async () => {
       .filter((application) => !oldApplicationsIdList.includes(application.id))
       .map((i) => i.id)
 
-    await browser.storage.local.set({ newApplicationsIdList })
+    if (newApplicationsIdList.length > 0) {
+      await browser.storage.local.set({ newApplicationsIdList })
+    }
 
     setBadgeForNewGames(newApplicationsIdList.length)
     showNewGamesNotification(newApplicationsIdList.length)
