@@ -1,12 +1,20 @@
 # Changelog
 
-### v1.3.9 (Under Review)
+### v1.3.10 (Under Review)
+
+### Added:
+
+- GEFORCE NOW icons to VR page (https://store.steampowered.com/vr)
+
+# Changelog
+
+### v1.3.9 (current version on Chrome web store)
 
 ### Fixed:
 
 - Genres (tags) translated to English
 
-### v1.3.8 (current version on Chrome web store)
+### v1.3.8
 
 ### Fixed:
 

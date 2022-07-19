@@ -110,7 +110,7 @@
     {
       "all_frames": false,
       "js": ["./content_scripts/steam-sale.js"],
-      "matches": ["*://store.steampowered.com/sale/*"],
+      "matches": ["*://store.steampowered.com/sale/*", "*://store.steampowered.com/vr*"],
       "run_at": "document_end"
     },
     {
