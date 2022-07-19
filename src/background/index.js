@@ -189,7 +189,6 @@ const init = async () => {
     })
     // set local version of applications
     appList = [...oldApplications]
-
     const gamesData = await fetchGames()
     if (!gamesData) {
       throw 'FETCH_ERROR'
@@ -206,11 +205,9 @@ const init = async () => {
       lastRead
     })
 
-    // oldApplicationsIdList
-
-    const newApplicationsIdList = applications.filter(
-      (application) => !oldApplicationsIdList.includes(application.id)
-    )
+    const newApplicationsIdList = applications
+      .filter((application) => !oldApplicationsIdList.includes(application.id))
+      .map((i) => i.id)
 
     await browser.storage.local.set({ newApplicationsIdList })
 

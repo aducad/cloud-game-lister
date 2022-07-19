@@ -397,6 +397,7 @@ export default {
   },
   created() {
     this.onlyNew = new URL(window.location.href).searchParams.get('only-new') === 'true'
+    console.log(this.onlyNew)
     const options = [
       { title: this.$t('message.yes'), value: true },
       { title: this.$t('message.no'), value: false }

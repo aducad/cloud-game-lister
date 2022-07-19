@@ -6,6 +6,10 @@
 
 - GEFORCE NOW icons to VR page (https://store.steampowered.com/vr)
 
+### Fixed:
+
+- New apps list bug on listing page
+
 # Changelog
 
 ### v1.3.9 (current version on Chrome web store)
