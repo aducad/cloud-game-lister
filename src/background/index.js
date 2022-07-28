@@ -68,6 +68,9 @@ const parseSteamAppIdFromUrl = (url) => {
   if (paths.length > 0) {
     appid = paths[paths.length - 1]
   }
+  if (appid.includes('?')) {
+    appid = appid.split('?')[0]
+  }
   return appid
 }
 
@@ -173,7 +176,7 @@ const showNewGamesNotification = (newGamesCount) => {
   const gameWord = pluralizeWord(newGamesCount > 1, 'Game')
   createNotification(
     `New ${gameWord} Added`,
-    `${newGamesCount} new Steam ${gameWord.toLowerCase()} added`
+    `${newGamesCount} new ${gameWord.toLowerCase()} added`
   )
 }
 

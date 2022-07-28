@@ -1,6 +1,12 @@
 # Changelog
 
-### v1.3.12 (Under Review)
+### v1.3.13 (Under Review)
+
+### Fixed:
+
+- Icon not showing after GFN API update
+
+### v1.3.12 (current version on Chrome web store)
 
 ### Added:
 
@@ -12,7 +18,7 @@
 
 # Changelog
 
-### v1.3.9 (current version on Chrome web store)
+### v1.3.9
 
 ### Fixed:
 
