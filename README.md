@@ -53,6 +53,7 @@ To use this extension, please install it from the [Chrome Web Store](https://chr
   - [Bundle Detail](https://store.steampowered.com/bundle/4995/EVERSPACE__Ultimate_Edition/)
   - [Tags pages](https://store.steampowered.com/tags/en/Competitive)
   - [Genre pages](https://store.steampowered.com/genre/Free%20to%20Play/)
+  - [Category pages](https://store.steampowered.com/category/action)
   - [Explore new page](https://store.steampowered.com/explore/new)
   - [Special Offers page](https://store.steampowered.com/specials)
   - [Sale pages](https://store.steampowered.com/sale/[changesalenamewiththis])

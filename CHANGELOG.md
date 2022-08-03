@@ -1,12 +1,22 @@
 # Changelog
 
-### v1.3.13 (Under Review)
+### v1.3.14 (Under Review)
+
+### Added:
+
+- Icons applied to [Category](https://store.steampowered.com/category/*) pages
+
+### Fixed:
+
+- Removed wrong host permission (for epicgames.com)
+
+### v1.3.13 (current version on Chrome web store)
 
 ### Fixed:
 
 - Icon not showing after GFN API update
 
-### v1.3.12 (current version on Chrome web store)
+### v1.3.12
 
 ### Added:
 
