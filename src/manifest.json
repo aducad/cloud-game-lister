@@ -63,6 +63,12 @@
     },
     {
       "all_frames": false,
+      "js": ["./content_scripts/steam-category.js"],
+      "matches": ["*://store.steampowered.com/category/*"],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": false,
       "js": ["./content_scripts/steam-main.js"],
       "matches": ["*://store.steampowered.com/"],
       "run_at": "document_end"

@@ -25,6 +25,7 @@ module.exports = (env) => {
     'content_scripts/steam-game-detail': './content_scripts/steam-game-detail.js',
     'content_scripts/steam-explore-new': './content_scripts/steam-explore-new.js',
     'content_scripts/steam-genre': './content_scripts/steam-genre.js',
+    'content_scripts/steam-category': './content_scripts/steam-category.js',
     'content_scripts/steam-tags': './content_scripts/steam-tags.js',
     'content_scripts/steam-community-recommendations':
       './content_scripts/steam-community-recommendations.js',
